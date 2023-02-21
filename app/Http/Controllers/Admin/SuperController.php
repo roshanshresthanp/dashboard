@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Response;
 class SuperController extends Controller
 {
     public $whichModel;
@@ -27,6 +27,19 @@ class SuperController extends Controller
     public function index()
     {
         return $this->whichModel::paginate(20);
+    }
+
+    public function all()
+    {
+        // $authUser = Auth::user();
+        $permissionSlug = $this->whichModel::PERMISSIONSLUG;
+//        if (!$authUser->can('view-' . $permissionSlug)) {
+//            throw new AccessDeniedException('unauthorized_access');
+//        }
+        // $all = $this->whichModel::initializer()->get();
+        return $this->responseResource::collection($this->whichModel::all())
+            ->response()
+            ->setStatusCode(200);
     }
 
     public function createFunction(Request $request)
@@ -64,7 +77,7 @@ class SuperController extends Controller
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            abort(500, $e);
+            // abort(500, $e);
             return Response::json(array(
                 'code' => 500,
                 'message' => 'Something went wrong'
@@ -72,11 +85,56 @@ class SuperController extends Controller
         }
     }
 
-    public function updateFunction(Request $request, $id)
+    public function updateModelFunction(Request $request, $id)
     {
             $model = $this->whichModel::findOrFail($id);
             $model->update($request->only($this->getAllFieldNames()));
             return $model;
+    }
+
+
+    public function updateFunction(Request $request, $id)
+    {
+        // $authUser = Auth::user();
+        // $permissionSlug = $this->whichModel::PERMISSIONSLUG;
+//        if (!$authUser->can('update-' . $permissionSlug)) {
+//            throw new AccessDeniedException('unauthorized_access');
+//        }
+        DB::beginTransaction();
+        try {
+            $model = $this->updateModelFunction($request, $id);
+            if (method_exists(new $this->whichModel(), 'afterUpdateProcess')) {
+                $model->afterUpdateProcess();
+            }
+            DB::commit();
+            return (new $this->responseResource($model))->response()->setStatusCode(200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            abort(500, $e);
+
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        // dd($request->all());
+        // $authUser = Auth::user();
+        $permissionSlug = $this->whichModel::PERMISSIONSLUG;
+//        if (!$authUser->can('delete-' . $permissionSlug)) {
+//            throw new AccessDeniedException('unauthorized_access');
+//        }
+        $itemsToDelete = $request->get('delete_rows');
+        foreach ($itemsToDelete as $item) {
+            $model = $this->whichModel->find($item);
+            if ($model) {
+                $model->delete();
+            }
+        }
+        return Response::json(array(
+            'code' => 200,
+            'message' => 'Deleted Successfully'
+        ), 200);
     }
 
 

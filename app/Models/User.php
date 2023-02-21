@@ -4,26 +4,47 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Traits\HasRoles;
-
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-    use HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,
+    // SoftDeletes,
+    LogsActivity;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
+    protected static $logAttributes = ['*'];
+    protected static $logOnlyDirty = true;
+    protected static $logName = 'User';
+    const PERMISSIONSLUG = 'users';
+    protected $guard_name = 'api';
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->useLogName(static::$logName)
+            ->logAll()
+            ->logOnlyDirty();
+    }
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        // 'username',
+        'mobile',
+        // 'gender',
+        'photo',
+        'address',
+        'added_by',
+        'password_reset',
+        'status',
     ];
 
     /**

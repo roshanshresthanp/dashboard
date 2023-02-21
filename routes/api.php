@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware(['api','auth:api'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/profile', function (Request $request) {
+    // return 'dsdsd';
+    return (new \App\Http\Resources\ProfileResource($request->user()))
+        ->response()
+        ->setStatusCode(200);
+});
+Route::get('/test', function () {
+    dd('dsdsd');
+});
+
+
+Route::group([
+    'middleware' => ['api', 'auth:api'],
+    // 'namespace' => 'Api\V1', 'as' => 'api.'
+], function () {
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/', [UserController::class, 'index']);
+            Route::get('all', [UserController::class, 'all']);
+            // Route::post('export', [UserController::class, 'export']);
+            Route::post('/', [UserController::class, 'store']);
+            Route::post('delete', [UserController::class, 'delete']);
+            Route::post('/{id}', [UserController::class, 'update']);
+            // Route::post('/{id}/reset-password', [UserController::class, 'resetPassword']);
+        });
+});
+
+
+// UserController

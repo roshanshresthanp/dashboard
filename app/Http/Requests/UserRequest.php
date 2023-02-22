@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
             // 'photo' => 'sometimes',
             'address' => 'nullable',
             'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
-            'confirm_password' => 'required|same:password',
+            // 'confirm_password' => 'required|same:password',
 
             // 'college_id' => 'sometimes',
         ];

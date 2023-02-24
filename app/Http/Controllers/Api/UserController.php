@@ -42,6 +42,25 @@ class UserController extends SuperController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     /**
+     * @OA\Post(
+     *      path="/users",
+     *      operationId="storeUser",
+     *      tags={"User"},
+     *      summary="Store",
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+
+
     public function store(UserRequest $request)
     {
         return parent::storeFunction($request);
@@ -79,16 +98,5 @@ class UserController extends SuperController
     public function update(UserRequest $request, $id)
     {
         return parent::updateFunction($request, $id);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

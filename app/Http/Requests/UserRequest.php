@@ -5,6 +5,14 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 
+/**
+ * @OA\Schema(
+ *      title="Store User request",
+ *      description="Store User request body data",
+ *      type="object",
+ *      required={"name"}
+ * )
+ */
 class UserRequest extends FormRequest
 {
     /**
@@ -16,6 +24,15 @@ class UserRequest extends FormRequest
     {
         return true;
     }
+    /**
+     * @OA\Property(
+     *      title="email",
+     *      description="Description of the new project",
+     *      example="This is new project's description"
+     * )
+     *
+     * @var string
+     */
 
     /**
      * Get the validation rules that apply to the request.

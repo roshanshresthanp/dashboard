@@ -4,16 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/**
- * @OA\Schema(
- *     title="UserResource",
- *     description="User resource",
- *     @OA\Xml(
- *         name="UserResource"
- *     )
- * )
- */
-class UserResource extends JsonResource
+class RoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -23,6 +14,11 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        // return parent::toArray($request);
+        return [
+            'name'=>$this->name,
+            'slug'=>$this->slug,
+            'guard_name'=>$this->guard_name
+        ];
     }
 }

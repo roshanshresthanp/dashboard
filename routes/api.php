@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,28 +19,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * @OA\Info(
+ *     title="My API",
+ *     version="1.0.0",
+ *     description="My API description",
+ * )
+ */
+
 Route::middleware(['api','auth:api'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::post('login',[LoginController::class,'login']);
+Route::post('register',[RegisterController::class,'register']);
 
-//-----------Email Verification
-Route::get('/email/verify', function () {
-    return view('auth.verify-email');
-})->middleware('auth')->name('verification.notice');
-
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill();
-
-    return redirect('/home');
-})->middleware(['auth', 'signed'])->name('verification.verify');
-
-Route::post('/email/verification-notification', function (Request $request) {
-    $request->user()->sendEmailVerificationNotification();
-
-    return back()->with('message', 'Verification link sent!');
-})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 
 
@@ -53,11 +48,13 @@ Route::get('/test', function () {
 });
 
 
+
 Route::group([
     'middleware' => ['api', 'auth:api'],
     // 'namespace' => 'Api\V1', 'as' => 'api.'
 ], function () {
-        Route::group(['prefix' => 'users'], function () {
+
+            Route::group(['prefix' => 'users'], function () {
             Route::get('/', [UserController::class, 'index']);
             Route::get('all', [UserController::class, 'all']);
             // Route::post('export', [UserController::class, 'export']);
@@ -65,6 +62,18 @@ Route::group([
             Route::post('delete', [UserController::class, 'delete']);
             Route::post('/{id}', [UserController::class, 'update']);
             // Route::post('/{id}/reset-password', [UserController::class, 'resetPassword']);
+
+        });
+
+        Route::group(['prefix' => 'roles'], function () {
+            Route::get('/', [RoleController::class, 'index']);
+            Route::get('all', [RoleController::class, 'all']);
+            // Route::post('export', [RoleController::class, 'export']);
+            Route::post('/', [RoleController::class, 'store']);
+            Route::post('delete', [RoleController::class, 'delete']);
+            Route::post('/{id}', [RoleController::class, 'update']);
+            // Route::post('/{id}/reset-password', [RoleController::class, 'resetPassword']);
+
         });
 });
 

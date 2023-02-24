@@ -3,17 +3,27 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendOtpMail;
 use App\Models\OtpVerification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rules\Password;
+
 
 class RegisterController extends Controller
 {
 
     public function register1(Request $request)
     {
+        $this->validate($request,[
+            'email' => 'required|email|max:50|unique:users,email',
+            // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
+        ]);
+
         return $request->all();
         $otp = $request->otp;
         $mobile = $request->user_mobile;
@@ -81,13 +91,41 @@ class RegisterController extends Controller
 
     }
 
+     /**
+     * @OA\Post(
+     *   path="/register",
+     *   tags={"Register"},
+     *   operationId="reg",
+     *
+     *   @OA\RequestBody(
+     *      @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(
+     *             example={
+     *                 "name":"Full Name",
+     *                 "email": "test@email.com",
+     *                 "password": "**********"
+     *              }
+     *         )
+     *     )
+     *   ),
+     *
+     *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   )
+     *)
+     **/
 
     public function register(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|min:4',
-            'email' => 'required|email',
-            'password' => 'required|min:8',
+        $this->validate($request,[
+            'name'=>'required|string|max:255',
+            'email' => 'required|email|max:50|unique:users,email',
+            // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
         ]);
 
         $user = User::create([
@@ -95,8 +133,29 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-
         $token = $user->createToken('LaravelAuthApp')->accessToken;
+
+            DB::beginTransaction();
+        try{
+            $otp = rand(1000, 9999);
+            OtpVerification::create([
+                'email'=>$request->email,
+                'verify_token'=>$otp,
+            ]);
+            // Mail::to($user)->send(new SendOtpMail($otp));
+            DB::commit();
+            // return response()->json([
+            //     'message' => 'Your verification code has been sent.',
+            // ],200);
+
+        }catch(\Exception $e){
+            DB::rollBack();
+            return response()->json([
+                // 'status'=>'Failed',
+                'message' => $e->getMessage(),
+            ],422);
+        }
+
         return response()->json(['token' => $token], 200);
     }
 }

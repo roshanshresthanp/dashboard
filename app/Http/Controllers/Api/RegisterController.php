@@ -133,7 +133,7 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
-        $token = $user->createToken('LaravelAuthApp')->accessToken;
+        $token = $user->createToken('MobileAuthApp')->accessToken;
 
             DB::beginTransaction();
         try{

@@ -26,7 +26,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles,
-    // SoftDeletes,
+    SoftDeletes,
     LogsActivity;
 
 
@@ -76,5 +76,28 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    // public function afterCreateProcess()
+    // {
+    //     $request = request();
+    //     $role = $request->get('role_id');
+    //     $this->roles()->attach([$role]);
+
+    //     if (array_key_exists("media_id", $request->all())) {
+    //         $this->attachMedia($request->media_id, 'user_photo');
+    //     }
+    // }
+
+    // public function afterUpdateProcess()
+    // {
+    //     $request = request();
+    //     $role = $request->get('role_id');
+    //     $this->syncRoles([$role]);
+
+    //     if (array_key_exists("media_id", $request->all())) {
+    //         $this->syncMedia($request->media_id, 'user_photo');
+    //     }
+    // }
 
 }

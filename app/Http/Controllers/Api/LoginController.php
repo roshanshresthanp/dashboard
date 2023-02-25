@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
 class LoginController extends Controller
@@ -43,19 +44,29 @@ class LoginController extends Controller
     {
 
         $this->validate($request,[
-            'email' => 'required|email|max:50',
-            'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
+            'mobile' => ['required','string','size:10'],
+            // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
         ]);
 
+        // return $request->all();
+
         try {
-            $user = User::where(['email'=>$request->email,'password'=>$request->password])->first();
-            dd($user);
-            if(!$user){
-            return response()->json(['message' => 'Invalid email and password.'], 400);
+            $user = User::firstWhere(['mobile'=>$request->mobile]);
+
+            if(!$user || !Hash::check($request->password, $user->password)){
+                return response()->json(['message' => 'Invalid email and password.'], 400);
             }
+            // if (Hash::check($request->password, $user->password)) {
+            //     dd('pass matched');
+            // }
+
 
             if (auth()->guard('api')->setUser($user)){
-              $success['token'] = auth()->user()->createToken('LaravelAuthApp')->accessToken;
+            // if (auth()->check(['email'=>$request->email,'password'=>$request->password])){
+
+                $success['message'] = "login success";
+                $success['token'] = auth()->user()->createToken('MobileAuthApp')->accessToken;
+
                 return response()->json($success, 200);
             } else {
                 return response()->json(['message' => 'Invalid email and password.'], 400);

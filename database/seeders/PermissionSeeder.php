@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +46,7 @@ class PermissionSeeder extends Seeder
 
     public function letsGo()
     {
+
         foreach ($this->permissionSlugs as $slug) {
             foreach ($this->crudList as $index => $crud) {
                 $result = DB::table('permissions')->insert([
@@ -62,5 +65,30 @@ class PermissionSeeder extends Seeder
             }
         }
         $this->command->info('Inserted ' . count($this->crudList) * count($this->permissionSlugs) . ' records.');
+
+        DB::table('roles')->insert([
+            [
+                'id'=>1,
+                'name'=>'Super Admin',
+                'slug'=>'super-admin',
+                'guard_name'=>'api',
+            ],
+            [
+                'id'=>2,
+                'name'=>'Customer',
+                'slug'=>'customer',
+                'guard_name'=>'api',
+            ],
+
+           ]);
+           $this->command->info('Inserted Role records.');
+
+           Role::first()->syncPermissions(Permission::all());
+
+           $this->command->info('Inserted Permission record records.');
+
+
+
     }
+
 }

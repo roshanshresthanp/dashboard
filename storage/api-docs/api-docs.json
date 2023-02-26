@@ -22,7 +22,7 @@
         "/login": {
             "post": {
                 "tags": [
-                    "Auth"
+                    "Login"
                 ],
                 "summary": "Login",
                 "operationId": "login",
@@ -31,8 +31,8 @@
                         "application/json": {
                             "schema": {
                                 "example": {
-                                    "email": "test@email.com",
-                                    "password": "**********"
+                                    "mobile": "9800000000",
+                                    "password": "****"
                                 }
                             }
                         }
@@ -59,9 +59,8 @@
                         "application/json": {
                             "schema": {
                                 "example": {
-                                    "name": "Full Name",
-                                    "email": "test@email.com",
-                                    "password": "**********"
+                                    "mobile": "9800000000",
+                                    "password": "****"
                                 }
                             }
                         }

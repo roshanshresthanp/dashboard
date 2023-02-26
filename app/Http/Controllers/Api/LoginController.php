@@ -15,7 +15,7 @@ class LoginController extends Controller
     /**
      * @OA\Post(
      *   path="/login",
-     *   tags={"Auth"},
+     *   tags={"Login"},
      *   operationId="login",
      * summary="Login",
      *   @OA\RequestBody(
@@ -23,8 +23,8 @@ class LoginController extends Controller
      *         mediaType="application/json",
      *         @OA\Schema(
      *             example={
-     *                 "email": "test@email.com",
-     *                 "password": "**********"
+     *                 "mobile": "9800000000",
+     *                 "password": "****"
      *              }
      *         )
      *     )
@@ -49,7 +49,6 @@ class LoginController extends Controller
         ]);
 
         // return $request->all();
-
         try {
             $user = User::firstWhere(['mobile'=>$request->mobile]);
 
@@ -77,9 +76,7 @@ class LoginController extends Controller
                 'message' => 'Login failed',
                 // 'errors'=>$e->getMessage()
             ],500);
-
             // return response()->json(['message' => 'Invalid email and password.'], 400);
-
         }
 
     }

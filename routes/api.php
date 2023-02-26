@@ -28,7 +28,8 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware(['api','auth:api'])->get('/user', function (Request $request) {
-    return $request->user();
+    return auth()->user()->roles[0];
+    // dd(auth()->user()->hasRole('Super Admin'));
 });
 
 Route::post('login',[LoginController::class,'login']);

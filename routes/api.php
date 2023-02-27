@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\RoleController;
+use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -44,8 +45,9 @@ Route::get('/profile', function (Request $request) {
         ->response()
         ->setStatusCode(200);
 });
+
 Route::get('/test', function () {
-    dd('dsdsd');
+    return User::all();
 });
 
 

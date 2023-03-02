@@ -14,7 +14,7 @@
     },
     "servers": [
         {
-            "url": "http://127.0.0.1:8000/api/",
+            "url": "http://my-default-host.com",
             "description": "Demo API Server"
         }
     ],
@@ -127,9 +127,9 @@
                 "scheme": "https",
                 "flows": {
                     "password": {
-                        "authorizationUrl": "http://127.0.0.1:8000/api//oauth/authorize",
-                        "tokenUrl": "http://127.0.0.1:8000/api//oauth/token",
-                        "refreshUrl": "http://127.0.0.1:8000/api//token/refresh",
+                        "authorizationUrl": "http://localhost/oauth/authorize",
+                        "tokenUrl": "http://localhost/oauth/token",
+                        "refreshUrl": "http://localhost/token/refresh",
                         "scopes": []
                     }
                 }

@@ -31,6 +31,25 @@ class UserController extends SuperController
      *
      * @return \Illuminate\Http\Response
      */
+
+     /**
+     * @OA\Get(
+     *   path="/users",
+     *   tags={"User"},
+     *   operationId="users list",
+     * summary="User List",
+     *
+     *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   )
+     *)
+     **/
+
+
     public function create()
     {
         //

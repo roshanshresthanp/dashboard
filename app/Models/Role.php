@@ -21,7 +21,7 @@ class Role extends \Spatie\Permission\Models\Role
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;
     protected static $logName = 'Role';
-    const PERMISSIONSLUG = 'role';
+    const PERMISSIONSLUG = 'roles';
     protected $guard_name = 'api';
 
     public function getActivitylogOptions(): LogOptions

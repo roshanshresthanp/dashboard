@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class RoleRequest extends FormRequest
 {
@@ -24,8 +25,16 @@ class RoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|string|max:50|unique:roles,name,'.$this->id,
-            'guard_name'=>'required|max:10',
+            // 'name'=>'required|string|max:50|unique:roles,name,'.$this->id,
+            // 'guard_name'=>'required|max:10',
+            // 'name'=>'nullable|unique:roles,'.$this->id,
         ];
+        
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge(['slug'=>Str::slug($this->name),'guard'=>'api']);
+
     }
 }

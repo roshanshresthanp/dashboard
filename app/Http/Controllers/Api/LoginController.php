@@ -55,6 +55,7 @@ class LoginController extends Controller
             if(!$user || !Hash::check($request->password, $user->password)){
                 return response()->json(['message' => 'Invalid email and password.'], 400);
             }
+            // dd('dsds');
             // if (Hash::check($request->password, $user->password)) {
             //     dd('pass matched');
             // }
@@ -64,7 +65,7 @@ class LoginController extends Controller
             // if (auth()->check(['email'=>$request->email,'password'=>$request->password])){
 
                 $success['message'] = "login success";
-                $success['token'] = auth()->user()->createToken('MobileAuthApp')->accessToken;
+                $success['token'] = $user->createToken('MobileAuthApp')->accessToken;
 
                 return response()->json($success, 200);
             } else {

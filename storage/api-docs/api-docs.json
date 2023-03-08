@@ -14,7 +14,7 @@
     },
     "servers": [
         {
-            "url": "http://my-default-host.com",
+            "url": "http://127.0.0.1:8000/api/",
             "description": "Demo API Server"
         }
     ],
@@ -77,6 +77,21 @@
             }
         },
         "/users": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User List",
+                "operationId": "users list",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "User"
@@ -127,9 +142,9 @@
                 "scheme": "https",
                 "flows": {
                     "password": {
-                        "authorizationUrl": "http://localhost/oauth/authorize",
-                        "tokenUrl": "http://localhost/oauth/token",
-                        "refreshUrl": "http://localhost/token/refresh",
+                        "authorizationUrl": "http://127.0.0.1:8000/api//oauth/authorize",
+                        "tokenUrl": "http://127.0.0.1:8000/api//oauth/token",
+                        "refreshUrl": "http://127.0.0.1:8000/api//token/refresh",
                         "scopes": []
                     }
                 }

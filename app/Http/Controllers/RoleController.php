@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Admin\SuperController;
+use App\Http\Controllers\Admin\WebSuperController;
 use App\Http\Requests\RoleRequest;
 use App\Http\Resources\RoleResource;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Spatie\Permission\Middlewares\RoleMiddleware;
 
-class RoleController extends SuperController
+class RoleController extends WebSuperController
 {
 
     public $whichModel;
@@ -23,15 +24,13 @@ class RoleController extends SuperController
     }
 
     public function store(RoleRequest $request)
-    {
-        $request->merge(['slug'=>Str::slug($request->name)]);
+    {   
         return parent::storeFunction($request);
+    }
+    
+    public function update(RoleRequest $request,$id)
+    {
+        return parent::updateFunction($request,$id);
     }
 
-    public function update(RoleRequest $request)
-    {
-        return $request->all();
-        $request->merge(['slug'=>Str::slug($request->name)]);
-        return parent::storeFunction($request);
-    }
 }

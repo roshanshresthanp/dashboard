@@ -64,7 +64,7 @@ class PermissionSeeder extends Seeder
                 }
             }
         }
-        $this->command->info('Inserted ' . count($this->crudList) * count($this->permissionSlugs) . ' records.');
+        $this->command->info('Inserted ' . count($this->crudList) * count($this->permissionSlugs) . 'permission records.');
 
         DB::table('roles')->insert([
             [
@@ -81,9 +81,10 @@ class PermissionSeeder extends Seeder
             ],
 
            ]);
+           
            $this->command->info('Inserted Role records.');
 
-           Role::first()->syncPermissions(Permission::all());
+           Role::find(1)->syncPermissions(Permission::all());
 
            $this->command->info('Inserted Permission record records.');
 

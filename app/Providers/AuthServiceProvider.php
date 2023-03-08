@@ -29,8 +29,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         $path = app_path('Providers/secrets/oauth');
-        // Passport::loadKeysFrom($path);
-        Passport::ignoreRoutes();
+        Passport::loadKeysFrom($path);
+        // Passport::ignoreRoutes();
 
 
         // VerifyEmail::toMailUsing(function ($notifiable, $url) {

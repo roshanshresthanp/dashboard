@@ -124,9 +124,9 @@ class RegisterController extends Controller
     {
         $this->validate($request,[
             'mobile'=>'required|size:10|unique:users,mobile',
-            'password'=>'required|size:4'
+            'password'=>'required|size:4',
             // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
-            // 'name'=>'required|string|max:255',
+            'name'=>'required|string|max:255',
             // 'email' => 'required|email|max:50|unique:users,email',
             // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
         ]);
@@ -135,7 +135,7 @@ class RegisterController extends Controller
 
         $user = User::create([
             'mobile' => $mobile,
-            // 'email' => $request->email,
+            'name' => $request->email,
             'password' => bcrypt($request->password)
         ]);
         $token = $user->createToken('MobileAuthApp')->accessToken;
@@ -153,11 +153,11 @@ class RegisterController extends Controller
                 'mobile'=>$mobile,
                 'verify_token'=>$digit,
             ]);
+            
             $message = $digit . " is your otp code - ".env('APP_NAME');
-            new SMS($mobile,$message);
 
-
-            // $messageService->sendSMS($mobile, $message);
+            $messageService = new SMS;
+            $messageService->sendSMS($mobile, $message);
 
             DB::commit();
             // return response()->json([

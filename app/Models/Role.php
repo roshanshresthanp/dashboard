@@ -38,11 +38,14 @@ class Role extends \Spatie\Permission\Models\Role
     protected $fillable = ['name','guard_name','slug'];
 
 
-    // public function afterCreateProcess()
-    // {
-    //     $permissions = request()->get('permissions');
-    //     $this->permissions()->sync($permissions);
-    // }
+    public function afterCreateProcess()
+    {
+
+        $permissions = request()->get('permissions');
+        dd($permissions);
+
+        $this->permissions()->sync($permissions);
+    }
 
     // public function afterUpdateProcess()
     // {

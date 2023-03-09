@@ -43,30 +43,29 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <table id="" class="table table-bordered table-striped">
+                <table id="" class="table table-bordered">
                     <thead>
                     <tr>
-                        <th><input type="checkbox" id="main" class="checkbox"></th>
+                        <th style='width:15px'>
+                            <label class="checkbox checkbox-rounded">
+                                <input type="checkbox" checked="checked" name="Checkboxes15_1"/>
+                                <span></span>
+                            </label>
+                        </th>
                         <th>Role Name</th>
-                        {{-- <th>Branch</th> --}}
-                        {{-- <th>Contact</th>
-                        <th>Second Contact</th>
-                        <th>Email</th>
-                        <th>Status</th> --}}
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($data as $employee)
+                    @foreach($data as $role)
                         <tr>
-                            {{-- <td>{{ is_null($employee->user) ? 'N/A' : $employee->user->name }}</td>
-                            <td>{{ is_null($employee->employeeRole) ? 'N/A' : $employee->employeeRole->name }}</td>
-                            <td>{{ is_null($employee->user) ? 'N/A' : $employee->user->phone }}</td>
-                            <td>{{ is_null($employee->user) ? 'N/A' : $employee->user->contact2 }}</td>
-                            <td>{{ is_null($employee->user) ? 'N/A' : $employee->user->email }}</td>
-                            <td>{!! $employee->status_badge !!}</td> --}}
+                        <td><label class="checkbox checkbox-rounded">
+                                <input type="checkbox"  name="Checkboxes15_1"/>
+                                <span></span>
+                            </label></td>
+                           <td>{{$role->name}}</td>
                             <td id="none">
-                                {{-- <a href="{{route('employee.edit',$employee->id)}}"><i class="fa fa-lg fa-edit"></i></a> --}}
+                                <a href="{{route('roles.edit',$role->id)}}"><i class="fa fa-lg fa-edit"></i></a>
                                 {{-- @method('DELETE')
                                 <a onclick="return confirm('Do you want to delete')" href="{{route('employee.destroy', $employee->id)}}"><i class="fa fa-lg fa-minus-circle" style="color:red"></i></a> --}}
                             </td>

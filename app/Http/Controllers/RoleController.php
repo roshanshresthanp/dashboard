@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Admin\WebSuperController;
 use App\Http\Requests\RoleRequest;
 use App\Http\Resources\RoleResource;
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -31,6 +32,12 @@ class RoleController extends WebSuperController
     public function update(RoleRequest $request,$id)
     {
         return parent::updateFunction($request,$id);
+    }
+
+    public function edit($id, $datas = array(null))
+    {
+        $datas['permissions'] = Permission::all();
+        return parent::edit($id,$datas);
     }
 
 }

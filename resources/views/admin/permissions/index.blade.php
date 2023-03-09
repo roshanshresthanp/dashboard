@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Role')
+@section('title', 'Permission')
 
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -8,17 +8,17 @@
 		<a href="{{route('dashboard') }}" class="text-muted">Dashboard</a>
 	</li>
 	<li class="breadcrumb-item text-active">
-		<a href="{{ route('roles.index')}}" class="text-active">Role</a>
+		<a href="{{ route('permissions.index')}}" class="text-active">Permission</a>
 	</li>
     <li class="breadcrumb-item text-active">
-		<a href="{{ route('roles.index')}}" class="text-active">List</a>
+		<a href="{{ route('permissions.index')}}" class="text-active">List</a>
 	</li>
 </ul>
 @endsection
 
 @section('actionButton')
-<a href="{{ route('roles.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus">
-	Add Role
+<a href="{{ route('permissions.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus">
+	Add Permission
 </a>
 @endsection
 
@@ -28,7 +28,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap py-3">
                 <div class="card-title">
-                    <h3 class="card-title">List of Roles</h3>
+                    <h3 class="card-title">List of Permissions</h3>
 				</div>
 			</div>
 			<!-- /.card-header -->
@@ -44,12 +44,12 @@
                             </label>
                         </th> --}}
                         <th>#</th>
-                        <th>Role Name</th>
+                        <th>Permission Name</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($data as $role)
+                    @foreach($data as $permission)
                         <tr>
                         {{-- <td><label class="checkbox checkbox-rounded">
                                 <input type="checkbox"  name="Checkboxes15_1"/>
@@ -58,13 +58,13 @@
                             <td style="width:15px">
                                 {{$loop->iteration}}
                             </td>
-                           <td>{{$role->name}}</td>
+                           <td>{{$permission->name}}</td>
                             <td id="none">
-                            <form action="{{route('roles.destroy', $role->id)}}" method="post">
-                                <a href="{{route('roles.edit',$role->id)}}"><i class="btn btn-light fa fa-edit "></i></a>
+                            <form action="{{route('permissions.destroy', $permission->id)}}" method="post">
+                                <a href="{{route('permissions.edit',$permission->id)}}"><i class="btn btn-sm btn-light fa fa-edit "></i></a>
                                 @csrf
                                 @method('DELETE')
-                                <button onclick="return confirm('Do you want to delete')" type="submit" class="btn btn-light ml-2 ">
+                                <button onclick="return confirm('Do you want to delete')" type="submit" class="btn btn-sm btn-light ml-2 ">
                                 <i class="fa fa-minus-circle" style="color:red"></i>
                                 </button>
                             </form>

@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
 
 class PermissionRequest extends FormRequest
 {
@@ -23,9 +26,15 @@ class PermissionRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('permission');
         return [
-            'name'=>'required|string|max:50|unique:permissions,name,'.$this->id,
-            'guard_name'=>'required|max:10',
+            'name'=>'required|string|max:50|unique:permissions,name,'.$id,
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge(['slug'=>Str::slug($this->name),'guard'=>'api']);
+
     }
 }

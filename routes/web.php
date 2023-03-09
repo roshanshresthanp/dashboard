@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,7 +35,13 @@ Route::group(['prefix' => 'pro'], function () {
     Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
+    Route::get('customers', [UserController::class, 'customers'])->name('customers.index');
+
     Route::resource('/roles', RoleController::class);
+    Route::resource('/permissions', PermissionController::class);
+
+
+
 
 
 });

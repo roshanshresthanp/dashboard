@@ -19,7 +19,7 @@ class RoleController extends WebSuperController
 
     public function __construct()
     {
-        $this->whichModel = app(Role::class);
+        $this->whichModel = Role::class;
         $this->responseResource = RoleResource::class;
         parent::__construct($this->whichModel, $this->responseResource);
     }
@@ -38,6 +38,12 @@ class RoleController extends WebSuperController
     {
         $datas['permissions'] = Permission::all();
         return parent::edit($id,$datas);
+    }
+
+    public function create($datas = array(null))
+    {
+        $datas['permissions'] = Permission::all();
+        return parent::create($datas);
     }
 
 }

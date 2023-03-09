@@ -1,9 +1,9 @@
 @csrf
 <div class="card-body">
     <div class="form-group row">
-        <label class="col-2 col-form-label">Role Name</label>
+        <label class="col-2 col-form-label">Permission Name</label>
         <div class="col-4">
-            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter Role Name" value="{{old('name',@$data->name)}}" />
+            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter Permission Name" value="{{old('name',@$data->name)}}" />
             @error('name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -12,7 +12,7 @@
         </div>    
     </div>
 
-    <div class="form-group row">
+    {{-- <div class="form-group row">
         <label class="col-2 col-form-label">Permissions</label>
             <div class="col-10">
                 <div class="checkbox-inline">
@@ -35,7 +35,7 @@
                 </div>
         </div>
             
-    </div>
+    </div> --}}
 </div>
 <script>
 $(document).ready(function(){

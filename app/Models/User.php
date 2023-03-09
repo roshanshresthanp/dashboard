@@ -77,6 +77,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function scopeCustomer($query)
+    {
+        return $query->whereHas('roles',function($q){
+            $q->where('slug','customer');
+        });
+    }
 
     // public function afterCreateProcess()
     // {

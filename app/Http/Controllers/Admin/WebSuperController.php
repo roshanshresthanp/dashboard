@@ -28,7 +28,7 @@ class WebSuperController extends Controller
 
     public function index()
     {
-        $data = $this->whichModel::all();
+        $data = $this->whichModel::latest()->get();
         return view('admin/'.$this->directory.'/index',compact('data'));
     }
 
@@ -62,7 +62,8 @@ class WebSuperController extends Controller
     }
 
     public function updateFunction($request,$id)
-    {        // dd($request->all());
+    {      
+        //   dd($request->all());
 
            
         // $authUser = Auth::user();
@@ -73,9 +74,10 @@ class WebSuperController extends Controller
         DB::beginTransaction();
         try {
 
-            $model = $this->whichModel::findOrFail($id)->update($request->only($this->getAllFieldNames()));
-
-            if (method_exists(new $this->whichModel(), 'afterUpdateProcess')) {
+            $model = $this->whichModel::findOrFail($id);
+            $model->update($request->only($this->getAllFieldNames()));
+// dd($request->all());
+            if (method_exists($model, 'afterUpdateProcess')) {
                 $model->afterUpdateProcess();
             }
             DB::commit();
@@ -93,11 +95,10 @@ class WebSuperController extends Controller
 
     public function create($data = array(null))
     {
-        // $data = $this->whichModel::find($id);
         return view('admin/'.$this->directory.'/create',$data);   
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
         $this->whichModel::find($id)->delete();
         return redirect()->back()->with('success','Record has been deleted');

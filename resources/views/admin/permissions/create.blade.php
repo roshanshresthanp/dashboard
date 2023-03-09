@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Role')
+@section('title', 'Add Permission')
 
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -8,10 +8,10 @@
 		<a href="{{route('dashboard') }}" class="text-muted">Dashboard</a>
 	</li>
     <li class="breadcrumb-item text-muted">
-		<a href="{{ route('roles.index')}}" class="text-muted">Role</a>
+		<a href="{{ route('permissions.index')}}" class="text-muted">Permission</a>
 	</li>
 	<li class="breadcrumb-item text-active">
-		<a href="{{ route('roles.edit', $data->id)}}" class="text-active">Edit</a>
+		<a href="{{ route('permissions.create')}}" class="text-active">Add</a>
 	</li>
 </ul>
 @endsection
@@ -24,13 +24,13 @@
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap py-3">
                 <div class="card-title">
-                    <h3 class="card-title">Edit Role</h3>
+                    <h3 class="card-title">Add Permission</h3>
                 </div>
             </div>
             <!-- form start -->
-            <form class="form" action="{{ route('roles.update', $data->id) }}" enctype="multipart/form-data" method="post">
-                @method('PUT')
-                @include('admin.roles.form')
+            <form class="form"  action="{{ route('permissions.store') }}" enctype="multipart/form-data" method="post">	
+                
+                @include('admin.permissions.form')
 
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -45,3 +45,5 @@
 @section('scripts')
 @include('admin.include.message')
 @endsection
+
+

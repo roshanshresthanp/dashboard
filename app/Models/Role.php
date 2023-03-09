@@ -42,15 +42,13 @@ class Role extends \Spatie\Permission\Models\Role
     {
 
         $permissions = request()->get('permissions');
-        dd($permissions);
-
         $this->permissions()->sync($permissions);
     }
 
-    // public function afterUpdateProcess()
-    // {
-    //     $permissions = request()->get('permissions');
-    //     $this->permissions()->sync($permissions);
-    // }
+    public function afterUpdateProcess()
+    {
+        $permissions = request()->get('permissions');
+        $this->permissions()->sync($permissions);
+    }
 
 }

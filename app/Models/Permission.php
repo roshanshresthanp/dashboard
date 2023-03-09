@@ -16,7 +16,7 @@ class Permission extends \Spatie\Permission\Models\Permission
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;
     protected static $logName = 'permission';
-    const PERMISSIONSLUG = 'permission';
+    const PERMISSIONSLUG = 'permissions';
     protected $guard_name = 'api';
 
     public function getActivitylogOptions(): LogOptions

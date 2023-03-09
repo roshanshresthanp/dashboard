@@ -28,7 +28,7 @@
                 </a>
             </li>
 
-            <li class="menu-item menu-item-submenu {{ str_contains(Route::currentRouteName(), "rol") ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
+            <li class="menu-item menu-item-submenu {{ str_contains(Route::currentRouteName(), "perm") ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon fas fa-shield-alt">
                     </span>
@@ -51,8 +51,8 @@
                                 <span class="menu-text">Roles</span>
                             </a>
                         </li>
-                        <li class="menu-item" aria-haspopup="true">
-                            <a href="layout/themes/header-dark.html" class="menu-link">
+                        <li class="menu-item {{request()->is('*/permissions') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                            <a href="{{route('permissions.index')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
                                 </i>
@@ -63,7 +63,7 @@
                 </div>
             </li>
             <li class="menu-item menu-item-active" aria-haspopup="true">
-                <a href="index.html" class="menu-link">
+                <a href="{{route('customers.index')}}" class="menu-link">
                     <span class="svg-icon menu-icon fas fa-user-friends">
                     </span>
                     <i class="fa fa-tachometer" aria-hidden="true"></i>

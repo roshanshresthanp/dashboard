@@ -1,7 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('title', 'Permission')
-
+@section('styles')
+<link href="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
+@endsection
 @section('breadcrumb')
 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
 	<li class="breadcrumb-item text-muted">
@@ -34,7 +36,7 @@
 			<!-- /.card-header -->
 
             <div class="card-body">
-                <table id="" class="table table-bordered">
+                <table id="example1" class="table table-bordered">
                     <thead>
                     <tr>
                         {{-- <th style='width:15px'>
@@ -82,5 +84,28 @@
 </div>
 @endsection
 @section('scripts')
+<script>
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "ordering": false,
+
+            // "scrollX": true,
+            // "aaSorting": []
+        });
+
+        // $('#example1').DataTable({
+        //     "paging": true,
+        //     "lengthChange": false,
+        //     "searching": false,
+        //     "ordering": true,
+        //     "info": true,
+        //     "autoWidth": false,
+        //     "responsive": true,
+        // });
+    });
+</script>
+<script src="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 @include('admin.include.message')
 @endsection

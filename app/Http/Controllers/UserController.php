@@ -17,6 +17,17 @@ class UserController extends Controller
         return view('admin.customers.index',$data);
     }
 
+    public function fetchCustomers(Request $request)
+    {
+        dd($request->all());
+        $data = [
+            'customers'=>User::customer()->get(),
+        ];
+
+        return $data;
+        // return view('admin.customers.index',$data);
+    }
+
     public function index()
     {
         return view('admin.users.index');

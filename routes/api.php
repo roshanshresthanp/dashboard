@@ -81,4 +81,9 @@ Route::group([
 });
 
 
+
+            Route::get('all', [UserController::class, 'all']);
+
+
+
 // UserController

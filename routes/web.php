@@ -36,12 +36,11 @@ Route::group(['prefix' => 'pro'], function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('customers', [UserController::class, 'customers'])->name('customers.index');
+    Route::post('customers', [UserController::class, 'fetchCustomers'])->name('customers.fetch');
+
 
     Route::resource('/roles', RoleController::class);
     Route::resource('/permissions', PermissionController::class);
-
-
-
 
 
 });

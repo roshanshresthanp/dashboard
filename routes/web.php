@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -35,8 +36,8 @@ Route::group(['prefix' => 'pro'], function () {
     Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 
-    Route::get('customers', [UserController::class, 'customers'])->name('customers.index');
-    Route::post('customers', [UserController::class, 'fetchCustomers'])->name('customers.fetch');
+    Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('customers/fetch', [CustomerController::class, 'fetchCustomer'])->name('customers.fetch');
 
 
     Route::resource('/roles', RoleController::class);

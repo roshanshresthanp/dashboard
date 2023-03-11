@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $token = $user->createToken('LaravelAuthApp')->accessToken;
         // $user->assignRole()
-        // $user->roles()->attach(1);
+        $user->roles()->attach(1);
         // \App\Models\User::factory(5000)->create();
 
         // $user->assignRole('Super Admin');

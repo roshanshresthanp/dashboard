@@ -84,6 +84,18 @@ class User extends Authenticatable
         });
     }
 
+    public function isAdmin()
+    {
+        if($this->roles->filter(function($item){
+            return $item->slug == 'super-admin';
+        })->isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    
+
     // public function afterCreateProcess()
     // {
     //     $request = request();

@@ -84,6 +84,13 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeUser($query)
+    {
+        return $query->whereHas('roles',function($q){
+            $q->whereNot('slug','customer');
+        });
+    }
+
     public function isAdmin()
     {
         if($this->roles->filter(function($item){
@@ -92,6 +99,11 @@ class User extends Authenticatable
             return false;
         }
         return true;
+    }
+
+    public function scopeStatus()
+    {
+        
     }
 
     

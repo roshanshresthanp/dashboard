@@ -54,7 +54,9 @@ class SuperController extends Controller
 
     public function index()
     {
-        return $this->whichModel::paginate(20);
+        return $this->whichModel::paginate(10);
+        // return new $this->responseResource($this->whichModel::paginate(1000));
+
     }
 
     public function all()

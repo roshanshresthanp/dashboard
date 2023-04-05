@@ -18,7 +18,7 @@
 
 @section('actionButton')
 <a href="{{ route('roles.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus">
-	Add Role
+	<span style="font-family:Poppins">Add Role</span>
 </a>
 @endsection
 

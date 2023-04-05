@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Promo code')
 @section('styles')
 <link href="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endsection
@@ -10,17 +10,17 @@
 		<a href="{{route('dashboard') }}" class="text-muted">Dashboard</a>
 	</li>
 	<li class="breadcrumb-item text-active">
-		<a href="{{ route('users.index')}}" class="text-active">Users</a>
+		<a href="{{ route('promo-codes.index')}}" class="text-active">Promo code</a>
 	</li>
     <li class="breadcrumb-item text-active">
-		<a href="{{ route('users.index')}}" class="text-active">List</a>
+		<a href="{{ route('promo-codes.index')}}" class="text-active">List</a>
 	</li>
 </ul>
 @endsection
 
 @section('actionButton')
-<a href="{{ route('users.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus" >
-	<span style="font-family:Poppins">Add Users</span>
+<a href="{{ route('promo-codes.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus" >
+	<span style="font-family:Poppins">Add Promo code</span>
 </a>
 @endsection
 
@@ -30,7 +30,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap py-3">
                 <div class="card-title">
-                    <h3 class="card-title">List of Users</h3>
+                    <h3 class="card-title">List of Promo Codes</h3>
 				</div>
 			</div>
 			<!-- /.card-header -->
@@ -46,20 +46,19 @@
                             </label>
                         </th> --}}
                         <th>#</th>
-                        <th>Image</th>
-                        <th>Full Name</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
+                        <th>Title</th>
+                        <th>Code</th>
+                        <th>Discount type</th>
+                        <th>Worth</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Usage Limit</th>
                         <th>Status</th>
-                        <th>Created At</th>
                         <th>Actions</th>
-
-
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
+                    @foreach($data as $promo)
                         <tr>
                         {{-- <td><label class="checkbox checkbox-rounded">
                                 <input type="checkbox"  name="Checkboxes15_1"/>
@@ -68,35 +67,28 @@
                             <td style="width:15px">
                                 {{$loop->iteration}}
                             </td>
+                           <td>{{$promo->title}}</td>
+                           <td>{{$promo->code}}</td>
+                           {{-- <td>{{$promo->status}}</td> --}}
+                           <td>{{$promo->promo_type}}</td>
+                           <td>{{$promo->worth}}</td>
+                           <td>{{$promo->activation_date}}</td>
+                           <td>{{$promo->expire_date}}</td>
+                           <td>{{$promo->usage_limit}}</td>
 
 
-                        <td>{{$user->image}}</td>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->roles[0]?? 's'}}</td>
 
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->mobile}}</td>
-                        <td>
-                            @if($user->status==1) <span class="badge badge-success">Active </span>
+
+                           <td>
+                            @if($promo->status==1) <span class="badge badge-success">Active </span>
                             @else
                             <span class="badge badge-danger">InActive </span>
                             @endif
                             </td>
-                        <td>{{$user->created_at}}</td> 
-
-
-
-                        
-                           {{-- <td>
-                            @if($users->status==1) <span class="badge badge-success">Active </span>
-                            @else
-                            <span class="badge badge-danger">InActive </span>
-                            @endif
-                            </td> --}}
                             
                             <td id="none">
-                            <form action="{{route('users.destroy', $user->id)}}" method="post">
-                                <a href="{{route('users.edit',$user->id)}}"><i class="btn btn-sm btn-light fa fa-edit "></i></a>
+                            <form action="{{route('promo-codes.destroy', $promo->id)}}" method="post">
+                                <a href="{{route('promo-codes.edit',$promo->id)}}"><i class="btn btn-sm btn-light fa fa-edit "></i></a>
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="return confirm('Do you want to delete')" type="submit" class="btn btn-sm btn-light ml-2 ">

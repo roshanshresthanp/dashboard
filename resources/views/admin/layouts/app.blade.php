@@ -25,6 +25,7 @@
 		
 		<link rel="shortcut icon" href="{{asset('admin/assets/media/logos/favicon.ico')}}" />
 		@yield('styles')
+		{{-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> --}}
 
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 	</head>

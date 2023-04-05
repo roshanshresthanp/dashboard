@@ -20,7 +20,7 @@
 
 @section('actionButton')
 <a href="{{ route('permissions.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus">
-	Add Permission
+	<span style="font-family:Poppins">Add Permission</span>
 </a>
 @endsection
 
@@ -84,6 +84,7 @@
 </div>
 @endsection
 @section('scripts')
+<script src="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script>
     $(function () {
         $("#example1").DataTable({

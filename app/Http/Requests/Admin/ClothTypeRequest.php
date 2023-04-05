@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 
-class RoleRequest extends FormRequest
+class ClothTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,13 @@ class RoleRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+    
     public function rules()
     {
         return [
-            'name'=>'required|string|max:50|unique:roles,name,'.$this->role,
+            'name'=>['required','string','max:50','unique:cloth_types,name,'.$this->cloth_type],
+            'parent_id'=>'integer',
+            // 'status'=>'email'
             // 'guard_name'=>'required|max:10',
         ];
         
@@ -33,7 +36,7 @@ class RoleRequest extends FormRequest
 
     protected function prepareForValidation()
     {
-        $this->merge(['slug'=>Str::slug($this->name),'guard'=>'api']);
+        $this->merge(['slug'=>Str::slug($this->name),'status'=>request()->status=='on' ? 1 : 0]);
 
     }
 }

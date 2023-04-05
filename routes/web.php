@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\ClothTypeController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\PromoCodeController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -34,14 +36,20 @@ Route::get('/dashboard', function(){
 Route::group(['prefix' => 'pro'], function () {
 
     Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    // Route::get('users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+    Route::get('customers/all', [CustomerController::class, 'all'])->name('customers.all');
     Route::get('customers/fetch', [CustomerController::class, 'fetchCustomer'])->name('customers.fetch');
+    Route::delete('customers/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
-
+    Route::resource('/users', UserController::class);
     Route::resource('/roles', RoleController::class);
     Route::resource('/permissions', PermissionController::class);
+    Route::resource('/cloth-types', ClothTypeController::class);
+    Route::resource('/promo-codes', PromoCodeController::class);
+
+
 
 
 });

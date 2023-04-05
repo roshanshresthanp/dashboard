@@ -53,8 +53,8 @@ Route::get('/test', function () {
 
 
 Route::group([
-    'middleware' => ['api', 'auth:api'],
-    // 'namespace' => 'Api\V1', 'as' => 'api.'
+    // 'middleware' => ['api', 'auth:api'],
+    'namespace' => 'Api\V1', 'as' => 'api.'
 ], function () {
 
             Route::group(['prefix' => 'users'], function () {

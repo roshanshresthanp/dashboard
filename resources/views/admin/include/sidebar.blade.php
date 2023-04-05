@@ -13,17 +13,15 @@
                 </a>
             </li>
             
-            <li class="menu-section">
+            <li class="menu-section ">
                 <h4 class="menu-text">User Management</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
             </li>
 
-            <li class="menu-item" aria-haspopup="true">
-                <a href="index.html" class="menu-link">
+            <li class="menu-item {{ str_contains(Route::currentRouteName(), "users") ? "menu-item-active" : '' }}" aria-haspopup="true">
+                <a href="{{route('users.index')}}" class="menu-link">
                     <span class="svg-icon menu-icon fas fa-user-cog">
                     </span>
-                    <i class="fa fa-tachometer" aria-hidden="true"></i>
-
                     <span class="menu-text">Users</span>
                 </a>
             </li>
@@ -43,7 +41,7 @@
                                 <span class="menu-text">Users</span>
                             </span>
                         </li> --}}
-                        <li class="menu-item {{request()->is('*/roles') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                        <li class="menu-item {{request()->is('*/roles/*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                             <a href="{{route('roles.index')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
@@ -51,7 +49,7 @@
                                 <span class="menu-text">Roles</span>
                             </a>
                         </li>
-                        <li class="menu-item {{request()->is('*/permissions') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                        <li class="menu-item {{request()->is('*/permissions/*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                             <a href="{{route('permissions.index')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
@@ -62,7 +60,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="menu-item menu-item-active" aria-haspopup="true">
+            <li class="menu-item " aria-haspopup="true">
                 <a href="{{route('customers.index')}}" class="menu-link">
                     <span class="svg-icon menu-icon fas fa-user-friends">
                     </span>
@@ -71,6 +69,83 @@
                     <span class="menu-text">Customer</span>
                 </a>
             </li>
+
+            <li class="menu-section">
+                <h4 class="menu-text">Clothes</h4>
+                <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+            </li>
+
+            <li class="menu-item menu-item-submenu {{ str_contains(Route::currentRouteName(), "cloth-types") ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
+                <a href="javascript:;" class="menu-link menu-toggle">
+                    <span class="svg-icon menu-icon fas fa-tshirt">
+                    </span>
+                    <span class="menu-text">Cloth type</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="menu-submenu">
+                    <i class="menu-arrow"></i>
+                    <ul class="menu-subnav">
+                        {{-- <li class="menu-item menu-item-parent" aria-haspopup="true">
+                            <span class="menu-link">
+                                <span class="menu-text">Users</span>
+                            </span>
+                        </li> --}}
+                        <li class="menu-item {{Route::is('cloth-types.create') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                            <a href="{{route('cloth-types.create')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Add type</span>
+                            </a>
+                        </li>
+                        <li class="menu-item {{Route::is('cloth-types.index') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                            <a href="{{route('cloth-types.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">View Cloth type</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="menu-item menu-item-submenu {{ str_contains(Route::currentRouteName(), "promo-codes") ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
+                <a href="javascript:;" class="menu-link menu-toggle">
+                    <span class="svg-icon menu-icon fas fa-search-dollar">
+                    </span>
+                    <span class="menu-text">Promo Codes</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="menu-submenu">
+                    <i class="menu-arrow"></i>
+                    <ul class="menu-subnav">
+                        {{-- <li class="menu-item menu-item-parent" aria-haspopup="true">
+                            <span class="menu-link">
+                                <span class="menu-text">Users</span>
+                            </span>
+                        </li> --}}
+                        <li class="menu-item {{Route::is('promo-codes.create') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                            <a href="{{route('promo-codes.create')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">Add Promo code</span>
+                            </a>
+                        </li>
+                        <li class="menu-item {{Route::is('promo-codes.index') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                            <a href="{{route('promo-codes.index')}}" class="menu-link">
+                                <i class="menu-bullet menu-bullet-dot">
+                                    <span></span>
+                                </i>
+                                <span class="menu-text">View Promo code</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+
         </ul>
     </div>
     <!--end::Menu Container-->

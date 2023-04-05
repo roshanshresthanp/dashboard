@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Users')
+@section('title', 'Cloth type')
 @section('styles')
 <link href="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.css')}}" rel="stylesheet" type="text/css" />
 @endsection
@@ -10,17 +10,17 @@
 		<a href="{{route('dashboard') }}" class="text-muted">Dashboard</a>
 	</li>
 	<li class="breadcrumb-item text-active">
-		<a href="{{ route('users.index')}}" class="text-active">Users</a>
+		<a href="{{ route('cloth-types.index')}}" class="text-active">Cloth type</a>
 	</li>
     <li class="breadcrumb-item text-active">
-		<a href="{{ route('users.index')}}" class="text-active">List</a>
+		<a href="{{ route('cloth-types.index')}}" class="text-active">List</a>
 	</li>
 </ul>
 @endsection
 
 @section('actionButton')
-<a href="{{ route('users.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus" >
-	<span style="font-family:Poppins">Add Users</span>
+<a href="{{ route('cloth-types.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus" >
+	<span style="font-family:Poppins">Add Cloth type</span>
 </a>
 @endsection
 
@@ -30,7 +30,7 @@
         <div class="card card-custom gutter-b">
             <div class="card-header flex-wrap py-3">
                 <div class="card-title">
-                    <h3 class="card-title">List of Users</h3>
+                    <h3 class="card-title">List of Cloth types</h3>
 				</div>
 			</div>
 			<!-- /.card-header -->
@@ -46,20 +46,14 @@
                             </label>
                         </th> --}}
                         <th>#</th>
-                        <th>Image</th>
-                        <th>Full Name</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
+                        <th>Name</th>
+                        <th>Parent Category</th>
                         <th>Status</th>
-                        <th>Created At</th>
                         <th>Actions</th>
-
-
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
+                    @foreach($data as $cloth)
                         <tr>
                         {{-- <td><label class="checkbox checkbox-rounded">
                                 <input type="checkbox"  name="Checkboxes15_1"/>
@@ -68,35 +62,18 @@
                             <td style="width:15px">
                                 {{$loop->iteration}}
                             </td>
-
-
-                        <td>{{$user->image}}</td>
-                        <td>{{$user->name}}</td>
-                        <td>{{$user->roles[0]?? 's'}}</td>
-
-                        <td>{{$user->email}}</td>
-                        <td>{{$user->mobile}}</td>
-                        <td>
-                            @if($user->status==1) <span class="badge badge-success">Active </span>
+                           <td>{{$cloth->name}}</td>
+                           <td>{{$cloth->parent->name ?? '-'}}</td>
+                           <td>
+                            @if($cloth->status==1) <span class="badge badge-success">Active </span>
                             @else
                             <span class="badge badge-danger">InActive </span>
                             @endif
                             </td>
-                        <td>{{$user->created_at}}</td> 
-
-
-
-                        
-                           {{-- <td>
-                            @if($users->status==1) <span class="badge badge-success">Active </span>
-                            @else
-                            <span class="badge badge-danger">InActive </span>
-                            @endif
-                            </td> --}}
                             
                             <td id="none">
-                            <form action="{{route('users.destroy', $user->id)}}" method="post">
-                                <a href="{{route('users.edit',$user->id)}}"><i class="btn btn-sm btn-light fa fa-edit "></i></a>
+                            <form action="{{route('cloth-types.destroy', $cloth->id)}}" method="post">
+                                <a href="{{route('cloth-types.edit',$cloth->id)}}"><i class="btn btn-sm btn-light fa fa-edit "></i></a>
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="return confirm('Do you want to delete')" type="submit" class="btn btn-sm btn-light ml-2 ">

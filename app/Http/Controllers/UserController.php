@@ -7,6 +7,8 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
+
 
 class UserController extends WebSuperController
 {
@@ -23,10 +25,17 @@ class UserController extends WebSuperController
     public function index()
     {
         $data = [
-            'users' => User::first()->hasRoles[0],
+            'users' => User::all(),
         ];
 
-        dd($data['users']);
-        return view('admin.users.index',$data);
+        // dd($data['users']);
+        return view('admin.users.index1',$data);
+    }
+
+    public function fetchAll(Request $request)
+    {
+            $customers = User::all();
+     
+        return DataTables::of($customers)->toJson();
     }
 }

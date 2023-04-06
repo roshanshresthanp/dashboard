@@ -72,7 +72,7 @@
 
                         <td>{{$user->image}}</td>
                         <td>{{$user->name}}</td>
-                        <td>{{$user->roles[0]?? 's'}}</td>
+                        <td>{{$user->roles}}</td>
 
                         <td>{{$user->email}}</td>
                         <td>{{$user->mobile}}</td>

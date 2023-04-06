@@ -57,7 +57,7 @@ class CustomerController extends Controller
         //     'customers'=>User::customer()->get(),
         // ];
 
-        return view('admin.customers.index1');
+        return view('admin.customers.index');
     }
 
     public function fetchCustomer(Request $request)

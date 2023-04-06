@@ -24,18 +24,17 @@ class UserController extends WebSuperController
 
     public function index()
     {
-        $data = [
-            'users' => User::all(),
-        ];
+        // $data = [
+        //     'users' => User::all(),
+        // ];
 
         // dd($data['users']);
-        return view('admin.users.index1',$data);
+        return view('admin.users.index1');
     }
 
     public function fetchAll(Request $request)
     {
-            $customers = User::all();
-     
+        $customers = DB::table('users')->get();
         return DataTables::of($customers)->toJson();
     }
 }

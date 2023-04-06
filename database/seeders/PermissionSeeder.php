@@ -31,6 +31,8 @@ class PermissionSeeder extends Seeder
        'roles',
        'permissions',
        'users',
+       'promo-codes',
+       'cloth-types'
 //        'faculties',
 //        'subjects',
 //        'classes',

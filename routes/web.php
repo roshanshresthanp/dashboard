@@ -32,11 +32,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/dashboard', function(){
     return view('admin.layouts.app');
-});
+})->name('dashboard');
 
 Route::group(['prefix' => 'pro'], function () {
 
-    Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
+    // Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
     // Route::get('users', [UserController::class, 'index'])->name('users.index');
 
     Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');

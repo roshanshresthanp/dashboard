@@ -4,7 +4,7 @@
         <!--begin::Menu Nav-->
         <ul class="menu-nav">
             <li class="menu-item" aria-haspopup="true">
-                <a href="index.html" class="menu-link">
+                <a href="{{route('dashboard')}}" class="menu-link">
                     <span class="svg-icon menu-icon fas fa-tachometer-alt">
                     </span>
                     <i class="fa fa-tachometer" aria-hidden="true"></i>
@@ -143,7 +143,7 @@
             </li>
 
             <li class="menu-item menu-item-active" aria-haspopup="true">
-                <a href="{{route('customers.index')}}" class="menu-link">
+                <a href="#" class="menu-link">
                     <span class="svg-icon menu-icon fab fa-opencart">
                     </span>
                     {{-- <i class="fa fa-tachometer" aria-hidden="true"></i> --}}
@@ -151,7 +151,7 @@
                 </a>
             </li>
             <li class="menu-item menu-item-active" aria-haspopup="true">
-                <a href="{{route('customers.index')}}" class="menu-link">
+                <a href="#" class="menu-link">
                     <span class="svg-icon menu-icon far fa-money-bill-alt">
                     </span>
                     {{-- <i class="fa fa-tachometer" aria-hidden="true"></i> --}}

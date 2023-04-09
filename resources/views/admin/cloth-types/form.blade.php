@@ -43,6 +43,18 @@
     </div>
 
     <div class="form-group col-sm-6 row">
+        <label class="col-4 col-form-label">Rate</label>
+        <div class="col-8">
+            <input type="text" class="form-control @error('rate') is-invalid @enderror" name="rate" placeholder="Enter rate" value="{{old('rate',@$data->rate)}}" />
+            @error('rate')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>    
+    </div>
+
+    <div class="form-group col-sm-6 row">
         <label class="col-4 col-form-label">Status</label>
         <div class="col-8">
             <span class="switch switch-success">

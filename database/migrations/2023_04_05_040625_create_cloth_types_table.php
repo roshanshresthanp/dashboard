@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->double('rate')->nullable();
             $table->integer('parent_id')->nullable();
             $table->boolean('status')->default(1);
             $table->softDeletes();

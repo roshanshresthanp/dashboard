@@ -10,7 +10,7 @@ class ClothType extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name','slug','status','parent_id'];
+    protected $fillable = ['name','slug','status','parent_id','rate'];
 
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;

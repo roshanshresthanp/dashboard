@@ -64,9 +64,7 @@
                 <a href="{{route('customers.index')}}" class="menu-link">
                     <span class="svg-icon menu-icon fas fa-user-friends">
                     </span>
-                    <i class="fa fa-tachometer" aria-hidden="true"></i>
-
-                    <span class="menu-text">Customer</span>
+                    <span class="menu-text">Customers</span>
                 </a>
             </li>
 
@@ -120,11 +118,6 @@
                 <div class="menu-submenu">
                     <i class="menu-arrow"></i>
                     <ul class="menu-subnav">
-                        {{-- <li class="menu-item menu-item-parent" aria-haspopup="true">
-                            <span class="menu-link">
-                                <span class="menu-text">Users</span>
-                            </span>
-                        </li> --}}
                         <li class="menu-item {{Route::is('promo-codes.create') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                             <a href="{{route('promo-codes.create')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
@@ -144,8 +137,54 @@
                     </ul>
                 </div>
             </li>
+            <li class="menu-section">
+                <h4 class="menu-text">ORDERS</h4>
+                <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+            </li>
 
+            <li class="menu-item menu-item-active" aria-haspopup="true">
+                <a href="{{route('customers.index')}}" class="menu-link">
+                    <span class="svg-icon menu-icon fab fa-opencart">
+                    </span>
+                    {{-- <i class="fa fa-tachometer" aria-hidden="true"></i> --}}
+                    <span class="menu-text">Orders</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-active" aria-haspopup="true">
+                <a href="{{route('customers.index')}}" class="menu-link">
+                    <span class="svg-icon menu-icon far fa-money-bill-alt">
+                    </span>
+                    {{-- <i class="fa fa-tachometer" aria-hidden="true"></i> --}}
+                    <span class="menu-text">Transactions</span>
+                </a>
+            </li>
 
+            <li class="menu-section">
+                <h4 class="menu-text">Logs</h4>
+                <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+            </li>
+
+            <li class="menu-item {{Route::is('smsLog') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                <a href="{{route('smsLog')}}" class="menu-link">
+                    <span class="svg-icon menu-icon fas fa-sms">
+                    </span>
+                    <span class="menu-text">SMS</span>
+                </a>
+            </li>
+            {{-- <li class="menu-item {{Route::is('emailLog') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                <a href="{{route('emailLog')}}" class="menu-link">
+                    <span class="svg-icon menu-icon fas fa-mail-bulk">
+                    </span>
+                    <span class="menu-text">Email</span>
+                </a>
+            </li> --}}
+            <li class="menu-item {{Route::is('activityLog') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                <a href="{{route('activityLog')}}" class="menu-link">
+                    <span class="svg-icon menu-icon fab fa-uncharted">
+                    </span>
+                    <span class="menu-text">Activity</span>
+                </a>
+            </li>
         </ul>
     </div>
     <!--end::Menu Container-->

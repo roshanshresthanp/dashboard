@@ -55,9 +55,6 @@ class UserController extends WebSuperController
                 $model->afterCreateProcess();
             }
 
-//for sms and email
-
-
             DB::commit();
             if ($model instanceof $this->whichModel) {
                 // $response = (new $this->responseResource($model))->response()->setStatusCode(200);

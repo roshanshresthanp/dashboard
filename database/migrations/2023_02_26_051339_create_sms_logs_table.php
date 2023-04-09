@@ -19,7 +19,7 @@ return new class extends Migration
             $table->json('response')->nullable();
             $table->string('reason')->nullable();
             $table->string('number', 20);
-            $table->string('message');
+            $table->text('message');
             $table->string('provider', 50);
             $table->boolean('resent')->default(0);
             $table->timestamps();

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ClothTypeController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\PromoCodeController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -48,6 +49,14 @@ Route::group(['prefix' => 'pro'], function () {
     Route::resource('/permissions', PermissionController::class);
     Route::resource('/cloth-types', ClothTypeController::class);
     Route::resource('/promo-codes', PromoCodeController::class);
+
+    Route::group(['prefix'=>'logs'], function () {
+        Route::get('/sms',[LogController::class,'smsLog'])->name('smsLog');
+        Route::get('/emails',[LogController::class,'emailLog'])->name('emailLog');
+        Route::get('/activity',[LogController::class,'activityLog'])->name('activityLog');
+
+
+    });
 
 
 

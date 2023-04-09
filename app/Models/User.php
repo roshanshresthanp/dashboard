@@ -108,26 +108,26 @@ class User extends Authenticatable
 
     
 
-    // public function afterCreateProcess()
-    // {
-    //     $request = request();
-    //     $role = $request->get('role_id');
-    //     $this->roles()->attach([$role]);
+    public function afterCreateProcess()
+    {
+        $request = request();
+        $role = $request->get('role_id');
+        $this->roles()->attach([$role]);
 
-    //     if (array_key_exists("media_id", $request->all())) {
-    //         $this->attachMedia($request->media_id, 'user_photo');
-    //     }
-    // }
+        // if (array_key_exists("media_id", $request->all())) {
+        //     $this->attachMedia($request->media_id, 'user_photo');
+        // }
+    }
 
-    // public function afterUpdateProcess()
-    // {
-    //     $request = request();
-    //     $role = $request->get('role_id');
-    //     $this->syncRoles([$role]);
+    public function afterUpdateProcess()
+    {
+        $request = request();
+        $role = $request->get('role_id');
+        $this->syncRoles([$role]);
 
-    //     if (array_key_exists("media_id", $request->all())) {
-    //         $this->syncMedia($request->media_id, 'user_photo');
-    //     }
-    // }
+        // if (array_key_exists("media_id", $request->all())) {
+        //     $this->syncMedia($request->media_id, 'user_photo');
+        // }
+    }
 
 }

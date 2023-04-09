@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Admin\WebSuperController;
+use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Role;    
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 
 class UserController extends WebSuperController
@@ -24,12 +27,10 @@ class UserController extends WebSuperController
 
     public function index()
     {
-        // $data = [
-        //     'users' => User::all(),
-        // ];
-
-        // dd($data['users']);
-        return view('admin.users.index1');
+        $data = [
+            'users' => $this->whichModel::user()->with('roles')->get(),
+        ];
+        return view('admin.users.index',$data);
     }
 
     public function fetchAll(Request $request)
@@ -37,4 +38,58 @@ class UserController extends WebSuperController
         $customers = DB::table('users')->get();
         return DataTables::of($customers)->toJson();
     }
+
+    public function store(UserRequest $request)
+    {
+        return $this->customStoreFunction($request);
+    }
+
+    public function customStoreFunction($request)
+    {
+        DB::beginTransaction();
+        $pass = mt_rand(1000, 9999);
+        $request->merge(['password'=>bcrypt($pass)]);
+        try {
+            $model =  $this->whichModel::create($request->only($this->getAllFieldNames()));
+            if (method_exists(new $this->whichModel(), 'afterCreateProcess')) {
+                $model->afterCreateProcess();
+            }
+
+//for sms and email
+
+
+            DB::commit();
+            if ($model instanceof $this->whichModel) {
+                // $response = (new $this->responseResource($model))->response()->setStatusCode(200);
+                return redirect()->back()->with('success','Record has been added');
+            } else {
+                return redirect()->back()->with('error',$model);
+            }
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error',$e->getMessage());
+
+        }
+    }
+
+    public function create($data = array(null))
+    {
+        $data['roles'] = Role::select('id','name')->get();
+        return parent::create($data);
+    }
+
+    public function edit($id, $datas = array(null))
+    {
+        $datas = [
+            'roles' => Role::select('id','name')->get()
+        ];
+        return parent::edit($id,$datas);
+    }
+
+    public function update(UserRequest $request,$id)
+    {
+        return parent::updateFunction($request,$id);
+    }
+
+   
 }

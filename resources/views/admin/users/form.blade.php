@@ -1,10 +1,10 @@
 @csrf
 <div class="card-body row">
     <div class="form-group col-6 row">
-        <label class="col-4 col-form-label">Title</label>
+        <label class="col-4 col-form-label">Full Name</label>
         <div class="col-8">
-            <input type="text" required class="form-control @error('title') is-invalid @enderror" name="title" placeholder="Enter Title" value="{{old('title',@$data->title)}}" />
-            @error('title')
+            <input type="text" required class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter name" value="{{old('name',@$data->name)}}" />
+            @error('name')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -13,10 +13,21 @@
     </div>
 
     <div class="form-group col-sm-6 row">
-        <label class="col-4 col-form-label">Code</label>
+        <label class="col-4 col-form-label">Email</label>
         <div class="col-8">
-            <input type="text" class="form-control @error('code') is-invalid @enderror" name="code" placeholder="Enter Promo Code" value="{{old('code',@$data->code)}}" />
-            @error('code')
+            <input type="email" required class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Enter email" value="{{old('email',@$data->email)}}" />
+            @error('email')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>    
+    </div>
+    <div class="form-group col-sm-6 row">
+        <label class="col-4 col-form-label">Username</label>
+        <div class="col-8">
+            <input type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="Enter username" value="{{old('username',@$data->username)}}" />
+            @error('username')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
@@ -24,12 +35,25 @@
         </div>    
     </div>
 
+    <div class="form-group col-sm-6 row">
+        <label class="col-4 col-form-label">Mobile</label>
+        <div class="col-8">
+            <input type="number" class="form-control @error('mobile') is-invalid @enderror" name="mobile" placeholder="Enter mobile" value="{{old('mobile',@$data->mobile)}}" />
+            @error('mobile')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror
+        </div>    
+    </div>
     <div class="form-group col-6 row">
-        <label class="col-form-label col-lg-4 col-sm-12">Promo Type</label>
+        <label class="col-form-label col-lg-4 col-sm-12">Role</label>
         <div class=" col-lg-8 col-md-9 col-sm-12">
-         <select class="form-control  @error('promo_type') is-invalid @enderror" id="" name="promo_type">
-            <option value="percent">Percent</option>
-            <option value="amount">Fixed Amount</option>
+         <select class="form-control  @error('roles') is-invalid @enderror" id="" name="role_id">
+            @foreach ($roles as $role)
+                <option value="{{$role->id}}" @selected(in_array($role->id,@$data->roles?->pluck('id')->toArray() ?? []) || old('role_id') ) > {{$role->name}} <dd></dd></option>
+            @endforeach
+            {{-- @selected($cat->id == @$data->parent_id) --}}
          </select>
          @error('promo_type')
          <span class="invalid-feedback" role="alert">
@@ -38,7 +62,7 @@
          @enderror
         </div>
     </div>
-    <div class="form-group col-sm-6 row">
+    {{-- <div class="form-group col-sm-6 row">
         <label class="col-4 col-form-label">Worth</label>
         <div class="col-8">
             <input type="text" required class="form-control @error('worth') is-invalid @enderror" name="worth" placeholder="" value="{{old('worth',@$data->worth)}}" />
@@ -48,8 +72,8 @@
             </span>
             @enderror
         </div>    
-    </div>
-    <div class="form-group col-6 row">
+    </div> --}}
+    {{-- <div class="form-group col-6 row">
         <label class="col-form-label col-lg-4 col-sm-12">Date & Time range</label>
         <div class="col-lg-8 col-md-9 col-sm-12">
          <div class='input-group' id='kt_daterangepicker_4'>
@@ -68,8 +92,8 @@
           @endif
          </div>
         </div>
-       </div>
-    <div class="form-group col-sm-6 row">
+       </div> --}}
+    {{-- <div class="form-group col-sm-6 row">
         <label class="col-4 col-form-label">Usage limit</label>
         <div class="col-8">
             <input type="number" class="form-control @error('usage_limit') is-invalid @enderror" name="usage_limit" placeholder="Enter Usage limit" value="{{old('usage_limit',@$data->usage_limit)}}" />
@@ -79,7 +103,7 @@
             </span>
             @enderror
         </div>    
-    </div>
+    </div> --}}
 
     <div class="form-group col-6 row">
         <label class="col-4 col-form-label">Status</label>
@@ -96,7 +120,7 @@
         </div>
     </div>
     
-    <div class="form-group col-6 row">
+    {{-- <div class="form-group col-6 row">
         <label class="col-4 col-form-label">Featured Status</label>
         <div class="col-8">
             <span class="switch switch-primary">
@@ -108,7 +132,7 @@
                 </label>
             </span>
         </div>
-    </div>
+    </div> --}}
 </div>
 <script src="{{asset('admin/assets/js/pages/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
 {{-- <script src="{{asset('admin/assets/js/pages/crud/forms/widgets/select2.js')}}"></script> --}}

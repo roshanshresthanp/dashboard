@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
+// use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Str;
 
 /**
  * @OA\Schema(
@@ -43,17 +44,19 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            // 'username' => 'required|unique:users,username'.$this->id,
-            'mobile' => ['required','string','size:10','unique:users,mobile,'.$this->id],
-            'email' => 'nullable|unique:users,email,'.$this->id,
-            // 'gender' => 'required',
-            // 'photo' => 'sometimes',
+            'username' => 'required|unique:users,username,'.$this->user,
+            'mobile' => ['required','string','size:10','unique:users,mobile,'.$this->user],
+            'email' => 'nullable|unique:users,email,'.$this->user,
+            'role_id' => 'required|integer|exists:roles,id',
             'address' => 'nullable',
-            'password' => ['required', Password::min(8)->letters()->numbers()->symbols()],
-            // 'confirm_password' => 'required|same:password',
+                        // 'mobile' => 'integer',
 
-            // 'college_id' => 'sometimes',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge(['status'=>request()->status=='on' ? 1 : 0]);
     }
 
     // protected $redirect = '/api/users';

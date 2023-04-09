@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Admin\SuperController;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -80,7 +80,7 @@ class UserController extends SuperController
      */
 
 
-    public function store(UserRequest $request)
+    public function store(CustomerRequest $request)
     {
         return parent::storeFunction($request);
     }
@@ -114,7 +114,7 @@ class UserController extends SuperController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(CustomerRequest $request, $id)
     {
         return parent::updateFunction($request, $id);
     }

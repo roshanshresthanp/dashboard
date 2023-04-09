@@ -59,6 +59,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                        {{-- @dd($users->first()) --}}
                     @foreach($users as $user)
                         <tr>
                         {{-- <td><label class="checkbox checkbox-rounded">
@@ -72,7 +73,10 @@
 
                         <td>{{$user->image}}</td>
                         <td>{{$user->name}}</td>
-                        <td>{{$user->roles}}</td>
+                        <td>@foreach ($user->roles as $role)
+                            {{$role->name}} <br>
+                            @endforeach
+                        </td>
 
                         <td>{{$user->email}}</td>
                         <td>{{$user->mobile}}</td>

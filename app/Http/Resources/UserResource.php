@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
+
 
 /**
  * @OA\Schema(
@@ -13,7 +15,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  *     )
  * )
  */
-class UserResource extends JsonResource
+class UserResource extends ResourceCollection
 {
     /**
      * Transform the resource into an array.
@@ -23,6 +25,12 @@ class UserResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        // return parent::toArray($request);
+// dd($request->all());
+        return [
+            'id'=>$this->id,
+            'mobile'=>$this->email,
+            'roless ' => 'ddd',
+        ];
     }
 }

@@ -21,11 +21,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // dd('for web');
-    return '.....Backend is working.....';
-    // return view('welcome');
-});
+Route::get('/', function(){
+    return view('admin.layouts.app');
+})->name('dashboard')->middleware('auth');
 
 Auth::routes();
 
@@ -33,7 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/dashboard', function(){
     return view('admin.layouts.app');
-})->name('dashboard');
+})->name('dashboard')->middleware('auth');
 
 Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 

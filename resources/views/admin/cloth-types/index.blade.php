@@ -48,6 +48,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Parent Category</th>
+                        <th>Rate / Piece</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -64,6 +65,7 @@
                             </td>
                            <td>{{$cloth->name}}</td>
                            <td>{{$cloth->parent->name ?? '-'}}</td>
+                           <td>{{$cloth->rate}}</td>
                            <td>
                             @if($cloth->status==1) <span class="badge badge-success">Active </span>
                             @else

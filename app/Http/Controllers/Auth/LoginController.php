@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -36,5 +39,27 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {   
+        $this->validate($request, [
+            'email' => 'required|string|email|exists:users',
+            'password' => 'required|string'
+        ]);
+        $user = User::query()->where([
+            "email" => $request->email
+        ])->first();
+
+        // if ($user->isAdmin()){
+            $credentials = $request->only('email', 'password');
+
+            if (Auth::attempt($credentials) && Auth::user()){
+
+                return redirect(route('dashboard'));
+            }
+        // }
+
+        return redirect()->back()->with('error', 'Opps! You have entered invalid credentials');
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ClothTypeController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\PromoCodeController;
 use App\Http\Controllers\PermissionController;
@@ -34,7 +35,7 @@ Route::get('/dashboard', function(){
     return view('admin.layouts.app');
 })->name('dashboard');
 
-Route::group(['prefix' => 'pro'], function () {
+Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
     // Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
     // Route::get('users', [UserController::class, 'index'])->name('users.index');
@@ -49,6 +50,12 @@ Route::group(['prefix' => 'pro'], function () {
     Route::resource('/permissions', PermissionController::class);
     Route::resource('/cloth-types', ClothTypeController::class);
     Route::resource('/promo-codes', PromoCodeController::class);
+
+
+    Route::resource('/enquiries', EnquiryController::class)->only('index','store','create','show');
+    Route::get('/enquiry-status/{enquiry_id}/{status}', [EnquiryController::class,'changeStatus'])->name('enquiries.status');
+    // Route::
+
 
     Route::group(['prefix'=>'logs'], function () {
         Route::get('/sms',[LogController::class,'smsLog'])->name('smsLog');

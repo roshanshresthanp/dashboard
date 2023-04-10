@@ -1,7 +1,6 @@
 @extends('layouts.app')
-@section('styles')
-<link href="{{asset('admin/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-@endsection
+{{-- @section('styles')
+@endsection --}}
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

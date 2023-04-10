@@ -137,40 +137,6 @@
                     </ul>
                 </div>
             </li>
-            <li class="menu-item menu-item-submenu {{ str_contains(Route::currentRouteName(), "promo-codes") ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
-                <a href="javascript:;" class="menu-link menu-toggle">
-                    <span class="svg-icon menu-icon fab fa-rocketchat">
-                    </span>
-                    <span class="menu-text">Enquiries</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="menu-submenu">
-                    <i class="menu-arrow"></i>
-                    <ul class="menu-subnav">
-                        <li class="menu-item {{Route::is('promo-codes.create') ? 'menu-item-active' : ''}}" aria-haspopup="true">
-                            <a href="{{route('promo-codes.create')}}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-dot">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">Enquiry</span>
-                            </a>
-                        </li>
-                        <li class="menu-item {{Route::is('promo-codes.index') ? 'menu-item-active' : ''}}" aria-haspopup="true">
-                            <a href="{{route('promo-codes.index')}}" class="menu-link">
-                                <i class="menu-bullet menu-bullet-dot">
-                                    <span></span>
-                                </i>
-                                <span class="menu-text">View Promo code</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="menu-section">
-                <h4 class="menu-text">ORDERS</h4>
-                <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
-            </li>
-
             <li class="menu-item menu-item-active" aria-haspopup="true">
                 <a href="#" class="menu-link">
                     <span class="svg-icon menu-icon fab fa-opencart">
@@ -187,6 +153,32 @@
                     <span class="menu-text">Transactions</span>
                 </a>
             </li>
+          
+            <li class="menu-section">
+                <h4 class="menu-text">Miscellaneous</h4>
+                <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
+            </li>
+
+            <li @class(['menu-item-active'=>Route::is('enquiries.index') || Route::is('enquiries.create') ,
+                        'menu-item'
+                    ])
+                     aria-haspopup="true">
+                <a href="{{route('enquiries.index')}}" class="menu-link">
+                    <span class="svg-icon menu-icon fab fa-rocketchat">
+                    </span>
+                    <span class="menu-text">Enquiry</span>
+                </a>
+            </li>
+            <li @class(['menu-item',
+                        'menu-item-active'=>Route::is('enquiries.create')
+                        ]) aria-haspopup="true">
+                <a href="#" class="menu-link">
+                    <span class="svg-icon menu-icon fab fa-snapchat-ghost">
+                    </span>
+                    <span class="menu-text">Notice And Notification</span>
+                </a>
+            </li>
+            
 
             <li class="menu-section">
                 <h4 class="menu-text">Logs</h4>

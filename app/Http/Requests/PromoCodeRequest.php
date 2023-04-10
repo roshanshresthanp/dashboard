@@ -40,7 +40,6 @@ class PromoCodeRequest extends FormRequest
     protected function prepareForValidation()
     {  
         try{
-
             $datePickerData = request()->range;
             $dateStrings = explode(' / ', $datePickerData);
             $startTimestamp = strtotime($dateStrings[0]);
@@ -49,18 +48,21 @@ class PromoCodeRequest extends FormRequest
             // Format the timestamps as date strings
             $startDate = date('Y-m-d H:i:s', $startTimestamp);
             $endDate = date('Y-m-d H:i:s', $endTimestamp);
+
+            $this->merge([
+                'activation_date'=>$startDate,
+                'expire_date'=>$endDate,
+                'slug'=>Str::slug($this->title),
+                'status'=>request()->status=='on' ? 1 : 0,
+                'featured_status'=>request()->featured_status=='on' ? 1 : 0
+            ]);
+
             }catch(\Exception $e){
-                return redirect()->back()->with('error','Something went wrong !!');
+                // return redirect()->back()->with('error','Something went wrong !!');
             }
        
 
-        $this->merge([
-            'activation_date'=>$startDate,
-            'expire_date'=>$endDate,
-            'slug'=>Str::slug($this->title),
-            'status'=>request()->status=='on' ? 1 : 0,
-            'featured_status'=>request()->featured_status=='on' ? 1 : 0
-        ]);
+       
 
 
 

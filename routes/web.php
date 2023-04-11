@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function(){
     return view('admin.layouts.app');
-})->name('dashboard')->middleware('auth');
+})->middleware('auth');
 
 Auth::routes();
 

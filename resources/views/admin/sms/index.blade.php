@@ -38,45 +38,32 @@
                 <table id="example1" class="table table-bordered">
                     <thead>
                     <tr>
-                        {{-- <th style='width:15px'>
-                            <label class="checkbox checkbox-rounded">
-                                <input type="checkbox" checked="checked" name="Checkboxes15_1"/>
-                                <span></span>
-                            </label>
-                        </th> --}}
                         <th>#</th>
                         <th>Sent Date</th>
                         <th>Mobile</th>
                         <th>Message</th>
                         <th>Provider</th>
                         <th>Status</th>
-
-                        {{-- <th>Message</th>
-                        <th>Source</th>
-                        <th>Actions</th> --}}
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($data as $sms)
                         <tr>
                             <td style="width:15px">
-                                {{$loop->updated_at}}
+                                {{$loop->iteration}}
                             </td>
+                            <td>{{$sms->updated_at}}</td>
                            <td>{{$sms->number}}</td>
                            <td>{{$sms->message}}</td>
                            <td>{{$sms->provider}}</td>
                            <td>
                             @if($sms->status==0)
-                            <span class="badge badge-danger">Failed </span>
-                            @elseif(($sms->status==1))
                             <span class="badge badge-success">Sent</span>
+                            @elseif(($sms->status==1))
+                            <span class="badge badge-danger">Failed</span>
                             @endif
                             </td>
-                           {{-- <td>{{$sms->message}}</td>
-                           <td>{{$sms->source}}</td> --}}
-                           {{-- <td>{{$sms->expire_date}}</td> --}}
-                           {{-- <td>{{$sms->usage_limit}}</td> --}}
-                           
                             <td id="none">
                             {{-- <form action="{{route('SMS.status',[$sms->id,1] )}}" method="post">
                                 <a href="{{route('SMS.edit',$sms->id)}}"><i class="btn btn-sm btn-light fa fa-edit "></i></a>
@@ -86,7 +73,6 @@
                                 <i class="fa fa-minus-circle" style="color:red"></i>
                                 </button>
                             </form> --}}
-
                             @if(($sms->status==1))
                             <a href="{{route('sms.resend',$sms->id )}}" title="Resend"><i class="btn btn-sm btn-success fa fa-check-circle "></i></a>
                             @endif

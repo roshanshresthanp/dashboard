@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SmsLog;
+use App\Services\SMS;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +14,15 @@ class LogController extends Controller
 {
     public function smsLog()
     {
-        return DB::table('sms_logs')->get();
+        $all = [
+            'data' => DB::table('sms_logs')->get()
+        ];
+        return view('admin.sms.index',$all);
+    }
+
+    public function smsResend($id)
+    {
+        return redirect()->back()->with('success','Sms sent successfully');
     }
 
     public function emailLog()

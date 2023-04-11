@@ -57,6 +57,8 @@ Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
     Route::group(['prefix'=>'logs'], function () {
         Route::get('/sms',[LogController::class,'smsLog'])->name('smsLog');
+        Route::get('/sms-resend',[LogController::class,'smsResend'])->name('sms.resend');
+
         Route::get('/emails',[LogController::class,'emailLog'])->name('emailLog');
         Route::get('/activity',[LogController::class,'activityLog'])->name('activityLog');
 

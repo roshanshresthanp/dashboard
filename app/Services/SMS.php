@@ -70,6 +70,7 @@ class SMS{
                 'status' => false,
                 'message' => $exception->getMessage()
             ];
+            $sms_log->resent = 1;
             $sms_log->save();
             return false;
         } catch (\Exception $exception) {
@@ -78,6 +79,7 @@ class SMS{
                 'status' => false,
                 'message' => $exception->getMessage()
             ];
+            $sms_log->resent = 1;
             $sms_log->save();
             return false;
         }

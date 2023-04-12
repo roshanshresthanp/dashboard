@@ -44,29 +44,21 @@ class LoginController extends Controller
     {
 
         $this->validate($request,[
-            'mobile' => ['required','string','size:10'],
+            'mobile' => ['required','regex:/\b\d{10}\b/','exists:users'],
+            'password'=>'required|regex:/\b\d{4}\b/',
             // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
         ]);
 
-        // return $request->all();
         try {
             $user = User::firstWhere(['mobile'=>$request->mobile]);
-
-            // if(!$user || !Hash::check($request->password, $user->password)){
-            //     return response()->json(['message' => 'Invalid email and password.'], 400);
-            // }
-            // dd('dsds');
-            // if (Hash::check($request->password, $user->password)) {
-            //     dd('pass matched');
-            // }
-
+            if(!Hash::check($request->password, $user->password)){
+                return response()->json(['message' => 'Invalid email and password.'], 400);
+            }
 
             if (auth()->guard('api')->setUser($user)){
-            // if (auth()->check(['email'=>$request->email,'password'=>$request->password])){
 
                 $success['message'] = "login success";
                 $success['token'] = $user->createToken('MobileAuthApp')->accessToken;
-
                 return response()->json($success, 200);
             } else {
                 return response()->json(['message' => 'Invalid email and password.'], 400);

@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware(['api','auth:api'])->get('/user', function (Request $request) {
-    return auth()->user()->roles[0];
+    return auth()->user();
     // dd(auth()->user()->hasRole('Super Admin'));
 });
 
@@ -46,16 +46,18 @@ Route::get('/profile', function (Request $request) {
         ->setStatusCode(200);
 });
 
-Route::get('/test', function () {
-    return User::all();
-});
+
 
 
 
 Route::group([
-    // 'middleware' => ['api', 'auth:api'],
-    'namespace' => 'Api\V1', 'as' => 'api.'
+    'middleware' => ['api', 'auth:api'],
+    // 'namespace' => 'Api\V1', 'as' => 'api.'
 ], function () {
+
+    Route::get('/test', function (User $user) {
+        return $user;
+    });
 
             Route::group(['prefix' => 'users'], function () {
             Route::get('/', [UserController::class, 'index']);

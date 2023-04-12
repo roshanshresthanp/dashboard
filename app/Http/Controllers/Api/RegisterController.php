@@ -123,47 +123,45 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validate($request,[
-            'mobile'=>'required|size:10|unique:users,mobile',
-            'password'=>'required|size:4',
-            // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
             'name'=>'required|string|max:255',
+            'mobile'=>'required|regex:/\b\d{10}\b/|unique:users,mobile',
+            'password'=>'required|regex:/\b\d{4}\b/',
+            // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
             // 'email' => 'required|email|max:50|unique:users,email',
             // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
         ]);
 
         $mobile = $request->mobile;
-
-        $user = User::create([
-            'mobile' => $mobile,
-            'name' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
-        $token = $user->createToken('MobileAuthApp')->accessToken;
-
             DB::beginTransaction();
         try{
 
-            // Mail::to($user)->send(new SendOtpMail($otp));
-            //generate token
-
+            $user = User::create([
+                'mobile' => $mobile,
+                'name' => $request->name,
+                'password' => bcrypt($request->password)
+            ]);
+            $token = $user->createToken('MobileAuthApp')->accessToken;
+            
             $digit = mt_rand(1000, 9999);
-            //store token
+
+            // Mail::to($user)->send(new SendOtpMail($digit));
 
             OtpVerification::create([
-                'mobile'=>$mobile,
+                'mobile_number'=>$mobile,
                 'verify_token'=>$digit,
             ]);
             
-            $message = $digit . " is your otp code - ".env('APP_NAME');
-
-            $messageService = new SMS;
-            $messageService->sendSMS($mobile, $message);
+            // $message = $digit . " is your otp code - ".env('APP_NAME');
+            // $messageService = new SMS;
+            // // $messageService->sendSMS($mobile, $message);
 
             DB::commit();
-            // return response()->json([
-            //     'message' => 'Your verification code has been sent.',
-            // ],200);
+            return response()->json([
+                'message' => 'Your verification code has been sent.',
+                'token' => $token
+            ],200);
 
+            // return response()->json(['token' => $token], 200);
         }catch(\Exception $e){
             DB::rollBack();
             return response()->json([
@@ -172,6 +170,5 @@ class RegisterController extends Controller
             ],422);
         }
 
-        return response()->json(['token' => $token], 200);
     }
 }

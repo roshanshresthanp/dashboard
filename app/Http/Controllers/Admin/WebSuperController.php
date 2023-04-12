@@ -23,7 +23,6 @@ class WebSuperController extends Controller
     {
         $fillableFields = (new $this->whichModel())->getFillable();
         return $fillableFields;
-        
     }
 
     public function index()

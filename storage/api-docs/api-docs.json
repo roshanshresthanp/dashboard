@@ -156,5 +156,10 @@
             "name": "WashMandu",
             "description": "API Endpoints of WashMandu"
         }
+    ],
+    "security": [
+        {
+            "passport": []
+        }
     ]
 }

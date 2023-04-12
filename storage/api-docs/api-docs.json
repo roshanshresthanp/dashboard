@@ -31,8 +31,8 @@
                         "application/json": {
                             "schema": {
                                 "example": {
-                                    "mobile": "9800000000",
-                                    "password": "****"
+                                    "mobile": "1111111111",
+                                    "password": "1111"
                                 }
                             }
                         }
@@ -59,8 +59,8 @@
                         "application/json": {
                             "schema": {
                                 "example": {
-                                    "mobile": "9800000000",
-                                    "password": "****"
+                                    "mobile": "1111111111",
+                                    "password": "1111"
                                 }
                             }
                         }
@@ -155,11 +155,6 @@
         {
             "name": "WashMandu",
             "description": "API Endpoints of WashMandu"
-        }
-    ],
-    "security": [
-        {
-            "passport": []
         }
     ]
 }

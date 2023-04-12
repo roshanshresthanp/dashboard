@@ -103,8 +103,8 @@ class RegisterController extends Controller
      *         mediaType="application/json",
      *         @OA\Schema(
      *             example={
-     *                 "mobile":"9800000000",
-     *                 "password": "****"
+     *                 "mobile":"1111111111",
+     *                 "password": "1111"
      *              }
      *         )
      *     )

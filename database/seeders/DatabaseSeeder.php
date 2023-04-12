@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
             'email_verified_at' => now()
         ]);
-        $user->createToken('LaravelAuthApp')->accessToken;
+        $user->createToken('WebAuthApp')->accessToken;
         // $user->assignRole()
         $user->roles()->attach(1);
         \App\Models\User::factory(500000)->create();

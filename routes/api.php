@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware(['api','auth:api'])->get('/user', function (Request $request) {
+
     return auth()->user();
     // dd(auth()->user()->hasRole('Super Admin'));
 });
@@ -45,8 +46,6 @@ Route::get('/profile', function (Request $request) {
         ->response()
         ->setStatusCode(200);
 });
-
-
 
 
 
@@ -85,7 +84,5 @@ Route::group([
 
 
             Route::get('all', [UserController::class, 'all']);
-
-
 
 // UserController

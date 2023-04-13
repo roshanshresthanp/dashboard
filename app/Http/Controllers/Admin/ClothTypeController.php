@@ -23,7 +23,7 @@ class ClothTypeController extends WebSuperController
     public function create($data = array(null))
     {
         $data = [
-            'category' => $this->whichModel::where('parent_id',NULL)->select('id','name')->get(), 
+            'category' => $this->whichModel::category()->select('id','name')->get(), 
         ];
         return parent::create($data);
     }
@@ -31,7 +31,7 @@ class ClothTypeController extends WebSuperController
     public function edit($id,$data = array(null))
     {
         $data = [
-            'category' => $this->whichModel::where('parent_id',NULL)->get(), 
+            'category' => $this->whichModel::category()->select('id','name')->get(), 
         ];
         return parent::edit($id,$data);
     }

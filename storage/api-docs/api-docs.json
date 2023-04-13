@@ -19,12 +19,29 @@
         }
     ],
     "paths": {
+        "/cloth-category": {
+            "get": {
+                "tags": [
+                    "Cloth"
+                ],
+                "summary": "cloth category List",
+                "operationId": "cloth-category list",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
         "/cloth-types": {
             "get": {
                 "tags": [
-                    "cloth-types"
+                    "Cloth"
                 ],
-                "summary": "Cloth List",
+                "summary": "Cloth  List",
                 "operationId": "cloth-types list",
                 "responses": {
                     "200": {
@@ -65,13 +82,40 @@
                 }
             }
         },
-        "/promo-codes": {
+        "/offers": {
             "get": {
                 "tags": [
-                    "promo-codes"
+                    "Offers"
                 ],
-                "summary": "Promo List",
-                "operationId": "promo-codes list",
+                "summary": "offers List",
+                "operationId": "offers list",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/offers/{id}": {
+            "get": {
+                "tags": [
+                    "Offers"
+                ],
+                "summary": "offers show",
+                "operationId": "offers show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",

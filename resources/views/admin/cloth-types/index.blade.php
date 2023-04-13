@@ -56,15 +56,11 @@
                     <tbody>
                     @foreach($data as $cloth)
                         <tr>
-                        {{-- <td><label class="checkbox checkbox-rounded">
-                                <input type="checkbox"  name="Checkboxes15_1"/>
-                                <span></span>
-                            </label></td> --}}
                             <td style="width:15px">
                                 {{$loop->iteration}}
                             </td>
                            <td>{{$cloth->name}}</td>
-                           <td>{{$cloth->parent->name ?? '-'}}</td>
+                           <td>{{$cloth->parent->name ?? 'Main Category'}}</td>
                            <td>{{$cloth->rate}}</td>
                            <td>
                             @if($cloth->status==1) <span class="badge badge-success">Active </span>

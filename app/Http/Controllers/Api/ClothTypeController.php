@@ -14,12 +14,23 @@ class ClothTypeController extends SuperController
     public $responseResource;
 
 
-     /**
+    
+
+    
+
+    public function __construct()
+    {
+        $this->whichModel = ClothType::class;
+        $this->responseResource = ClothTypeResource::class;
+        parent::__construct($this->whichModel, $this->responseResource);
+    }
+
+    /**
      * @OA\Get(
-     *   path="/cloth-types",
-     *   tags={"cloth-types"},
-     *   operationId="cloth-types list",
-     * summary="Cloth List",
+     *   path="/cloth-category",
+     *   tags={"Cloth"},
+     *   operationId="cloth-category list",
+     * summary="cloth category List",
      *
      *   @OA\Response(
      *      response=200,
@@ -31,19 +42,37 @@ class ClothTypeController extends SuperController
      *)
      **/
 
-    public function __construct()
+    public function category()
     {
-        $this->whichModel = ClothType::class;
-        $this->responseResource = ClothTypeResource::class;
-        parent::__construct($this->whichModel, $this->responseResource);
+        // $success['data'] = $this->whichModel::category()->status()->with('clothes')->get();
+        // return response()->json($success, 200);
+
+        return $this->responseResource::collection($this->whichModel::category()->status()->get())
+            ->response()
+            ->setStatusCode(200);
     }
+     /**
+     * @OA\Get(
+     *   path="/cloth-types",
+     *   tags={"Cloth"},
+     *   operationId="cloth-types list",
+     * summary="Cloth  List",
+     *
+     *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   )
+     *)
+     **/
 
-    
-
-    // public function index()
-    // {
-        
-    // }
+    public function index()
+    {
+        $success['data'] = $this->whichModel::cloth()->status()->select('id','name','rate')->get();
+        return response()->json($success, 200);
+    }
 
 
     

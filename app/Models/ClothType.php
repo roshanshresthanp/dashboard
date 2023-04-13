@@ -24,13 +24,24 @@ class ClothType extends Model
         return $query->where('status',1);
     }
 
-    public function child()
+    public function scopeCategory($query)
+    {
+        return $query->where('parent_id',0);
+    }
+
+    public function scopeCloth($query)
+    {
+        return $query->whereNot('parent_id',0);
+    }
+
+    public function clothes()
     {
         return $this->hasMany(ClothType::class,'parent_id');
     }
 
     public function parent()
     {
-        return $this->belongsTo(ClothType::class,'parent_id','id');
+        return $this->belongsTo(ClothType::class,'parent_id','id')->withDefault();
     }
+
 }

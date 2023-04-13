@@ -58,9 +58,10 @@
                            <td>{{$sms->message}}</td>
                            <td>{{$sms->provider}}</td>
                            <td>
-                            @if($sms->status==0)
+                            {{-- @dd($sms); --}}
+                            @if($sms->resent==0)
                             <span class="badge badge-success">Sent</span>
-                            @elseif(($sms->status==1))
+                            @elseif(($sms->resent==1))
                             <span class="badge badge-danger">Failed</span>
                             @endif
                             </td>
@@ -73,7 +74,7 @@
                                 <i class="fa fa-minus-circle" style="color:red"></i>
                                 </button>
                             </form> --}}
-                            @if(($sms->status==1))
+                            @if(($sms->resent==1))
                             <a href="{{route('sms.resend',$sms->id )}}" title="Resend"><i class="btn btn-sm btn-success fa fa-check-circle "></i></a>
                             @endif
                             </td>

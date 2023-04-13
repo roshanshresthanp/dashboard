@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 
+
 class SuperController extends Controller
 {
 
@@ -37,26 +38,32 @@ class SuperController extends Controller
      * )
      */
 
+     
+
     public $whichModel;
-    public $responseResource;
+    public $responseResource, $directory;
+
+   
 
     public function __construct($whichModel, $responseResource)
     {
         $this->whichModel = $whichModel;
         $this->responseResource = $responseResource;
+        $this->directory = $this->whichModel::PERMISSIONSLUG;
+
     }
 
     public function getAllFieldNames()
     {
-        $fillableFields = (new $this->whichModel())->getFillable();
-        return $fillableFields;
+        return (new $this->whichModel())->getFillable();
     }
-
     public function index()
     {
-        return $this->whichModel::paginate(10);
-        // return new $this->responseResource($this->whichModel::paginate(1000));
 
+        // return $this->whichModel::paginate(5);
+        // return $this->responseResource::collection($this->whichModel::all());
+
+        return new $this->responseResource($this->whichModel::paginate(20));
     }
 
     public function all()

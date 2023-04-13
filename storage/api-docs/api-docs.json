@@ -19,6 +19,23 @@
         }
     ],
     "paths": {
+        "/cloth-types": {
+            "get": {
+                "tags": [
+                    "cloth-types"
+                ],
+                "summary": "Cloth List",
+                "operationId": "cloth-types list",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
         "/login": {
             "post": {
                 "tags": [
@@ -38,6 +55,23 @@
                         }
                     }
                 },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/promo-codes": {
+            "get": {
+                "tags": [
+                    "promo-codes"
+                ],
+                "summary": "Promo List",
+                "operationId": "promo-codes list",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -137,7 +171,7 @@
         "securitySchemes": {
             "passport": {
                 "type": "apiKey",
-                "description": "Laravel passport oauth2 security.",
+                "description": "Laravel passport apiKey security.",
                 "in": "header",
                 "name": "Authorization",
                 "scheme": "https",

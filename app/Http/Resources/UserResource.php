@@ -25,12 +25,12 @@ class UserResource extends ResourceCollection
      */
     public function toArray($request)
     {
-        // return parent::toArray($request);
+        return parent::toArray($request);
 // dd($request->all());
-        return [
-            'id'=>$this->id,
-            'mobile'=>$this->email,
-            'roless ' => 'ddd',
-        ];
+        // return [
+        //     'id'=>$this->id,
+        //     'mobile'=>$this->email,
+        //     'roless ' => 'ddd',
+        // ];
     }
 }

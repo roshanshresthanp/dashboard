@@ -21,11 +21,6 @@ class UserController extends SuperController
         parent::__construct($this->whichModel, $this->responseResource);
     }
 
-    // public function index()
-    // {
-    //     //
-    // }
-
     /**
      * Show the form for creating a new resource.
      *

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ClothTypeController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
@@ -57,6 +58,10 @@ Route::group([
     Route::get('/test', function (User $user) {
         return $user;
     });
+
+    Route::apiResource('cloth-types',ClothTypeController::class);
+    Route::apiResource('promo-codes',ClothTypeController::class);
+
 
             Route::group(['prefix' => 'users'], function () {
             Route::get('/', [UserController::class, 'index']);

@@ -5,7 +5,10 @@ use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\PromoCodeController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\BucketController;
+use App\Http\Controllers\PickTimeController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ServiceController;
 use App\Models\User;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -60,11 +63,16 @@ Route::group([
         return $user;
     });
 
-        Route::get('/cloth-category',[ClothTypeController::class,'category']);
-        // Route::get('/cloth/category',[ClothTypeController::class,'category']);
+    Route::get('pickup-time',[PickTimeController::class,'apiPickupTime']);
+    Route::get('services',[ServiceController::class,'apiServices']);
+    
+    Route::get('cloth-category',[ClothTypeController::class,'category']);
 
     Route::apiResource('cloth-types',ClothTypeController::class);
     Route::apiResource('offers',PromoCodeController::class);
+    Route::apiResource('offers',PromoCodeController::class);
+
+    Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
 
 
             Route::group(['prefix' => 'users'], function () {

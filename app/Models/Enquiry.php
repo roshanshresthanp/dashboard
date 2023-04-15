@@ -20,7 +20,7 @@ class Enquiry extends Model
 
     protected $fillable = ([
         'name', 'email', 'phone', 'message', 'source','parent_id','user_id','status'
-    ]);
+]);
 
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;

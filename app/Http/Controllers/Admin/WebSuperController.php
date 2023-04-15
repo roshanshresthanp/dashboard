@@ -16,7 +16,7 @@ class WebSuperController extends Controller
     public function __construct($whichModel, $responseResource)
     {
         $this->whichModel = $whichModel;
-        $this->responseResource = $responseResource;
+        // $this->responseResource = $responseResource;
         $this->directory = $this->whichModel::PERMISSIONSLUG;
     }
     public function getAllFieldNames()

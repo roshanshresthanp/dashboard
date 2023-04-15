@@ -15,7 +15,7 @@ class LogController extends Controller
     public function smsLog()
     {
         $all = [
-            'data' => DB::table('sms_logs')->get()
+            'data' => DB::table('sms_logs')->latest()->get()
         ];
         return view('admin.sms.index',$all);
     }
@@ -32,6 +32,6 @@ class LogController extends Controller
     public function activityLog()
     {
         // return DB::table('activity_log')->paginate(100);
-        return Activity::paginate(100);
+        return Activity::latest()->paginate(100);
     }
 }

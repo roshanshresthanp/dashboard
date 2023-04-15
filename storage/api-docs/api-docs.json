@@ -24,8 +24,8 @@
                 "tags": [
                     "Cloth"
                 ],
-                "summary": "cloth category List",
-                "operationId": "cloth-category list",
+                "summary": "Category with cloth List",
+                "operationId": "category with list",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -182,6 +182,40 @@
                     },
                     "403": {
                         "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/pickup-time": {
+            "get": {
+                "tags": [
+                    "PickUp time"
+                ],
+                "summary": "pickup time List",
+                "operationId": "pickup list",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
+        "/services": {
+            "get": {
+                "tags": [
+                    "Service"
+                ],
+                "summary": "Services List",
+                "operationId": "Service list",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
                     }
                 }
             }

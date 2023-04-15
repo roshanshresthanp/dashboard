@@ -4,29 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
-
-class PromoCode extends Model
+class Service extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles,
-    SoftDeletes,
-    LogsActivity;
 
-    protected $fillable = [
-        'title','code','promo_type','worth','eligible','validity','activation_date','expire_date',
-        'usage_limit','used','status','image','featured_status'
-    ];
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,
+    LogsActivity;
 
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;
-    protected static $logName = 'promo-codes';
-    const PERMISSIONSLUG = 'promo-codes';
+    protected static $logName = 'services';
+    const PERMISSIONSLUG = 'services';
     // protected $guard_name = 'api';
+
+    protected $fillable = ['name','status'];
     
     public function getActivitylogOptions(): LogOptions
     {
@@ -36,4 +31,9 @@ class PromoCode extends Model
             ->logOnlyDirty();
     }
 
+    public function scopeStatus($query)
+    {
+        return $query->where('status',1);
+    }
+    
 }

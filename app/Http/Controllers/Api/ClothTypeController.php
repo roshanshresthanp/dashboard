@@ -13,11 +13,6 @@ class ClothTypeController extends SuperController
     public $whichModel;
     public $responseResource;
 
-
-    
-
-    
-
     public function __construct()
     {
         $this->whichModel = ClothType::class;
@@ -29,8 +24,8 @@ class ClothTypeController extends SuperController
      * @OA\Get(
      *   path="/cloth-category",
      *   tags={"Cloth"},
-     *   operationId="cloth-category list",
-     * summary="cloth category List",
+     *   operationId="category with list",
+     * summary="Category with cloth List",
      *
      *   @OA\Response(
      *      response=200,

@@ -137,6 +137,17 @@
                     </ul>
                 </div>
             </li>
+
+            
+            
+            <li class="menu-item menu-item-active" aria-haspopup="true">
+                <a href="{{route('buckets.index')}}" class="menu-link">
+                    <span class="svg-icon menu-icon fab fa-bitbucket">
+                    </span>
+                    {{-- <i class="fa fa-tachometer" aria-hidden="true"></i> --}}
+                    <span class="menu-text">Bucket</span>
+                </a>
+            </li>
             <li class="menu-item menu-item-active" aria-haspopup="true">
                 <a href="#" class="menu-link">
                     <span class="svg-icon menu-icon fab fa-opencart">
@@ -152,6 +163,40 @@
                     {{-- <i class="fa fa-tachometer" aria-hidden="true"></i> --}}
                     <span class="menu-text">Transactions</span>
                 </a>
+            </li>
+
+            <li class="menu-item menu-item-submenu {{ request()->is(['*/pickup-time*','*/service*']) ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
+                <a href="javascript:;" class="menu-link menu-toggle">
+                    <span class="svg-icon menu-icon fas fa-cog">
+                    </span>
+                    <span class="menu-text">Setup</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="menu-submenu">
+                    <i class="menu-arrow"></i>
+                    <ul class="menu-subnav">
+                        <li @class([
+                            'menu-item',
+                            'menu-item-active'=> request()->is('*pickup-time*')
+                     ]) aria-haspopup="true">
+                        <a href="{{route('pickup-times.index')}}" class="menu-link">
+                            <span class="svg-icon menu-icon fas fa-clock">
+                            </span>
+                            <span class="menu-text">Pick up Time</span>
+                        </a>
+                    </li>
+                    <li @class([
+                            'menu-item',
+                            'menu-item-active'=> request()->is('*services*')
+                     ]) aria-haspopup="true">
+                        <a href="{{route('services.index')}}" class="menu-link">
+                            <span class="svg-icon menu-icon fas fa-list">
+                            </span>
+                            <span class="menu-text">Services</span>
+                        </a>
+                    </li>
+                    </ul>
+                </div>
             </li>
           
             <li class="menu-section">

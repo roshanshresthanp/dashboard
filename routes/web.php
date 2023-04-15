@@ -8,6 +8,9 @@ use App\Http\Controllers\Admin\PromoCodeController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BucketController;
+use App\Http\Controllers\PickTimeController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,7 +40,7 @@ Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
     // Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
     // Route::get('users', [UserController::class, 'index'])->name('users.index');
-
+    Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
     Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('customers/all', [CustomerController::class, 'all'])->name('customers.all');
     Route::get('customers/fetch', [CustomerController::class, 'fetchCustomer'])->name('customers.fetch');
@@ -48,6 +51,9 @@ Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
     Route::resource('/permissions', PermissionController::class);
     Route::resource('/cloth-types', ClothTypeController::class);
     Route::resource('/promo-codes', PromoCodeController::class);
+    Route::resource('/pickup-times', PickTimeController::class);
+    Route::resource('/services', ServiceController::class);
+
 
 
     Route::resource('/enquiries', EnquiryController::class)->only('index','store','create','show');

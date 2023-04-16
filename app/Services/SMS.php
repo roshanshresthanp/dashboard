@@ -43,7 +43,7 @@ class SMS{
         ]);
 
         try {
-            $client = new Client(['verify' => false, 'timeout' => 15]);
+            $client = new Client(['verify' => false, 'timeout' => 15    ]);
             if (config("app.env") == 'production') {
                 $res = $client->post('https://sms.sociair.com/api/sms', [
                     'json' => $request_params,

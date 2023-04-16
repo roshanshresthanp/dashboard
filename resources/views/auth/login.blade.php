@@ -72,3 +72,65 @@
     </div>
 </div>
 @endsection
+@section('scripts')
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
+            <script>
+
+            var firebaseConfig = {
+                    apiKey: "AIzaSyCmo6Bb3ijQRCg2pUrQeoO8mMmfjFQ5TBk",
+                    authDomain: "washstation-34ca3.firebaseapp.com",
+                    projectId: "washstation-34ca3",
+                    storageBucket: "washstation-34ca3.appspot.com",
+                    messagingSenderId: "846433602314",
+                    appId: "1:846433602314:web:67cffedefa92bb42c948f3"
+                };
+              
+                firebase.initializeApp(firebaseConfig);
+             const messaging = firebase.messaging();
+  
+    function initFirebaseMessagingRegistration() {
+            messaging
+            .requestPermission()
+            .then(function () {
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                console.log(token);
+   
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+  
+                $.ajax({
+                    url: '{{ route("store.token") }}',
+                    type: 'POST',
+                    data: {
+                        token: token
+                    },
+                    dataType: 'JSON',
+                    success: function (response) {
+                        alert('Token saved successfully.');
+                    },
+                    error: function (err) {
+                        console.log('User Chat Token Error'+ err);
+                    },
+                });
+  
+            }).catch(function (err) {
+                console.log('User Chat Token Error'+ err);
+            });
+     }  
+      
+        messaging.onMessage(function(payload) {
+            const noteTitle = payload.notification.title;
+            const noteOptions = {
+                body: payload.notification.body,
+                icon: payload.notification.icon,
+            };
+            new Notification(noteTitle, noteOptions);
+        });
+            
+        </script>
+@endsection

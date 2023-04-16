@@ -10,7 +10,9 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BucketController;
 use App\Http\Controllers\PickTimeController;
+use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\ServiceController;
+use App\Services\WebPushNotification;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,8 +35,25 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/dashboard', function(){
+    $data = [
+        'title'=>'Dashboard',
+        'body'=>'Welcome to the dashboard'
+    ];
+    
+    $pushn = new WebPushNotification;
+    $pushn->sendPushNotification($data,[auth()->user()->fcm_token]);
+
     return view('admin.layouts.app');
 })->name('dashboard')->middleware('auth');
+
+Route::get('/push-notification', function(){
+    return view('welcome');
+})->name('push-notificaiton');
+Route::get('/test', [PushNotificationController::class, 'sendTest']);
+
+
+Route::post('/store-token', [PushNotificationController::class, 'storeToken'])->name('store.token');
+Route::post('/send-web-notification', [PushNotificationController::class, 'sendWebNotification'])->name('send.web-notification');
 
 Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
@@ -70,6 +89,9 @@ Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
 
     });
+
+    
+   
 
 
 

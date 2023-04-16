@@ -56,6 +56,7 @@ class User extends Authenticatable
         'added_by',
         'password_reset',
         'status',
+        'fcm_token'
     ];
 
     /**

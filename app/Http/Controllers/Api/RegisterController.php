@@ -141,7 +141,7 @@ class RegisterController extends Controller
                 'password' => bcrypt($request->password)
             ]);
             $token = $user->createToken('MobileAuthApp')->accessToken;
-            
+            $user->roles()->attach([2]);
             $digit = mt_rand(1000, 9999);
 
             // Mail::to($user)->send(new SendOtpMail($digit));

@@ -106,6 +106,10 @@ class User extends Authenticatable
     {
         
     }
+    public function promo()
+    {
+        return $this->belongsToMany(PromoCode::class,'customer_promo','user_id','promo_id')->withPivot('usage');
+    }
 
     
 

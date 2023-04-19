@@ -70,7 +70,7 @@ Route::group([
 
     Route::apiResource('cloth-types',ClothTypeController::class);
     Route::apiResource('offers',PromoCodeController::class);
-    Route::apiResource('offers',PromoCodeController::class);
+    Route::post('use/offer',[PromoCodeController::class,'useOffer']);
 
     Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
 

@@ -126,6 +126,34 @@
                 }
             }
         },
+        "/use/offer": {
+            "post": {
+                "tags": [
+                    "Offers"
+                ],
+                "summary": "offers assign",
+                "operationId": "offers assign",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "promo_code": "test"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
         "/register": {
             "post": {
                 "tags": [

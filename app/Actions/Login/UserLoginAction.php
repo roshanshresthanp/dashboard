@@ -5,9 +5,8 @@ namespace App\Actions\Login;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
-use Illuminate\Validation\ValidationException;
 // use Lorisleiva\Actions\Concerns\AsAction;
 
 final class UserLoginAction
@@ -22,12 +21,28 @@ final class UserLoginAction
 
     public function handle()
     {
-        $this->login();
-    }
+        try {
+            $user = User::firstWhere(['mobile'=>$this->request->mobile]);
+            if(!Hash::check($this->request->password, $user->password)){
+                return response()->json(['message' => 'Invalid email and password.'], 400);
+            }
 
-    private function login()
-    {
-       
+            if (auth()->guard('api')->setUser($user)){
+
+                $success['message'] = "login success";
+                $success['token'] = $user->createToken('MobileAuthApp')->accessToken;
+                return response()->json($success, 200);
+            } else {
+                return response()->json(['message' => 'Invalid email and password.'], 400);
+            }
+
+        }catch (\ErrorException $e){
+            return response()->json([
+                'message' => 'Login failed',
+                // 'errors'=>$e->getMessage()
+            ],500);
+            // return response()->json(['message' => 'Invalid email and password.'], 400);
+        }
     }
 
 }

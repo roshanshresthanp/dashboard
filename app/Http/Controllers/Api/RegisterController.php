@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Login\CustomerRegisterAction;
 use App\Http\Controllers\Controller;
-use App\Mail\SendOtpMail;
 use App\Models\OtpVerification;
 use App\Models\User;
 use App\Services\SMS;
+use App\Mail\SendOtpMail;
+use Illuminate\Support\Facades\Mail;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
 
 
@@ -103,6 +106,7 @@ class RegisterController extends Controller
      *         mediaType="application/json",
      *         @OA\Schema(
      *             example={
+     *                 "name":customerMoh
      *                 "mobile":"1111111111",
      *                 "password": "1111"
      *              }
@@ -130,45 +134,7 @@ class RegisterController extends Controller
             // 'email' => 'required|email|max:50|unique:users,email',
             // 'password' => ['required',Password::min(8)->letters()->numbers()->symbols()]
         ]);
-
-        $mobile = $request->mobile;
-            DB::beginTransaction();
-        try{
-
-            $user = User::create([
-                'mobile' => $mobile,
-                'name' => $request->name,
-                'password' => bcrypt($request->password)
-            ]);
-            $token = $user->createToken('MobileAuthApp')->accessToken;
-            $user->roles()->attach([2]);
-            $digit = mt_rand(1000, 9999);
-
-            // Mail::to($user)->send(new SendOtpMail($digit));
-
-            OtpVerification::create([
-                'mobile_number'=>$mobile,
-                'verify_token'=>$digit,
-            ]);
-            
-            // $message = $digit . " is your otp code - ".env('APP_NAME');
-            // $messageService = new SMS;
-            // // $messageService->sendSMS($mobile, $message);
-
-            DB::commit();
-            return response()->json([
-                'message' => 'Your verification code has been sent.',
-                'token' => $token
-            ],200);
-
-            // return response()->json(['token' => $token], 200);
-        }catch(\Exception $e){
-            DB::rollBack();
-            return response()->json([
-                // 'status'=>'Failed',
-                'message' => $e->getMessage(),
-            ],422);
-        }
+       return (new CustomerRegisterAction())->handle($request);
 
     }
 }

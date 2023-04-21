@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
@@ -34,6 +35,12 @@ class PromoCode extends Model
             ->useLogName(static::$logName)
             ->logAll()
             ->logOnlyDirty();
+    }
+
+    public function scopeActive($query)
+    {
+        $nowDate = Carbon::parse(now()->timezone('Asia/Kathmandu'))->format("Y-m-d H:i:s");
+        return $query->where('expire_date','>',$nowDate)->where('status',1);
     }
 
 }

@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $user->createToken('WebAuthApp')->accessToken;
         // $user->assignRole()
         $user->roles()->attach(1);
-        \App\Models\User::factory(500000)->create();
+        \App\Models\User::factory(100000)->create();
 
         // $user->assignRole('Super Admin');
 

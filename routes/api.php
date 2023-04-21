@@ -33,17 +33,13 @@ use Illuminate\Support\Facades\Route;
  * )
  */
 
-Route::middleware(['api','auth:api'])->get('/user', function (Request $request) {
+// Route::middleware(['api','auth:api'])->get('/user', function (Request $request) {
 
-    return auth()->user();
-    // dd(auth()->user()->hasRole('Super Admin'));
-});
+//     return auth()->user();
+// });
 
 Route::post('login',[LoginController::class,'login']);
 Route::post('register',[RegisterController::class,'register']);
-
-
-
 
 Route::get('/profile', function (Request $request) {
     // return 'dsdsd';
@@ -59,31 +55,20 @@ Route::group([
     // 'namespace' => 'Api\V1', 'as' => 'api.'
 ], function () {
 
-    Route::get('/test', function (User $user) {
-        return $user;
-    });
-
     Route::get('pickup-time',[PickTimeController::class,'apiPickupTime']);
     Route::get('services',[ServiceController::class,'apiServices']);
-    
     Route::get('cloth-category',[ClothTypeController::class,'category']);
-
     Route::apiResource('cloth-types',ClothTypeController::class);
     Route::apiResource('offers',PromoCodeController::class);
     Route::post('use/offer',[PromoCodeController::class,'useOffer']);
-
+    Route::get('use/offer',[PromoCodeController::class,'assignedOffer']);
     Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
 
+        Route::group(['prefix' => 'profile'], function () {
+            Route::post('/update', [UserController::class, 'update']);
+            Route::get('/view', [UserController::class, 'view']);
 
-            Route::group(['prefix' => 'users'], function () {
-            Route::get('/', [UserController::class, 'index']);
-            Route::get('all', [UserController::class, 'all']);
-            // Route::post('export', [UserController::class, 'export']);
-            Route::post('/', [UserController::class, 'store']);
-            Route::post('delete', [UserController::class, 'delete']);
-            Route::post('/{id}', [UserController::class, 'update']);
             // Route::post('/{id}/reset-password', [UserController::class, 'resetPassword']);
-
         });
 
         Route::group(['prefix' => 'roles'], function () {
@@ -97,9 +82,3 @@ Route::group([
 
         });
 });
-
-
-
-            Route::get('all', [UserController::class, 'all']);
-
-// UserController

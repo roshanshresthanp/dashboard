@@ -127,6 +127,21 @@
             }
         },
         "/use/offer": {
+            "get": {
+                "tags": [
+                    "Offers"
+                ],
+                "summary": " assignderOffer",
+                "operationId": "assignderOffer",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
                     "Offers"
@@ -182,13 +197,13 @@
                 }
             }
         },
-        "/users": {
+        "/profile/view": {
             "get": {
                 "tags": [
                     "User"
                 ],
-                "summary": "User List",
-                "operationId": "users list",
+                "summary": "profile show",
+                "operationId": "profile show",
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -197,16 +212,40 @@
                         }
                     }
                 }
-            },
+            }
+        },
+        "/profile/update": {
             "post": {
                 "tags": [
                     "User"
                 ],
-                "summary": "Store",
-                "operationId": "storeUser",
+                "summary": "Edit",
+                "operationId": "editProfile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "name": "Roshan Shrestha",
+                                    "email": "email@gmail.com",
+                                    "username": "Rs"
+                                }
+                            }
+                        }
+                    }
+                },
                 "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
                     "401": {
                         "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     },
                     "403": {
                         "description": "Forbidden"

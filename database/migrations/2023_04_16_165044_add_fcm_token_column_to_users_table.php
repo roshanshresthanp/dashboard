@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('fcm_token')->nullable();
+            $table->string('image')->nullable();
         });
     }
 
@@ -27,6 +28,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('fcm_token');
+            $table->dropColumn('image');
+
         });
     }
 };

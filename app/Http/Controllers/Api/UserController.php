@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Profile\ProfileUpdateAction;
+use App\Actions\ProfileUpdate;
 use App\Http\Controllers\Admin\SuperController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
+use App\Http\Resources\ProfileResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Ramsey\Collection\Collection as CollectionCollection;
 
 class UserController extends SuperController
 {
@@ -29,10 +34,10 @@ class UserController extends SuperController
 
      /**
      * @OA\Get(
-     *   path="/users",
+     *   path="/profile",
      *   tags={"User"},
-     *   operationId="users list",
-     * summary="User List",
+     *   operationId="customer list",
+     * summary="Customer List",
      *
      *   @OA\Response(
      *      response=200,
@@ -44,11 +49,6 @@ class UserController extends SuperController
      *)
      **/
 
-
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -75,20 +75,33 @@ class UserController extends SuperController
      */
 
 
-    public function store(CustomerRequest $request)
-    {
-        return parent::storeFunction($request);
-    }
+    // public function store(CustomerRequest $request)
+    // {
+    //     return parent::storeFunction($request);
+    // }
 
-    /**
-     * Display the specified resource.
+  
+     /**
+     * @OA\Get(
+     *   path="/profile/view",
+     *   tags={"User"},
+     *   operationId="profile show",
+     * summary="profile show",
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+     *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   )
+     *)
+     **/
+
+    
+    public function view()
     {
-        //
+        return response()->json(['data'=>new ProfileResource (auth()->user())],200);
     }
 
     /**
@@ -97,11 +110,6 @@ class UserController extends SuperController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -109,8 +117,58 @@ class UserController extends SuperController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CustomerRequest $request, $id)
+
+      /**
+     * @OA\Post(
+     *      path="/profile/update",
+     *      operationId="editProfile",
+     *      tags={"User"},
+     *      summary="Edit",
+     *    @OA\RequestBody(
+     *      @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(
+     *             example={
+     *                 "name":"Roshan Shrestha",
+     *                  "email":"email@gmail.com",
+     *                   "username":"Rs", 
+     *              }
+     *         )
+     *     )
+     *   ),
+     *  *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     *     )
+     */
+
+    public function update(Request $request)
     {
-        return parent::updateFunction($request, $id);
+        $this->validate($request,[
+            'name' => 'required|string|max:250',
+            'email' => 'required|email|max:250|unique:users,email,'.auth()->id(),
+            'username' => 'required|string|max:100',
+            // 'mobile' => 'required|regex:/\b\d{10}\b/|exists:users',
+            // 'password'=>'required|regex:/\b\d{4}\b/',
+        ]);
+
+        return (new ProfileUpdateAction($request))->handle();
     }
 }

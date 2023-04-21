@@ -17,6 +17,12 @@ class PromoCodeController extends SuperController
     public $whichModel;
     public $responseResource;
 
+     public function __construct()
+    {
+        $this->whichModel = PromoCode::class;
+        $this->responseResource = PromoCodeResource::class;
+        parent::__construct($this->whichModel, $this->responseResource);
+    }
     /**
      * @OA\Get(
      *   path="/offers",
@@ -33,12 +39,9 @@ class PromoCodeController extends SuperController
      *   )
      *)
      **/
-
-    public function __construct()
+    public function index()
     {
-        $this->whichModel = PromoCode::class;
-        $this->responseResource = PromoCodeResource::class;
-        parent::__construct($this->whichModel, $this->responseResource);
+        return new $this->responseResource($this->whichModel::active()->get());
     }
 
     /**
@@ -123,6 +126,26 @@ class PromoCodeController extends SuperController
          return response()->json($success, 200);
      }
 
-    
+     /**
+     * @OA\Get(
+     *   path="/use/offer",
+     *   tags={"Offers"},
+     *   operationId="assignderOffer",
+     * summary=" assignderOffer",
+     *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   )
+     *)
+     **/
+
+     public function assignedOffer()
+     {
+      $success['data'] = auth()->user()->promo()->active()->select('code','promo_codes.id','image')->get();
+      return response()->json($success, 200);
+     }
    
 }

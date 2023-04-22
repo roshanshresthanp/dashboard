@@ -180,6 +180,7 @@
                         "application/json": {
                             "schema": {
                                 "example": {
+                                    "name": "customerMoh",
                                     "mobile": "1111111111",
                                     "password": "1111"
                                 }

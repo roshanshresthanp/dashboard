@@ -62,7 +62,7 @@ Route::group([
         //     // Route::post('/{id}/reset-password', [UserController::class, 'resetPassword']);
         // });
 
-        Route::prefix('admin')->group(function () {
+        Route::prefix('profile')->group(function () {
             Route::post('/update', [UserController::class, 'update']);
             Route::get('/view', [UserController::class, 'view']);
         });

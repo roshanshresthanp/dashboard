@@ -62,7 +62,7 @@ Route::group([
     Route::apiResource('offers',PromoCodeController::class);
     Route::post('use/offer',[PromoCodeController::class,'useOffer']);
     Route::get('use/offer',[PromoCodeController::class,'assignedOffer']);
-    Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
+    // Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
 
         Route::group(['prefix' => 'profile'], function () {
             Route::post('/update', [UserController::class, 'update']);

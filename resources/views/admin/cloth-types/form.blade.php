@@ -55,6 +55,41 @@
     </div>
 
     <div class="form-group col-sm-6 row">
+        
+        <span class="input-group-btn">
+            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+              <i class="fa fa-picture-o"></i> Choose
+            </a>
+        </span>
+
+        <div class="col-8">
+            <input id="thumbnail" class="form-control" type="text" name="filepath">
+
+            <input type="text" class="form-control @error('rate') is-invalid @enderror" name="rate" placeholder="Enter rate" value="{{old('rate',@$data->rate)}}" />
+            {{-- @error('rate')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+            @enderror --}}
+        </div> 
+        <img id="holder" style="margin-top:15px;max-height:100px;">
+   
+    </div>
+
+
+    {{-- <div class="input-group">
+        <span class="input-group-btn">
+          <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+            <i class="fa fa-picture-o"></i> Choose
+          </a>
+        </span>
+        <input id="thumbnail" class="form-control" type="text" name="filepath">
+    </div>
+      <img id="holder" style="margin-top:15px;max-height:100px;"> --}}
+
+
+
+    <div class="form-group col-sm-6 row">
         <label class="col-4 col-form-label">Status</label>
         <div class="col-8">
             <span class="switch switch-success">
@@ -104,3 +139,4 @@
     </div> --}}
 </div>
 <script src="{{asset('admin/assets/js/pages/crud/forms/widgets/select2.js')}}"></script>
+

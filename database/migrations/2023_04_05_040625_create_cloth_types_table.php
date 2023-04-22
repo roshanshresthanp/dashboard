@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('rate')->nullable();
             $table->integer('parent_id')->nullable();
             $table->boolean('status')->default(1);
+            $table->string('image')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

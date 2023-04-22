@@ -12,6 +12,15 @@
                     <span class="menu-text">Dashboard</span>
                 </a>
             </li>
+
+            <li class="menu-item" aria-haspopup="true">
+                <a href="{{url('filemanager')}}" class="menu-link" target="_blank">
+                    <span class="svg-icon menu-icon fas fa-folder">
+                    </span>
+
+                    <span class="menu-text">File Upload</span>
+                </a>
+            </li>
             
             <li class="menu-section ">
                 <h4 class="menu-text">User Management</h4>

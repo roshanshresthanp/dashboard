@@ -41,15 +41,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('login',[LoginController::class,'login']);
 Route::post('register',[RegisterController::class,'register']);
 
-Route::get('/profile', function (Request $request) {
-    // return 'dsdsd';
-    return (new \App\Http\Resources\ProfileResource($request->user()))
-        ->response()
-        ->setStatusCode(200);
-});
-
-
-
 Route::group([
     'middleware' => ['api', 'auth:api'],
     // 'namespace' => 'Api\V1', 'as' => 'api.'
@@ -64,11 +55,16 @@ Route::group([
     Route::get('use/offer',[PromoCodeController::class,'assignedOffer']);
     // Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
 
-        Route::group(['prefix' => 'profile'], function () {
+        // Route::group(['prefix' => 'profile'], function () {
+        //     Route::post('/update', [UserController::class, 'update']);
+        //     Route::get('/view', [UserController::class, 'view']);
+
+        //     // Route::post('/{id}/reset-password', [UserController::class, 'resetPassword']);
+        // });
+
+        Route::prefix('admin')->group(function () {
             Route::post('/update', [UserController::class, 'update']);
             Route::get('/view', [UserController::class, 'view']);
-
-            // Route::post('/{id}/reset-password', [UserController::class, 'resetPassword']);
         });
 
         Route::group(['prefix' => 'roles'], function () {

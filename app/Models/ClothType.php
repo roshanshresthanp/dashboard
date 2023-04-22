@@ -18,7 +18,7 @@ class ClothType extends Model
     SoftDeletes,
     LogsActivity;
 
-    protected $fillable = ['name','slug','status','parent_id','rate'];
+    protected $fillable = ['name','slug','status','parent_id','rate','image'];
 
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;

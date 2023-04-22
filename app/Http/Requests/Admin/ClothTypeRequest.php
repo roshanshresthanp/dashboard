@@ -28,8 +28,8 @@ class ClothTypeRequest extends FormRequest
         return [
             'name'=>['required','string','max:50','unique:cloth_types,name,'.$this->cloth_type],
             'parent_id'=>'integer',
-            'rate'=>'required|numeric'
-            // 'status'=>'email'
+            'rate'=>'required|numeric',
+            'image'=>'nullable|max:250|url'
             // 'guard_name'=>'required|max:10',
         ];
         

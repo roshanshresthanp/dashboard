@@ -56,21 +56,22 @@
 
     <div class="form-group col-sm-6 row">
         
-        <span class="input-group-btn">
-            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
-              <i class="fa fa-picture-o"></i> Choose
+        <span class="col-4  input-group-btn">
+            <a id="" data-input="thumbnail" data-preview="holder" class="btn btn-primary imgpop">
+              <i class="fa fa-picture-o"></i> Select Image
             </a>
         </span>
+        {{-- <label class="col-4 col-form-label">Image</label> --}}
 
         <div class="col-8">
-            <input id="thumbnail" class="form-control" type="text" name="filepath">
+            {{-- <input id="thumbnail" class="form-control" type="text" name="filepath"> --}}
 
-            <input type="text" class="form-control @error('rate') is-invalid @enderror" name="rate" placeholder="Enter rate" value="{{old('rate',@$data->rate)}}" />
-            {{-- @error('rate')
+            <input id="thumbnail" data-preview="holder" type="text" class="form-control @error('image') is-invalid @enderror" name="image" value="{{old('image',@$data->image)}}" readonly/>
+            @error('image')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
-            @enderror --}}
+            @enderror
         </div> 
         <img id="holder" style="margin-top:15px;max-height:100px;">
    

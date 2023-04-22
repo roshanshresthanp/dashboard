@@ -36,7 +36,7 @@
 			<!-- /.card-header -->
 
             <div class="card-body">
-                <table id="example1" class="table table-bordered">
+                <table id="example1" class="table table-bordered text-center">
                     <thead>
                     <tr>
                         {{-- <th style='width:15px'>
@@ -46,6 +46,7 @@
                             </label>
                         </th> --}}
                         <th>#</th>
+                        <th>Image</th>
                         <th>Name</th>
                         <th>Parent Category</th>
                         <th>Rate / Piece</th>
@@ -59,6 +60,7 @@
                             <td style="width:15px">
                                 {{$loop->iteration}}
                             </td>
+                            <td><img src={{$cloth->image}} alt='noimage' style="height:45px;width:45px"></td>
                            <td>{{$cloth->name}}</td>
                            <td>{{$cloth->parent->name ?? 'Main Category'}}</td>
                            <td>{{$cloth->rate}}</td>

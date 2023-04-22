@@ -43,15 +43,6 @@
     <!-- /.row -->
  @endsection
 @section('scripts')
-<script src="{{asset('vendor/laravel-filemanager/js/stand-alone-button.js')}}"></script>
-<script>
-// A $( document ).ready() block.
-$( document ).ready(function() {
-    console.log( "ready!" );
-    $('#lfm').filemanager('image');
-
-});
-</script>
 @include('admin.include.message')
 @endsection
 

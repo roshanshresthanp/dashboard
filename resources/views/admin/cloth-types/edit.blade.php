@@ -48,7 +48,7 @@
 // A $( document ).ready() block.
 $( document ).ready(function() {
     console.log( "ready!" );
-    $('#lfm').filemanager('image');
+    $('.imgpop').filemanager('image');
 
 });
 </script>

@@ -18,7 +18,8 @@ class ClothTypeResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
-            'clothes'=>$this->clothes
+            'clothes'=>$this->clothes,
+            'image'=>$this->image
         ];
     }
 }

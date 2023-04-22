@@ -32,54 +32,12 @@ class UserController extends SuperController
      * @return \Illuminate\Http\Response
      */
 
-     /**
-     * @OA\Get(
-     *   path="/profile",
-     *   tags={"User"},
-     *   operationId="customer list",
-     * summary="Customer List",
-     *
-     *   @OA\Response(
-     *      response=200,
-     *       description="Success",
-     *      @OA\MediaType(
-     *           mediaType="application/json",
-     *      )
-     *   )
-     *)
-     **/
-
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-
-     /**
-     * @OA\Post(
-     *      path="/users",
-     *      operationId="storeUser",
-     *      tags={"User"},
-     *      summary="Store",
-     *      @OA\Response(
-     *          response=401,
-     *          description="Unauthenticated",
-     *      ),
-     *      @OA\Response(
-     *          response=403,
-     *          description="Forbidden"
-     *      )
-     *     )
-     */
-
-
-    // public function store(CustomerRequest $request)
-    // {
-    //     return parent::storeFunction($request);
-    // }
-
   
      /**
      * @OA\Get(

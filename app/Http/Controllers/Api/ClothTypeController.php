@@ -48,7 +48,7 @@ class ClothTypeController extends SuperController
     }
      /**
      * @OA\Get(
-     *   path="/cloth-types",
+     *   path="/cloth-type",
      *   tags={"Cloth"},
      *   operationId="cloth-types list",
      * summary="Cloth  List",

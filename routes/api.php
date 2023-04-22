@@ -58,7 +58,7 @@ Route::group([
     Route::get('pickup-time',[PickTimeController::class,'apiPickupTime']);
     Route::get('services',[ServiceController::class,'apiServices']);
     Route::get('cloth-category',[ClothTypeController::class,'category']);
-    Route::apiResource('cloth-types',ClothTypeController::class);
+    Route::apiResource('cloth-type',ClothTypeController::class);
     Route::apiResource('offers',PromoCodeController::class);
     Route::post('use/offer',[PromoCodeController::class,'useOffer']);
     Route::get('use/offer',[PromoCodeController::class,'assignedOffer']);

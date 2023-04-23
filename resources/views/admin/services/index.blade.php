@@ -44,31 +44,31 @@
                             </label>
                         </th> --}}
                         <th>#</th>
+                        <th>Icon</th>
                         <th>Name</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($data as $time)
+                    @foreach($data as $service)
                         <tr>
-                        {{-- <td><label class="checkbox checkbox-rounded">
-                                <input type="checkbox"  name="Checkboxes15_1"/>
-                                <span></span>
-                            </label></td> --}}
+
                             <td style="width:15px">
                                 {{$loop->iteration}}
                             </td>
-                           <td>{{$time->name}}</td>
+                            <td><img src={{$service->image}} alt='noimage' style="height:45px;width:45px"></td>
+
+                           <td>{{$service->name}}</td>
                            <td>
-                            @if($time->status==1) <span class="badge badge-success">Active </span>
+                            @if($service->status==1) <span class="badge badge-success">Active </span>
                             @else
                             <span class="badge badge-danger">InActive </span>
                             @endif
                             </td>
                             <td id="none">
-                            <form action="{{route('services.destroy', $time->id)}}" method="post">
-                                <a href="{{route('services.edit',$time->id)}}"><i class="btn btn-light fa fa-edit "></i></a>
+                            <form action="{{route('services.destroy', $service->id)}}" method="post">
+                                <a href="{{route('services.edit',$service->id)}}"><i class="btn btn-light fa fa-edit "></i></a>
                                 @csrf
                                 @method('DELETE')
                                 <button onclick="return confirm('Do you want to delete')" type="submit" class="btn btn-light ml-2 ">

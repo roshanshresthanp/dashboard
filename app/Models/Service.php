@@ -21,7 +21,7 @@ class Service extends Model
     const PERMISSIONSLUG = 'services';
     // protected $guard_name = 'api';
 
-    protected $fillable = ['name','status'];
+    protected $fillable = ['name','status','image'];
     
     public function getActivitylogOptions(): LogOptions
     {

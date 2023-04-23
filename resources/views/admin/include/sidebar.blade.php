@@ -14,11 +14,11 @@
             </li>
 
             <li class="menu-item" aria-haspopup="true">
-                <a href="{{url('filemanager')}}" class="menu-link" target="_blank">
+                <a href="{{url('filemanager?type=image')}}" class="menu-link" target="_blank">
                     <span class="svg-icon menu-icon fas fa-folder">
                     </span>
 
-                    <span class="menu-text">File Upload</span>
+                    <span class="menu-text">File Manager</span>
                 </a>
             </li>
             

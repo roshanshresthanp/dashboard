@@ -104,8 +104,8 @@ Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
 
 
-Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
-    \UniSharp\LaravelFilemanager\Lfm::routes();
-});
+// Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+//     \UniSharp\LaravelFilemanager\Lfm::routes();
+// });
 
 

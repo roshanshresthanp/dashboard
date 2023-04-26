@@ -35,7 +35,7 @@
                 </a>
             </li>
 
-            <li class="menu-item menu-item-submenu {{ str_contains(Route::currentRouteName(), "perm") ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
+            <li class="menu-item menu-item-submenu {{ request()->is(['*/roles*','*/permission*']) ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon fas fa-shield-alt">
                     </span>
@@ -50,7 +50,7 @@
                                 <span class="menu-text">Users</span>
                             </span>
                         </li> --}}
-                        <li class="menu-item {{request()->is('*/roles/*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                        <li class="menu-item {{request()->is('*/roles*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                             <a href="{{route('roles.index')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>
@@ -58,7 +58,7 @@
                                 <span class="menu-text">Roles</span>
                             </a>
                         </li>
-                        <li class="menu-item {{request()->is('*/permissions/*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
+                        <li class="menu-item {{request()->is('*/permissions*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                             <a href="{{route('permissions.index')}}" class="menu-link">
                                 <i class="menu-bullet menu-bullet-dot">
                                     <span></span>

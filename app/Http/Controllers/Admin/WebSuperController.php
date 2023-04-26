@@ -49,7 +49,7 @@ class WebSuperController extends Controller
             DB::commit();
             if ($model instanceof $this->whichModel) {
                 // $response = (new $this->responseResource($model))->response()->setStatusCode(200);
-                return redirect()->back()->with('success','Record has been added');
+                return redirect()->route($this->directory.'.index')->with('success','Record has been added');
             } else {
                 return redirect()->back()->with('error',$model);
             }
@@ -81,7 +81,7 @@ class WebSuperController extends Controller
             }
             DB::commit();
             // return (new $this->responseResource($model))->response()->setStatusCode(200);
-            return redirect()->back()->with('success','Record has been updated');
+            return redirect()->route($this->directory.'.index')->with('success','Record has been updated');
 
 
         } catch (\Exception $e) {

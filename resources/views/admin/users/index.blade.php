@@ -36,7 +36,7 @@
 			<!-- /.card-header -->
 
             <div class="card-body">
-                <table id="example1" class="table table-bordered">
+                <table id="example1" class="table table-bordered text-center">
                     <thead>
                     <tr>
                         {{-- <th style='width:15px'>
@@ -71,7 +71,7 @@
                             </td>
 
 
-                        <td>{{$user->image}}</td>
+                        <td><img src={{$user->image}} style="height:45px;width:45px;" ></td>
                         <td>{{$user->name}}</td>
                         <td>@foreach ($user->roles as $role)
                             {{$role->name}} <br>

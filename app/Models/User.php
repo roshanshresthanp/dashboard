@@ -76,7 +76,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
+    public function getImageAttribute($value)
+    {
+        $img = asset('avatar.png');
+        if($value)
+        {
+            $path = public_path(parse_url($value)['path']);
+            if(file_exists($path))
+            $img = $value;
+        }
+        return  $img;   
+    }
     public function scopeCustomer($query)
     {
         return $query->whereHas('roles',function($q){

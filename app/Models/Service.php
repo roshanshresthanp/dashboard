@@ -31,6 +31,16 @@ class Service extends Model
             ->logOnlyDirty();
     }
 
+    public function getImageAttribute($value)
+    {
+        $img = asset('no.jpeg');
+        if($value && file_exists(public_path(parse_url($value)['path'])))
+        {
+            $img = $value;
+        }
+        return  $img;   
+    }
+
     public function scopeStatus($query)
     {
         return $query->where('status',1);

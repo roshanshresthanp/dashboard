@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EnquiryController;
 use App\Http\Controllers\Admin\LogController;
 use App\Http\Controllers\Admin\PromoCodeController;
+use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('auth/google', [LoginController::class,'redirectToGoogle']);
+Route::get('auth/google/callback', [LoginController::class,'handleGoogleCallback'])->name('googleCallback');
 
 Route::get('/', function(){
     return view('admin.layouts.app');

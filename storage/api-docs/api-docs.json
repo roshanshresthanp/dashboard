@@ -82,6 +82,34 @@
                 }
             }
         },
+        "/social/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Social media Login",
+                "operationId": "Social media login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "email": "social@media.login"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
         "/offers": {
             "get": {
                 "tags": [
@@ -250,6 +278,41 @@
                     },
                     "403": {
                         "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/profile/change-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "change-password",
+                "operationId": "change-password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "current_password": "2523",
+                                    "new_password": "1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
                     }
                 }
             }

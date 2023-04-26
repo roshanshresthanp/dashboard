@@ -65,7 +65,7 @@ class ClothTypeController extends SuperController
 
     public function index()
     {
-        $success['data'] = $this->whichModel::cloth()->status()->select('id','name','rate')->get();
+        $success['data'] = $this->whichModel::cloth()->status()->select('id','name','rate','image')->get();
         return response()->json($success, 200);
     }
 

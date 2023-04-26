@@ -12,6 +12,8 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Ramsey\Collection\Collection as CollectionCollection;
 
 class UserController extends SuperController
@@ -21,7 +23,7 @@ class UserController extends SuperController
 
     public function __construct()
     {
-        $this->whichModel = app(User::class);
+        $this->whichModel = User::class;
         $this->responseResource = UserResource::class;
         parent::__construct($this->whichModel, $this->responseResource);
     }
@@ -129,4 +131,56 @@ class UserController extends SuperController
 
         return (new ProfileUpdateAction($request))->handle();
     }
+
+     /**
+     * @OA\Post(
+     *      path="/profile/change-password",
+     *      operationId="change-password",
+     *      tags={"User"},
+     *      summary="change-password",
+     *    @OA\RequestBody(
+     *      @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(
+     *             example={
+     *                 "current_password" : "2523",
+     *                 "new_password" : "1234" 
+     *              }
+     *         )
+     *     )
+     *   ),
+     *  *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *     )
+     */
+    public function changePassword(Request $request)
+    {
+        $this->validate($request,[
+            // 'current_password'=>'required|regex:/\b\d{4}\b/',
+            'new_password'=>'required|regex:/\b\d{4}\b/',
+        ]);
+            $user = User::firstWhere('id',auth()->id());
+            if(!Hash::check($request->current_password, $user->password)){
+                return response()->json(['message' => 'Current password does not match.'], 400);
+            }
+            $user->update(['password'=>bcrypt($request->new_password)]);
+            $user->tokens()->delete();
+            $success['message'] = 'Password has been changed';
+            $success['token'] = $user->createToken('MobileAuthApp')->accessToken;
+      
+            return response()->json($success, 200);
+        }
 }

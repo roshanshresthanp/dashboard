@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('password_reset')->default(true);
             $table->boolean('status')->default(true);
             $table->string('mobile')->nullable()->unique();
+            $table->string('google_id')->nullable()->unique();
             $table->string('image')->nullable();
             $table->rememberToken();
             $table->softDeletes();

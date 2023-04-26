@@ -39,6 +39,8 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('login',[LoginController::class,'login']);
+Route::post('social/login',[LoginController::class,'socialLogin']);
+
 Route::post('register',[RegisterController::class,'register']);
 
 Route::group([
@@ -65,6 +67,7 @@ Route::group([
         Route::prefix('profile')->group(function () {
             Route::post('/update', [UserController::class, 'update']);
             Route::get('/view', [UserController::class, 'view']);
+            Route::post('/change-password', [UserController::class, 'changePassword']);
         });
 
         Route::group(['prefix' => 'roles'], function () {

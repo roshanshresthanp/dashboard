@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Actions\Login\ResetPasswordAction;
+use App\Actions\OTP\SendOtpAction;
 use App\Actions\Profile\ProfileUpdateAction;
 use App\Actions\ProfileUpdate;
 use App\Http\Controllers\Admin\SuperController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\ProfileResource;
 use App\Http\Resources\UserResource;
+use App\Models\OtpVerification;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
@@ -176,11 +179,66 @@ class UserController extends SuperController
             if(!Hash::check($request->current_password, $user->password)){
                 return response()->json(['message' => 'Current password does not match.'], 400);
             }
-            $user->update(['password'=>bcrypt($request->new_password)]);
-            $user->tokens()->delete();
-            $success['message'] = 'Password has been changed';
-            $success['token'] = $user->createToken('MobileAuthApp')->accessToken;
-      
-            return response()->json($success, 200);
-        }
+                DB::beginTransaction();
+            try{
+                $user->update(['password'=>bcrypt($request->new_password)]);
+                $user->tokens()->delete();
+                $success['message'] = 'Password has been changed';
+                $success['token'] = $user->createToken('MobileAuthApp')->accessToken;
+                DB::commit();
+                return response()->json($success, 200);
+            }catch(\Exception $e)
+            {
+                $success['message'] = 'Failed to change password';
+                DB::rollBack();
+                return response()->json($success, 400);
+
+            }
+            
+    }
+ /**
+     * @OA\Post(
+     *      path="/profile/reset-password",
+     *      operationId="reset-password",
+     *      tags={"User"},
+     *      summary="reset-password",
+     *    @OA\RequestBody(
+     *      @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(
+     *             example={
+     *                 "mobile" : "9819087207",
+     *                 "new_password" : "12347" 
+     *              }
+     *         )
+     *     )
+     *   ),
+     *  *   @OA\Response(
+     *      response=200,
+     *       description="Success",
+     *      @OA\MediaType(
+     *           mediaType="application/json",
+     *      )
+     *   ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     * @OA\Response(
+     *          response=400,
+     *          description="Bad Request",
+     *      ),
+     *     )
+     */
+    public function resetPassword(Request $request)
+    {
+        $this->validate($request,[
+            'mobile' => 'bail|required|regex:/\b\d{10}\b/|exists:users',
+            'new_password'=>'bail|required|size:4|regex:/\b\d{4}\b/',
+
+        ]);
+        return (new ResetPasswordAction($request))->handle(); 
+    }
+
+    
 }

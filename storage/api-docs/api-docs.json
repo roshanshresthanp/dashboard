@@ -110,6 +110,75 @@
                 }
             }
         },
+        "/otp/send": {
+            "post": {
+                "tags": [
+                    "OTP"
+                ],
+                "summary": "otp send",
+                "operationId": "otp send",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "mobile": "9810497636"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/otp/verify": {
+            "post": {
+                "tags": [
+                    "OTP"
+                ],
+                "summary": "otp verify",
+                "operationId": "otp verify",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "mobile": "9810497636",
+                                    "otp": "1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
         "/offers": {
             "get": {
                 "tags": [
@@ -296,6 +365,41 @@
                                 "example": {
                                     "current_password": "2523",
                                     "new_password": "1234"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/profile/reset-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "reset-password",
+                "operationId": "reset-password",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "example": {
+                                    "mobile": "9819087207",
+                                    "new_password": "12347"
                                 }
                             }
                         }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ClothTypeController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\OtpController;
 use App\Http\Controllers\Api\PromoCodeController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
@@ -42,6 +43,9 @@ Route::post('login',[LoginController::class,'login']);
 Route::post('social/login',[LoginController::class,'socialLogin']);
 
 Route::post('register',[RegisterController::class,'register']);
+Route::post('otp/send',[OtpController::class,'sendOtp']);
+Route::post('otp/verify',[OtpController::class,'verifyOtp']);
+Route::post('profile/reset-password', [UserController::class, 'resetPassword']);
 
 Route::group([
     'middleware' => ['api', 'auth:api'],

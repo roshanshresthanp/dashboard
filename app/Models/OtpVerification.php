@@ -11,4 +11,9 @@ class OtpVerification extends Model
 
     protected $guarded = [];
 
+    public function portable()
+    {
+        return $this->morphTo();
+    }
+
 }

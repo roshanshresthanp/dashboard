@@ -137,4 +137,10 @@ class RegisterController extends Controller
        return (new CustomerRegisterAction())->handle($request);
 
     }
+
+    public function sendOtp(Request $request)
+    {
+
+    }
+
 }

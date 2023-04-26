@@ -20,7 +20,7 @@ class OtpController extends Controller
      *         mediaType="application/json",
      *         @OA\Schema(
      *             example={
-     *                 "mobile" : "9810497636",
+     *                 "mobile" : "9819087207",
      *              }
      *         )
      *     )
@@ -61,7 +61,7 @@ class OtpController extends Controller
      *         mediaType="application/json",
      *         @OA\Schema(
      *             example={
-     *                 "mobile" : "9810497636",
+     *                 "mobile" : "9819087207",
      *                  "otp" : "1234"
      *              }
      *         )

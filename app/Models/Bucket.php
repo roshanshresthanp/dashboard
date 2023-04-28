@@ -17,9 +17,9 @@ class Bucket extends Model
     LogsActivity;
 
 
-    protected $fillable = ([
-        'name', 'email', 'phone', 'message', 'source','parent_id','user_id','status'
-    ]);
+    protected $fillable = [
+        'extras', 'count', 'rate','cloth_category_id','user_id','cloth_id'
+    ];
 
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;
@@ -36,4 +36,17 @@ class Bucket extends Model
             ->logAll()
             ->logOnlyDirty();
     }
+
+    public function cloth()
+    {
+        return $this->belongsTo(ClothType::class,'cloth_id','id')->withDefault();
+    }
+
+    public function scopeStatus($query)
+    {
+        return $query->whereHas('cloth',function($query){
+            $query->where('status',1);
+        });
+    }
+    
 }

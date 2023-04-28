@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\OtpController;
 use App\Http\Controllers\Api\PromoCodeController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\BucketController;
+use App\Http\Controllers\Api\BucketController;
 use App\Http\Controllers\PickTimeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ServiceController;
@@ -59,7 +59,7 @@ Route::group([
     Route::apiResource('offers',PromoCodeController::class);
     Route::post('use/offer',[PromoCodeController::class,'useOffer']);
     Route::get('use/offer',[PromoCodeController::class,'assignedOffer']);
-    // Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
+    Route::apiResource('bucket',BucketController::class);
 
         // Route::group(['prefix' => 'profile'], function () {
         //     Route::post('/update', [UserController::class, 'update']);

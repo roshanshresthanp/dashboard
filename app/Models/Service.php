@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\GetImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -13,7 +14,7 @@ class Service extends Model
 {
 
     use HasApiTokens, HasFactory, Notifiable, HasRoles,
-    LogsActivity;
+    LogsActivity, GetImageTrait;
 
     protected static $logAttributes = ['*'];
     protected static $logOnlyDirty = true;
@@ -29,16 +30,6 @@ class Service extends Model
             ->useLogName(static::$logName)
             ->logAll()
             ->logOnlyDirty();
-    }
-
-    public function getImageAttribute($value)
-    {
-        $img = asset('no.jpeg');
-        if($value && file_exists(public_path(parse_url($value)['path'])))
-        {
-            $img = $value;
-        }
-        return  $img;   
     }
 
     public function scopeStatus($query)

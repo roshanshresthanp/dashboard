@@ -68,7 +68,7 @@ class PickTimeController extends WebSuperController
 
     public function apiPickupTime()
     {
-        $success['data'] = PickTime::status()->get();
+        $success['data'] = $this->whichModel::status()->get();
         return response()->json($success,200);
     }
 }

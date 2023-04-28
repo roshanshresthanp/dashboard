@@ -144,4 +144,9 @@ class User extends Authenticatable
         // }
     }
 
+    public function buckets()
+    {
+        return $this->hasMany(Bucket::class);
+    }
+
 }

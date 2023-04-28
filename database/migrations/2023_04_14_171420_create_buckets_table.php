@@ -21,6 +21,7 @@ return new class extends Migration
             $table->bigInteger('service_id')->index()->nullable();
             $table->bigInteger('count')->default(0);
             $table->double('rate')->nullable();
+            $table->json('extras')->nullable();
             $table->timestamps();
         });
     }

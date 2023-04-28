@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\GetImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,6 +18,7 @@ class ClothType extends Model
     use HasApiTokens, HasFactory, Notifiable, HasRoles,
     SoftDeletes,
     LogsActivity;
+    use GetImageTrait;
 
     protected $fillable = ['name','slug','status','parent_id','rate','image'];
 
@@ -34,17 +36,6 @@ class ClothType extends Model
             ->logOnlyDirty();
     }
 
-    public function getImageAttribute($value)
-    {
-        $img = asset('no.jpeg');
-        if($value)
-        {
-            $path = public_path(parse_url($value)['path']);
-            if(file_exists($path))
-            $img = $value;
-        }
-        return  $img;   
-    }
 
     public function scopeStatus($query)
     {

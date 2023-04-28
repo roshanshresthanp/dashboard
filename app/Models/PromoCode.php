@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+// use GetImageTrait;
+
+use App\Traits\GetImageTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -11,9 +14,9 @@ use Illuminate\Support\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Passport\HasApiTokens;
 use Spatie\Activitylog\LogOptions;
-
 class PromoCode extends Model
 {
+    use GetImageTrait;
     use HasApiTokens, HasFactory, Notifiable, HasRoles,
     SoftDeletes,
     LogsActivity;

@@ -41,7 +41,7 @@ class PromoCodeController extends SuperController
      **/
     public function index()
     {
-        return new $this->responseResource($this->whichModel::active()->get());
+        return $this->responseResource::collection($this->whichModel::active()->get());
     }
 
     /**

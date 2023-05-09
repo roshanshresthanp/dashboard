@@ -52,6 +52,7 @@ class CustomerController extends Controller
     
     public function index(Request $request)
     {
+        dd('Hello');
         if($request->ajax()){
             $customers = User::customer();
             return DataTables::of($customers)

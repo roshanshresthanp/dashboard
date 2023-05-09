@@ -50,7 +50,7 @@ Route::get('/dashboard', function(){
     $pushn->sendPushNotification($data,[auth()->user()->fcm_token]);
 
     return view('admin.layouts.app');
-})->name('dashboard')->middleware('auth');
+})->name('push.dashboard')->middleware('auth');
 
 Route::get('/push-notification', function(){
     return view('welcome');

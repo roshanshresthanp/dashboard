@@ -215,14 +215,14 @@
         "scrollX": true,
         "pageLength": "50",
         "order": [[0, 'desc']],
-        "ajax": '{{ route('customers.fetch')}}',
+        "ajax": '{{ route('user.all')}}',
         columnDefs: [{
             targets: -1,
             className: 'text-right'
         }],
-        "colVis": {
-            exclude: [1,2]
-        },
+        // "colVis": {
+        //     exclude: [1,2]
+        // },
         "columns": [
             {"data": "id", 'visible': true},
             {"data": "id", orderable: false, searchable: false},
@@ -234,11 +234,11 @@
             // {"data": "status_badge"},
             // {"data": "actions", orderable: false, searchable: false},
         ],
-        "createdRow": function (row, data) {
-            if (data['blacklisted'] == 1) {
-                $(row).addClass('table-danger');
-            }
-        }
+        // "createdRow": function (row, data) {
+        //     if (data['blacklisted'] == 1) {
+        //         $(row).addClass('table-danger');
+        //     }
+        // }
     });
 </script>
 

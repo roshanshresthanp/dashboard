@@ -113,7 +113,7 @@ class SuperController extends Controller
                 ), 400);
             }
         } catch (\Exception $e) {
-            DB::rollBack();
+            DB::rollBack();/pro/buckets
             // abort(500, $e);
             return Response::json(array(
                 'code' => 500,

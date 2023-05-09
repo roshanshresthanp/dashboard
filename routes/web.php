@@ -13,6 +13,7 @@ use App\Http\Controllers\BucketController;
 use App\Http\Controllers\PickTimeController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\ServiceController;
+use App\Models\User;
 use App\Services\WebPushNotification;
 use Illuminate\Support\Facades\Route;
 
@@ -62,13 +63,19 @@ Route::post('/send-web-notification', [PushNotificationController::class, 'sendW
 
 Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
-    // Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
-    // Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
-    Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
-    Route::get('customers/all', [CustomerController::class, 'all'])->name('customers.all');
-    Route::get('customers/fetch', [CustomerController::class, 'fetchCustomer'])->name('customers.fetch');
-    Route::delete('customers/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+    
+    // Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+    // Route::get('customers/all', [CustomerController::class, 'all'])->name('customers.all');
+    // Route::get('customers/fetch', [CustomerController::class, 'fetchCustomer'])->name('customers.fetch');
+    // Route::delete('customers/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
+
+    Route::resource('/customers', CustomerController::class);
+
+    Route::get('users/all', [UserController::class, 'fetchAll'])->name('user.all');
 
     Route::resource('/users', UserController::class);
     Route::resource('/roles', RoleController::class);
@@ -103,6 +110,16 @@ Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
 
 
+});
+
+
+Route::get('/test',function()
+{
+    $users =User::doesntHave('roles')->get();
+    foreach ($users as $user)
+    {
+      $user->roles()->attach(2);      
+    }
 });
 
 

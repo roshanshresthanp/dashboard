@@ -79,11 +79,11 @@
                     <div class="row align-items-center">
                         <div class="col-lg-9 col-xl-8">
                             <div class="row align-items-center">
-                                <div class="col-md-3 my-2 my-md-0">
+                                <div class="col-3 my-2 my-md-0">
                                     <div class="d-flex align-items-center">
-                                        <label class="mr-3 mb-0 d-none d-md-block">Show:</label>
+                                        <label class="mr-2 mb-0 d-none d-md-block">Show:</label>
                                         <select class="form-control" v-model="filters.rowPerPage" v-on:change="quickSearch(filters)" id="show">
-                                            <option v-for="rowC in shows" :value="rowC">{{ rowC }}</option>
+                                            <option v-for="rowC in shows" selected="rowC" :value="rowC">{{ rowC }}</option>
                                         </select>
                                         <label class="pl-2 mb-0 d-none d-md-block">entries</label>
                                     </div>
@@ -195,26 +195,19 @@
                     </tbody>
                 </table>
 
-                    <Bootstrap4Pagination
-                        :data="users.meta"
-                        @pagination-change-page="getCustomer"
-                    />
-                <!-- <div class="row"> -->
-                    <!-- <nav aria-label="..."> -->
-                       
-                    <!-- </nav> -->
+                <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><button class="page-link" @click="getCustomer(page=users.meta.current_page-1)" >Previous</button></li>
+                    <!-- <li v-for="i in users.meta.last_page" :key="i" class="page-item"><button @click="getCustomer(page=i)" class="page-link" >{{ i++ }}</button></li> -->
+                 
+                    <li class="page-item"><button class="page-link" @click="getCustomer(page=users.meta.current_page+1)" >Next</button></li>
+                </ul>
+                </nav>
 
-                    
-                <!-- </div> -->
+                
 
             </div>
         </div>
-    
-
-
-
-
-
 </template>
 
 <script>
@@ -222,6 +215,10 @@ import { ref,reactive,onMounted, watch } from 'vue';
 import { computed } from '@vue/reactivity';
 import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 import axios from 'axios';
+
+
+// import handlePagination from "./handlePagination";
+
 
     // alert('yes i am');
 
@@ -231,14 +228,20 @@ import axios from 'axios';
         },
 
         setup() {
+
+//             const handlePaginationValue = handlePagination();
+
+// return { ...handlePaginationValue };
+
+
             const users = ref([]);
-            const page = 1;
+            // const page = 1;
 
             const filters = reactive({
-                rowPerPage: 10,
-                page: 1,
+                rowPerPage: null,
+                // page:  null,
                 search : null,
-                status : ''
+                status : null
 
             })
 
@@ -264,23 +267,16 @@ import axios from 'axios';
             // axios.defaults.baseURL = HOST_URL;
 
             const getCustomer = async(page=null) => {
-                if(page == null){
-                    page = 1;
-                }
+                // if(page == null){
+                //     filters.page = 1;
+                // }
+
+                filters.page = page ?? 1
             // axios.defaults.baseURL = HOST_URL;
                 const filter = JSON.stringify(filters)
                 let res = await axios.get(`customers/all/?page=${page}&filter=${filter}`)
-                .then(res => {
-
-                    users.value = res.data;
-
-                    })
-            .catch(err => {
-            console.log(err)
-            })
-                // console.log(res,'ouut');
-                // users.value = res.data;
-                // console.log(users,'dsdsrrr')
+                users.value = res.data;
+                // console.log(users.value.links.first,'ouut');
             }
 
             const deleteCustomer = async(id)=>{
@@ -309,7 +305,7 @@ import axios from 'axios';
             console.log(err)
             })
 
-            getCustomer();
+            // getCustomer();
         };
 
         // watch(()=>filters,())
@@ -337,9 +333,8 @@ import axios from 'axios';
                 filters,
                 quickSearch,
                 resetSearch,
-                shows : [10,20,50,100],
+                shows : [2,4],
                 // allStatus : ['All','Active','Inactive'],
-                componentKey: 0,
 
             }
 

@@ -129,25 +129,25 @@
                     <div class="row align-items-center">
                         <div class="col-lg-9 col-xl-8">
                             <div class="row align-items-center">
-                                <div class="col-md-4 my-2 my-md-0">
+                                {{-- <div class="col-md-4 my-2 my-md-0">
                                     <div class="input-icon">
                                         <input type="text" class="form-control" placeholder="Search..." id="kt_datatable_search_query" />
                                         <span>
                                             <i class="flaticon2-search-1 text-muted"></i>
                                         </span>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-4 my-2 my-md-0">
                                     <div class="d-flex align-items-center">
                                         <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
-                                        <select class="form-control" id="kt_datatable_search_status">
-                                            <option value="">All</option>
-                                            <option value="1">Pending</option>
-                                            <option value="2">Delivered</option>
-                                            <option value="3">Canceled</option>
+                                        <select class="form-control" id="status">
+                                            <option value="" hidden>All</option>
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                            {{-- <option value="3">Canceled</option>
                                             <option value="4">Success</option>
                                             <option value="5">Info</option>
-                                            <option value="6">Danger</option>
+                                            <option value="6">Danger</option> --}}
                                         </select>
                                     </div>
                                 </div>
@@ -155,7 +155,18 @@
                                     <div class="d-flex align-items-center">
                                         <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
                                         <select class="form-control" id="kt_datatable_search_type">
-                                            <option value="">All</option>
+                                            <option hidden>All</option>
+                                            <option value="1">Online</option>
+                                            <option value="2">Retail</option>
+                                            <option value="3">Direct</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 my-2 my-md-0">
+                                    <div class="d-flex align-items-center">
+                                        <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
+                                        <select class="form-control" id="kt_datatable_search_type">
+                                            <option hidden>All</option>
                                             <option value="1">Online</option>
                                             <option value="2">Retail</option>
                                             <option value="3">Direct</option>
@@ -165,7 +176,7 @@
                             </div>
                         </div>
                         <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                            <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                            <button class="btn btn-light-primary px-6 font-weight-bold" id="clear">Clear</button>
                         </div>
                     </div>
                 </div>
@@ -182,11 +193,13 @@
                         <th>Full Name</th>
                         <th>Email</th>
                         <th>Mobile</th>
+                        <th>Order</th>
+                        <th>Amt Spent</th>
                         <th>Status</th>
                         {{-- <th>Book Value</th> --}}
                         {{-- <th>Rating</th> --}}
-                        {{-- <th>Blacklisted</th> --}}
-                        {{-- <th>Actions</th> --}}
+                        <th>Created at</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -208,14 +221,22 @@
 <script src="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script>
     let a = 5;
-    $('#tableData').DataTable({
+    let table = $('#tableData').DataTable({
         "processing": true,
         "serverSide": true,
         "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
         "scrollX": true,
         "pageLength": "50",
         "order": [[0, 'desc']],
-        "ajax": '{{ route('customers.fetch')}}',
+        "ajax": {
+            "url": '{{ route('customers.index')}}',
+            "data": function (d) {
+                // d.booking = {{ isset($booking) ? $booking : -1 }},
+                d.status = $('#status').val()
+                // d.payee = $('#payee').val()
+            }
+        },
+        
         columnDefs: [{
             targets: -1,
             className: 'text-right'
@@ -224,22 +245,28 @@
             exclude: [1,2]
         },
         "columns": [
-            {"data": "id", 'visible': true},
-            {"data": "id", orderable: false, searchable: false},
+            {"data": "id", 'visible': true,orderable: false, searchable: false},
+            {"data": "image", orderable: false, searchable: false},
             {"data": "name"},
             {"data": "email"},
             {"data": "mobile"},
+            {"data": "order", searchable: false, orderable: false},
+            {"data": "spent", searchable: false},
+
             {"data": "status", searchable: false},
             // {"data": "blacklisted_html", searchable: false},
-            // {"data": "status_badge"},
-            // {"data": "actions", orderable: false, searchable: false},
+            {"data": "created_at"},
+            {"data": "actions", orderable: false, searchable: false},
         ],
-        "createdRow": function (row, data) {
-            if (data['blacklisted'] == 1) {
-                $(row).addClass('table-danger');
-            }
-        }
     });
+
+    $('#clear').on('click', () => {
+	    jQuery('#status').val(null).trigger('change');
+    });
+
+    $("#status").on('change', function(){
+		table.draw();
+	});
 </script>
 
 @include('admin.include.message')

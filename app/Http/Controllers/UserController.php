@@ -35,8 +35,9 @@ class UserController extends WebSuperController
 
     public function fetchAll(Request $request)
     {
-        $customers = DB::table('users')->get();
-        return DataTables::of($customers)->toJson();
+        $customers = DB::table('users')->limit(10000)->get();
+        // $customers = User::limit(10000)->get();
+        return DataTables::of($customers)->make(true);
     }
 
     public function store(UserRequest $request)

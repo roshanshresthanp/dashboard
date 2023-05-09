@@ -73,7 +73,7 @@ class PermissionSeeder extends Seeder
                 'id'=>1,
                 'name'=>'Super Admin',
                 'slug'=>'super-admin',
-                'guard_name'=>'api',
+            'guard_name'=>'api',
             ],
             [
                 'id'=>2,

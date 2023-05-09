@@ -90,14 +90,14 @@ class User extends Authenticatable
     public function scopeCustomer($query)
     {
         return $query->whereHas('roles',function($q){
-            $q->where('slug','customer');
+            $q->where('id','2');
         });
     }
 
     public function scopeUser($query)
     {
         return $query->whereHas('roles',function($q){
-            $q->whereNot('slug','customer');
+            $q->whereNot('id','2');
         });
     }
 

@@ -54,14 +54,19 @@ class CustomerController extends Controller
     {
         // dd('Hello');
         if($request->ajax()){
-            $customers = User::customer();
+
+            $customers = User::customer()
+                        ->when($request->has('status') && $request->status != null , function($query) use ($request){
+                            return $query->where('status',$request->status);
+                     });
+
             return DataTables::of($customers)
                 ->addIndexColumn()
-                ->filter(function($instance) use ($request){
-                    return $instance->when($request->has('status') && $request->status != null , function($query) use ($request){
-                        return $query->where('status',$request->status);
-                        });
-                })
+                // ->filter(function($instance) use ($request){
+                //     return $instance->when($request->has('status') && $request->status != null , function($query) use ($request){
+                //         return $query->where('status',$request->status);
+                //         });
+                // })
 
                 ->editColumn('image', function($row){
                     return "<img src='$row->image' style='height:45px;width:45px;'>";

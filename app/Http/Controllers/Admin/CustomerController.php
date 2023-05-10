@@ -58,7 +58,9 @@ class CustomerController extends Controller
             $customers = User::customer()
                         ->when($request->has('status') && $request->status != null , function($query) use ($request){
                             return $query->where('status',$request->status);
-                     });
+                     })
+                        ->withCount('buckets');
+
 
             return DataTables::of($customers)
                 ->addIndexColumn()
@@ -78,12 +80,15 @@ class CustomerController extends Controller
                         return "<span class='badge badge-danger'>InActive</span>";
 
                 })
+                ->editColumn('bucket', function ($row){
+                    return $row->buckets_count;
+                })
                 ->editColumn('order', function ($row){
-                    return '--';
+                    return 'hudaicha';
 
                 })
                 ->editColumn('spent', function ($row){
-                    return '0';
+                    return 'hudaicha';
 
                 })
                 ->editColumn('created_at', function ($row){

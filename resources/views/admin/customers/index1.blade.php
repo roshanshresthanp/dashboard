@@ -193,10 +193,10 @@
                         <th>Full Name</th>
                         <th>Email</th>
                         <th>Mobile</th>
+                        <th>Bucket</th>
                         <th>Order</th>
                         <th>Amt Spent</th>
                         <th>Status</th>
-                        {{-- <th>Book Value</th> --}}
                         {{-- <th>Rating</th> --}}
                         <th>Created at</th>
                         <th>Actions</th>
@@ -250,6 +250,7 @@
             {"data": "name"},
             {"data": "email"},
             {"data": "mobile"},
+            {"data": "bucket", searchable: false, orderable: false},
             {"data": "order", searchable: false, orderable: false},
             {"data": "spent", searchable: false},
 

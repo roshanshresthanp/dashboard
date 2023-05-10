@@ -179,7 +179,7 @@
             </div>
             <!--end::Item-->
             <!--begin::Item-->
-            <div class="d-flex align-items-center bg-light-success rounded p-5 gutter-b">
+            {{-- <div class="d-flex align-items-center bg-light-success rounded p-5 gutter-b">
                 <span class="svg-icon svg-icon-success mr-5">
                     <span class="svg-icon svg-icon-lg">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Write.svg-->
@@ -220,11 +220,12 @@
                     <span class="text-muted font-size-sm">Due in 2 Days</span>
                 </div>
                 <span class="font-weight-bolder text-danger py-1 font-size-lg">-27%</span>
-            </div>
+            </div> --}}
             <!--end::Item-->
             <!--begin::Item-->
-            <div class="d-flex align-items-center bg-light-info rounded p-5">
-                <span class="svg-icon svg-icon-info mr-5">
+            @foreach (auth()->user()->unreadNotifications as $noty)
+            <div class="d-flex align-items-center bg-light-info rounded p-2">
+                {{-- <span class="svg-icon svg-icon-info mr-5">
                     <span class="svg-icon svg-icon-lg">
                         <!--begin::Svg Icon | path:assets/media/svg/icons/General/Attachment2.svg-->
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -238,13 +239,15 @@
                         </svg>
                         <!--end::Svg Icon-->
                     </span>
-                </span>
+                </span> --}}
                 <div class="d-flex flex-column flex-grow-1 mr-2">
-                    <a href="#" class="font-weight-normel text-dark-75 text-hover-primary font-size-lg mb-1">The best product</a>
-                    <span class="text-muted font-size-sm">Due in 2 Days</span>
+                    <a href="#" class="font-weight-normel text-dark-75 text-hover-primary font-size-lg mb-1">{{json_encode($noty->data['data'])}}</a>
+                    {{-- <span class="text-muted font-size-sm">Due in 2 Days</span> --}}
                 </div>
-                <span class="font-weight-bolder text-info py-1 font-size-lg">+8%</span>
+                {{-- <span class="font-weight-bolder text-info py-1 font-size-lg">+8%</span> --}}
             </div>
+            @endforeach
+            
             <!--end::Item-->
         </div>
         <!--end::Notifications-->

@@ -19,6 +19,8 @@ class PushNotificationController extends Controller
         $data = [
             'title' => 'thisis title',
             'body' => 'THis is a body',
+            'image'=>asset('no.jpg'),
+            // 'sound' => 'default',
         ];
 
         $push = new WebPushNotification();
@@ -27,11 +29,11 @@ class PushNotificationController extends Controller
         // $this->sendWebNotification($data);
     }
   
-    public function sendWebNotification($request)
+    public function sendWebNotification(Request $request)
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
         $FcmToken = User::whereNotNull('fcm_token')->pluck('fcm_token');
-        dd($FcmToken);
+        // dd($FcmToken,$request['title']);
           
         $serverKey = 'AAAAxRNfywo:APA91bEVSqXnSEhrHmPsVYA_S1hKu-HyMkOZF5OPIQftESCtkYNpybykCtFsPjycaTC84jC2Sc57tNIi-ADpAgAoK13EPRRJiQiXbkSD1Is_avg61j0P9mKKub6tPp0MgDUS6HaU49kb';
         $data = [

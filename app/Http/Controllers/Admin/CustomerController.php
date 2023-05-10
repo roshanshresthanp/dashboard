@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\Datatable\CustomerGetAction;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CustomerResource;
 use App\Models\User;
@@ -52,62 +53,10 @@ class CustomerController extends Controller
     
     public function index(Request $request)
     {
-        // dd('Hello');
         if($request->ajax()){
 
-            $customers = User::customer()
-                        ->when($request->has('status') && $request->status != null , function($query) use ($request){
-                            return $query->where('status',$request->status);
-                     })
-                        ->withCount('buckets');
-
-
-            return DataTables::of($customers)
-                ->addIndexColumn()
-                // ->filter(function($instance) use ($request){
-                //     return $instance->when($request->has('status') && $request->status != null , function($query) use ($request){
-                //         return $query->where('status',$request->status);
-                //         });
-                // })
-
-                ->editColumn('image', function($row){
-                    return "<img src='$row->image' style='height:45px;width:45px;'>";
-                })
-                ->editColumn('status', function ($row){
-                    if($row->status == 1){
-                        return "<span class='badge badge-success'>Active</span";
-                    }
-                        return "<span class='badge badge-danger'>InActive</span>";
-
-                })
-                ->editColumn('bucket', function ($row){
-                    return $row->buckets_count;
-                })
-                ->editColumn('order', function ($row){
-                    return 'hudaicha';
-
-                })
-                ->editColumn('spent', function ($row){
-                    return 'hudaicha';
-
-                })
-                ->editColumn('created_at', function ($row){
-                    return $row->created_at;
-
-                })
-                ->editColumn('actions', function ($row) {
-                    return '<form action="' . route('customers.destroy', $row->id) . '" method="post">' .
-                        // '<a href="' . route('customers.edit', $row->id) . '"><i class="btn btn-sm btn-light fa fa-edit"></i></a>' .
-                        '<input type="hidden" name="_token" value="' . csrf_token() . '">' .
-                        '<input type="hidden" name="_method" value="DELETE">' .
-                        '<button onclick="return confirm(\'Do you want to delete?\')" title="Delete" type="submit" class="btn btn-sm btn-light">' .
-                        '<i class="fa fa-minus-circle" style="color:red"></i>' .
-                        '</button>' .
-                        '</form>';
-                })
-                ->rawColumns(['image','status','actions','spent'])
-                ->make(true);        
-            }
+            return (new CustomerGetAction())->getCustomer($request);     
+        }
         return view('admin.customers.index1');
     }
 

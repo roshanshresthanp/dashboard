@@ -43,6 +43,10 @@ class BucketController extends Controller
                     return $row->cloth->rate*$row->count;
 
                 })
+                ->editColumn('service', function ($row){
+                    return 'wash';
+
+                })
                 ->editColumn('created_at', function ($row){
                     return $row->created_at;
 
@@ -57,7 +61,7 @@ class BucketController extends Controller
                 //         '</button>' .
                 //         '</form>';
                 // })
-                ->rawColumns(['image','cloth','customer','rate','amount'])
+                ->rawColumns(['image','cloth','customer','rate','amount','service'])
                 ->make(true);        
             }
         return view('admin.buckets.index');

@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class CommonNotification extends Notification
+class CommonNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -16,9 +16,10 @@ class CommonNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public $data ;
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -30,7 +31,7 @@ class CommonNotification extends Notification
     public function via($notifiable)
     {
         // return ['mail'];
-        return ['firebase'];
+        return ['database','mail'];
     }
 
     /**
@@ -41,9 +42,11 @@ class CommonNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)    
+        return (new MailMessage)
+                    ->greeting('Greeting')
+                    ->subject('subject')   
                     ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->action('Visit', url('/'))
                     ->line('Thank you for using our application!');
     }
 
@@ -64,7 +67,7 @@ class CommonNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //  
+            'data' => $this->data
         ];
     }
 }

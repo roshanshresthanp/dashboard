@@ -137,7 +137,7 @@
                                         </span>
                                     </div>
                                 </div> --}}
-                                <div class="col-md-4 my-2 my-md-0">
+                                <div class="col-md-3 my-2 my-md-0">
                                     <div class="d-flex align-items-center">
                                         <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
                                         <select class="form-control" id="status">
@@ -151,7 +151,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2 my-md-0">
+                                <div class="col-md-3 my-2 my-md-0">
                                     <div class="d-flex align-items-center">
                                         <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
                                         <select class="form-control" id="kt_datatable_search_type">
@@ -162,16 +162,16 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2 my-md-0">
-                                    <div class="d-flex align-items-center">
-                                        <label class="mr-3 mb-0 d-none d-md-block">Type:</label>
-                                        <select class="form-control" id="kt_datatable_search_type">
-                                            <option hidden>All</option>
-                                            <option value="1">Online</option>
-                                            <option value="2">Retail</option>
-                                            <option value="3">Direct</option>
-                                        </select>
-                                    </div>
+                                <div class="col-md-6 my-2 my-md-0">
+                                        <div class="d-flex align-items-center">
+                                            <label class="mr-3 mb-0 d-none d-md-block">Date:</label>
+                                            <div class='input-group ' id='kt_daterangepicker_2'>
+                                                <input type='text' id="datepicker" class="form-control" readonly  placeholder="Select date range"/>
+                                                <div class="input-group-append">
+                                                <span class="input-group-text"><i class="la la-calendar-check-o"></i></span>
+                                                </div>
+                                                </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -218,6 +218,7 @@
 @endsection
 
 @section('scripts')
+<script src="{{asset('admin/assets/js/pages/crud/forms/widgets/bootstrap-daterangepicker.js')}}"></script>
 <script src="{{asset('admin/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
 <script>
     let a = 5;
@@ -232,8 +233,8 @@
             "url": '{{ route('customers.index')}}',
             "data": function (d) {
                 // d.booking = {{ isset($booking) ? $booking : -1 }},
-                d.status = $('#status').val()
-                // d.payee = $('#payee').val()
+                d.status = $('#status').val(),
+                d.date = $('#kt_daterangepicker_2 .form-control').val()
             }
         },
         
@@ -263,11 +264,32 @@
 
     $('#clear').on('click', () => {
 	    jQuery('#status').val(null).trigger('change');
+        jQuery('#datepicker').val(null).trigger('change');
+
     });
 
     $("#status").on('change', function(){
 		table.draw();
 	});
+
+    // $("#datepicker").on('input', function(){
+    //     alert('date');
+	// 	table.draw();
+	// });
+
+    $(document).ready(function() {
+        $('#kt_daterangepicker_2').daterangepicker({
+   buttonClasses: ' btn',
+   applyClass: 'btn-primary',
+   cancelClass: 'btn-secondary'
+  }, function(start, end, label) {
+    // alert(start);
+   $('#kt_daterangepicker_2 .form-control').val( start.format('YYYY-MM-DD') + ' / ' + end.format('YYYY-MM-DD'));
+   table.draw();
+
+  });
+});
+
 </script>
 
 @include('admin.include.message')

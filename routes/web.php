@@ -14,6 +14,7 @@ use App\Http\Controllers\PickTimeController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\ServiceController;
 use App\Models\User;
+use App\Notifications\CommonNotification;
 use App\Services\WebPushNotification;
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +56,12 @@ Route::get('/dashboard', function(){
 Route::get('/push-notification', function(){
     return view('welcome');
 })->name('push-notificaiton');
+
 Route::get('/test', [PushNotificationController::class, 'sendTest']);
+
+Route::get('/notification',function(){
+    User::find(auth()->user()->id)->notify(new CommonNotification('Your notified'));
+});
 
 
 Route::post('/store-token', [PushNotificationController::class, 'storeToken'])->name('store.token');
@@ -123,14 +129,14 @@ Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 });
 
 
-Route::get('/test',function()
-{
-    $users =User::doesntHave('roles')->get();
-    foreach ($users as $user)
-    {
-      $user->roles()->attach(2);      
-    }
-});
+// Route::get('/test',function()
+// {
+//     $users =User::doesntHave('roles')->get();
+//     foreach ($users as $user)
+//     {
+//       $user->roles()->attach(2);      
+//     }
+// });
 
 
 

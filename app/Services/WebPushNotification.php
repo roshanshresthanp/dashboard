@@ -18,8 +18,9 @@ class WebPushNotification{
             "notification" => [
                 'title' => $request['title'],
                 'body' => $request['body'],
-                // 'image'=>asset('admin/assets/media/logos/favicon.ico'),
-                // 'sound' => 'default',
+                'image'=>$request['image'],
+                'sound' => 'default',
+                'link'=>'https://roshan1997.com.np'
             ]
         ];
         

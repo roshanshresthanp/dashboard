@@ -198,6 +198,7 @@
                         <th>Count</th>
                         <th>Rate</th>
                         <th>Total Amt</th>
+                        <th>Service</th>
                         <th>Created at</th>
                         {{-- <th>Actions</th> --}}
                     </tr>
@@ -224,9 +225,9 @@
     let table = $('#tableData').DataTable({
         "processing": true,
         "serverSide": true,
-        "lengthMenu": [[50, 100, -1], [50, 100, "All"]],
+        "lengthMenu": [[20,50, 100, -1], [20,50, 100, "All"]],
         "scrollX": true,
-        "pageLength": "50",
+        "pageLength": "20",
         "order": [[0, 'desc']],
         "ajax": {
             "url": '{{ route('buckets.index')}}',
@@ -253,8 +254,8 @@
             {"data": "image", orderable: false, searchable: false},
             {"data": "count", searchable: false, orderable: false},
             {"data": "rate", searchable: false},
-
             {"data": "amount", searchable: false},
+            {"data": "service", searchable: false},
             {"data": "created_at"},
             // {"data": "actions", orderable: false, searchable: false},
         ],

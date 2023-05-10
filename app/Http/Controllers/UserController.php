@@ -27,7 +27,7 @@ class UserController extends WebSuperController
 
     public function index()
     {
-        dd($this->whichModel::user()->with('roles')->get());
+        // dd($this->whichModel::user()->with('roles')->get());
         $data = [
             'users' => $this->whichModel::user()->with('roles')->get(),
         ];

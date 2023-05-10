@@ -73,7 +73,17 @@ Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
     // Route::delete('customers/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
 
-    Route::resource('/customers', CustomerController::class);
+    Route::resources([
+        'customers'=> CustomerController::class,
+        // 'buckets'=> BucketController::class,
+
+    ]);
+
+    Route::group(['prefix'=>'buckets','as'=>'buckets.'], function () {
+        Route::get('/',[BucketController::class,'index'])->name('index');
+
+
+    });
 
     Route::get('users/all', [UserController::class, 'fetchAll'])->name('user.all');
 

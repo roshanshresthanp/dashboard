@@ -69,7 +69,7 @@
                     </ul>
                 </div>
             </li>
-            <li class="menu-item " aria-haspopup="true">
+            <li class="menu-item {{request()->is('*/customers*') ? 'menu-item-active' : ''}}" aria-haspopup="true">
                 <a href="{{route('customers.index')}}" class="menu-link">
                     <span class="svg-icon menu-icon fas fa-user-friends">
                     </span>
@@ -149,15 +149,18 @@
 
             
             
-            <li class="menu-item menu-item-active" aria-haspopup="true">
+                <li @class([
+                    'menu-item',
+                    'menu-item-active'=> Route::is('buckets.index')
+             ]) aria-haspopup="true">
                 <a href="{{route('buckets.index')}}" class="menu-link">
                     <span class="svg-icon menu-icon fab fa-bitbucket">
                     </span>
                     {{-- <i class="fa fa-tachometer" aria-hidden="true"></i> --}}
-                    <span class="menu-text">Bucket</span>
+                    <span class="menu-text">Buckets</span>
                 </a>
             </li>
-            <li class="menu-item menu-item-active" aria-haspopup="true">
+            <li class="menu-item " aria-haspopup="true">
                 <a href="#" class="menu-link">
                     <span class="svg-icon menu-icon fab fa-opencart">
                     </span>
@@ -165,7 +168,7 @@
                     <span class="menu-text">Orders</span>
                 </a>
             </li>
-            <li class="menu-item menu-item-active" aria-haspopup="true">
+            <li class="menu-item" aria-haspopup="true">
                 <a href="#" class="menu-link">
                     <span class="svg-icon menu-icon far fa-money-bill-alt">
                     </span>

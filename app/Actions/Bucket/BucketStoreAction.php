@@ -2,6 +2,7 @@
 
 namespace App\Actions\Bucket;
 
+use App\Models\Bucket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsAction;
@@ -14,7 +15,12 @@ class BucketStoreAction
     {
         try{
             $user = auth()->id();
-            DB::table('buckets')->updateOrInsert(
+        //     DB::table('buckets')->updateOrInsert(
+        //     ['cloth_id'=>$request->cloth_id,'user_id'=>$user],
+        //     ['count'=>$request->count,'rate'=>$request->rate]
+        // );
+
+        Bucket::updateOrcreate(
             ['cloth_id'=>$request->cloth_id,'user_id'=>$user],
             ['count'=>$request->count,'rate'=>$request->rate]
         );

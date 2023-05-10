@@ -42,6 +42,12 @@ class Bucket extends Model
         return $this->belongsTo(ClothType::class,'cloth_id','id')->withDefault();
     }
 
+    public function customer()
+    {
+        return $this->belongsTo(User::class,'user_id','id')->withDefault();
+
+    }
+
     public function scopeStatus($query)
     {
         return $query->whereHas('cloth',function($query){

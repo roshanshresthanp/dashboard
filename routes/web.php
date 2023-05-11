@@ -15,7 +15,10 @@ use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\ServiceController;
 use App\Models\User;
 use App\Notifications\CommonNotification;
+use App\Notifications\UserRegistration;
 use App\Services\WebPushNotification;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,26 +35,27 @@ Route::get('auth/google', [LoginController::class,'redirectToGoogle']);
 Route::get('auth/google/callback', [LoginController::class,'handleGoogleCallback'])->name('googleCallback');
 
 Route::get('/', function(){
-    return view('admin.layouts.app');
+    // return view('admin.layouts.app');
+    return view('welcome');
 })->middleware('auth');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function(){
-    $data = [
-        'title'=>'Dashboard',
-        'body'=>'Welcome to the dashboard'
-    ];
+// Route::get('/dashboard', function(){
+//     $data = [
+//         'title'=>'Dashboard',
+//         'body'=>'Welcome to the dashboard'
+//     ];
     
-    $pushn = new WebPushNotification;
-    $pushn->sendPushNotification($data,[auth()->user()->fcm_token]);
+//     $pushn = new WebPushNotification;
+//     $pushn->sendPushNotification($data,[auth()->user()->fcm_token]);
 
-    return view('admin.layouts.app');
-})->name('push.dashboard')->middleware('auth');
+//     return view('admin.layouts.app');
+// })->name('push.dashboard')->middleware('auth');
 
 Route::get('/push-notification', function(){
     return view('welcome');
@@ -60,73 +64,35 @@ Route::get('/push-notification', function(){
 Route::get('/test', [PushNotificationController::class, 'sendTest']);
 
 Route::get('/notification',function(){
-    User::find(auth()->user()->id)->notify(new CommonNotification('Your notified'));
+    $user = User::find(auth()->id());
+    $user->notify(new UserRegistration($user,'456' ));
+    // User::find(auth()->user()->id)->notify(new CommonNotification('Your notified'));
 });
 
 
 Route::post('/store-token', [PushNotificationController::class, 'storeToken'])->name('store.token');
 Route::post('/send-web-notification', [PushNotificationController::class, 'sendWebNotification'])->name('send.web-notification');
 
-Route::group(['prefix' => 'pro','middleware'=>'auth'], function () {
 
-    Route::get('dashboard', [UserController::class, 'index'])->name('dashboard');
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
-    Route::get('buckets',[BucketController::class,'webIndex'])->name('buckets.index');
-    
-    // Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
-    // Route::get('customers/all', [CustomerController::class, 'all'])->name('customers.all');
-    // Route::get('customers/fetch', [CustomerController::class, 'fetchCustomer'])->name('customers.fetch');
-    // Route::delete('customers/delete/{id}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+Route::get('/email/verify', function () {
+    if(auth()->user()->email_verified_at != null){
+        return redirect('pro/dashboard')->with('success','Welcome !! Your email has been verified 🫠 ');
+    }
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
 
 
-    Route::resources([
-        'customers'=> CustomerController::class,
-        // 'buckets'=> BucketController::class,
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+    return redirect()->route('dashboard');
+})->middleware(['auth', 'signed'])->name('verification.verify');
 
-    ]);
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+ 
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-    Route::group(['prefix'=>'buckets','as'=>'buckets.'], function () {
-        Route::get('/',[BucketController::class,'index'])->name('index');
-
-
-    });
-
-    Route::get('users/all', [UserController::class, 'fetchAll'])->name('user.all');
-
-    Route::resource('/users', UserController::class);
-    Route::resource('/roles', RoleController::class);
-    Route::resource('/permissions', PermissionController::class);
-    Route::resource('/cloth-types', ClothTypeController::class);
-    Route::resource('/promo-codes', PromoCodeController::class);
-    Route::resource('/pickup-times', PickTimeController::class);
-    Route::resource('/services', ServiceController::class);
-
-
-
-    Route::resource('/enquiries', EnquiryController::class)->only('index','store','create','show');
-    Route::get('/enquiry-status/{enquiry_id}/{status}', [EnquiryController::class,'changeStatus'])->name('enquiries.status');
-    // Route::
-
-
-    Route::group(['prefix'=>'logs'], function () {
-        Route::get('/sms',[LogController::class,'smsLog'])->name('smsLog');
-        Route::get('/sms-resend',[LogController::class,'smsResend'])->name('sms.resend');
-
-        Route::get('/emails',[LogController::class,'emailLog'])->name('emailLog');
-        Route::get('/activity',[LogController::class,'activityLog'])->name('activityLog');
-
-
-    });
-
-  
-
-    
-   
-
-
-
-
-});
 
 
 // Route::get('/test',function()

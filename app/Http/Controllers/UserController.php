@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Admin\WebSuperController;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Mail\SendOtpMail;
+use App\Mail\UserRegisteredMail;
 use App\Models\Role;    
 use App\Models\User;
+use App\Notifications\UserRegistration;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
 
@@ -43,10 +48,10 @@ class UserController extends WebSuperController
 
     public function store(UserRequest $request)
     {
-        return $this->customStoreFunction($request);
+        return $this->userStoreFunction($request);
     }
 
-    public function customStoreFunction($request)
+    public function userStoreFunction($request)
     {
         DB::beginTransaction();
         $pass = mt_rand(1000, 9999);
@@ -56,8 +61,10 @@ class UserController extends WebSuperController
             if (method_exists(new $this->whichModel(), 'afterCreateProcess')) {
                 $model->afterCreateProcess();
             }
-
+            // event(new Registered($model));
+            // Mail::to($model)->send(new UserRegisteredMail('2468'));
             DB::commit();
+            $model->notify(new UserRegistration($model,$pass));
             if ($model instanceof $this->whichModel) {
                 // $response = (new $this->responseResource($model))->response()->setStatusCode(200);
                 return redirect()->back()->with('success','Record has been added');

@@ -16,6 +16,8 @@
     @yield('styles')
     <!-- Scripts -->
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div id="app">
@@ -65,8 +67,18 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+
+                                    <form id="" action="{{ route('logout') }}" method="POST" class="">
+                                        @csrf
+                                        <button class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5" type="submit">Sign Out</button>
+                                    </form>
                                 </div>
                             </li>
+
+                            <form id="" action="{{ route('logout') }}" method="POST" class="">
+                                @csrf
+                                <button class="btn btn-sm btn-light-primary font-weight-bolder py-2 px-5" type="submit">Sign Out</button>
+                            </form>
                         @endguest
                     </ul>
                 </div>
@@ -78,6 +90,6 @@
         </main>
     </div>
     @yield('scripts')
-    @include('admin.include.message')
+    {{-- @include('admin.include.message') --}}
 </body>
 </html>

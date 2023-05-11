@@ -18,7 +18,7 @@ class PushNotificationController extends Controller
     {
         $data = [
             'title' => 'thisis title',
-            'body' => 'THis is a body',
+            'body' => 'This is testing',
             'image'=>asset('no.jpg'),
             // 'sound' => 'default',
         ];

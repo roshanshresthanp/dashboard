@@ -41,25 +41,20 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function login(Request $request)
-    {   
-        $this->validate($request, [
-            'email' => 'required|email|exists:users',
-            'password' => 'required|string'
-        ]);
-        $user = User::query()->where([
-            "email" => $request->email
-        ])->first();
+    // public function login(Request $request)
+    // {   
 
-        // if ($user->isAdmin()){
-            $credentials = $request->only('email', 'password');
+    //             $this->validateLogin($request);
 
-            if (Auth::attempt($credentials) && Auth::user()){
+    //     // if ($user->isAdmin()){
+    //         $credentials = $request->only('email', 'password');
 
-                return redirect(route('dashboard'));
-            }
-        // }
+    //         if (Auth::attempt($credentials) && Auth::user()){
 
-        return redirect()->back()->with('error', 'Opps! You have entered invalid credentials');
-    }
+    //             return redirect(route('dashboard'));
+    //         }
+    //     // }
+
+    //     return redirect()->back()->with('success', 'Opps! You have entered invalid credentials');
+    // }
 }

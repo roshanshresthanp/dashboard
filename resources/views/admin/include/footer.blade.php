@@ -4,14 +4,14 @@
         <!--begin::Copyright-->
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted font-weight-bold mr-2">{{now()->format('Y')}} ©</span>
-            <a href="http://keenthemes.com/metronic" target="_blank" class="text-dark-75 text-hover-primary">Washstation</a>
+            <a href="" target="_blank" class="text-dark-75 text-hover-primary">Washstation</a>
         </div>
         <!--end::Copyright-->
         <!--begin::Nav-->
         <div class="nav nav-dark">
-            <a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-0 pr-5">About</a>
-            <a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-0 pr-5">Team</a>
-            <a href="http://keenthemes.com/metronic" target="_blank" class="nav-link pl-0 pr-0">Contact</a>
+            <a href="" target="_blank" class="nav-link pl-0 pr-5">About</a>
+            <a href="" target="_blank" class="nav-link pl-0 pr-5">Team</a>
+            <a href="" target="_blank" class="nav-link pl-0 pr-0">Contact</a>
         </div>
         <!--end::Nav-->
     </div>

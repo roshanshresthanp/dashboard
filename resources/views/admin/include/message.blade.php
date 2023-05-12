@@ -1,4 +1,4 @@
-<script src="{{asset('admin/assets/js/pages/features/miscellaneous/toastr.js')}}"></script>
+{{-- <script src="{{asset('admin/assets/js/pages/features/miscellaneous/toastr.js')}}"></script> --}}
 <script>
 toastr.options = {
   "closeButton": false,

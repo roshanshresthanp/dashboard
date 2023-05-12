@@ -81,9 +81,9 @@
                         <td>{{$user->email}}</td>
                         <td>{{$user->mobile}}</td>
                         <td>
-                            @if($user->status==1) <span class="badge badge-success">Active </span>
+                            @if($user->email_verified_at == null) <span class="badge badge-danger">Unverified </span>
                             @else
-                            <span class="badge badge-danger">InActive </span>
+                            <span class="badge badge-success">Verified </span>
                             @endif
                             </td>
                         <td>{{$user->created_at}}</td> 

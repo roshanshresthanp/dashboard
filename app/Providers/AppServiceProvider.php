@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        
+        // $companyConfig = Config::get('company');
+
+        // foreach ($companyConfig as $key => $value) {
+        //     View::share($key, $value);
+        // }
     }
 }

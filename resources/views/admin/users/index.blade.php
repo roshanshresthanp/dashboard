@@ -18,11 +18,11 @@
 </ul>
 @endsection
 
-@section('actionButton')
+{{-- @section('actionButton')
 <a href="{{ route('users.create') }}" class="btn btn-primary font-weight-bolder fas fa-plus" >
 	<span style="font-family:Poppins">Add Users</span>
 </a>
-@endsection
+@endsection --}}
 
 @section('content')
 <div class="row">
@@ -32,6 +32,70 @@
                 <div class="card-title">
                     <h3 class="card-title">List of Users</h3>
 				</div>
+                <div class="card-toolbar">
+                    <!--begin::Dropdown-->
+                    <div class="dropdown dropdown-inline mr-2">
+                        <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="svg-icon svg-icon-md fa fa-file-export">
+                        </span>Export</button>
+                        <!--begin::Dropdown Menu-->
+                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
+                            <!--begin::Navigation-->
+                            <ul class="navi flex-column navi-hover py-2">
+                                <li class="navi-header font-weight-bolder text-uppercase font-size-sm text-primary pb-2">Choose an option:</li>
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link">
+                                        <span class="navi-icon">
+                                            <i class="la la-print"></i>
+                                        </span>
+                                        <span class="navi-text">Print</span>
+                                    </a>
+                                </li>
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link">
+                                        <span class="navi-icon">
+                                            <i class="la la-copy"></i>
+                                        </span>
+                                        <span class="navi-text">Copy</span>
+                                    </a>
+                                </li>
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link">
+                                        <span class="navi-icon">
+                                            <i class="la la-file-excel-o"></i>
+                                        </span>
+                                        <span class="navi-text">Excel</span>
+                                    </a>
+                                </li>
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link">
+                                        <span class="navi-icon">
+                                            <i class="la la-file-text-o"></i>
+                                        </span>
+                                        <span class="navi-text">CSV</span>
+                                    </a>
+                                </li>
+                                <li class="navi-item">
+                                    <a href="#" class="navi-link">
+                                        <span class="navi-icon">
+                                            <i class="la la-file-pdf-o"></i>
+                                        </span>
+                                        <span class="navi-text">PDF</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <!--end::Navigation-->
+                        </div>
+                        <!--end::Dropdown Menu-->
+                    </div>
+                    <!--end::Dropdown-->
+                    <!--begin::Button-->
+                    <a href="{{ route('users.create') }}" class="btn btn-primary font-weight-bolder">
+                    <span class="svg-icon svg-icon-md fa fa-plus">
+                       
+                    </span>Add Record</a>
+                    <!--end::Button-->
+                </div>
 			</div>
 			<!-- /.card-header -->
 
@@ -99,6 +163,7 @@
                             </td> --}}
                             
                             <td id="none">
+                            @if(auth()->id() == $user->id || auth()->id()==1)
                             <form action="{{route('users.destroy', $user->id)}}" method="post">
                                 <a href="{{route('users.edit',$user->id)}}"><i class="btn btn-sm btn-light fa fa-edit "></i></a>
                                 @csrf
@@ -107,6 +172,7 @@
                                 <i class="fa fa-minus-circle" style="color:red"></i>
                                 </button>
                             </form>
+                            @endif
                             </td>
                         </tr>
                     @endforeach

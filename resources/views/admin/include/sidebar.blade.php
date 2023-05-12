@@ -177,7 +177,7 @@
                 </a>
             </li>
 
-            <li class="menu-item menu-item-submenu {{ request()->is(['*/pickup-time*','*/service*']) ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
+            <li class="menu-item menu-item-submenu {{ request()->is(['*/pickup-time*','*/service*','*/setting*']) ? "menu-item-open menu-item-here" : "" }} " aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="svg-icon menu-icon fas fa-cog">
                     </span>
@@ -187,6 +187,17 @@
                 <div class="menu-submenu">
                     <i class="menu-arrow"></i>
                     <ul class="menu-subnav">
+
+                        <li @class([
+                            'menu-item',
+                            'menu-item-active'=> request()->is('*setting*')
+                     ]) aria-haspopup="true">
+                        <a href="{{route('settings.index')}}" class="menu-link">
+                            <span class="svg-icon menu-icon fas fa-building">
+                            </span>
+                            <span class="menu-text">Company Setting</span>
+                        </a>
+                    </li>
                         <li @class([
                             'menu-item',
                             'menu-item-active'=> request()->is('*pickup-time*')
@@ -207,6 +218,8 @@
                             <span class="menu-text">Services</span>
                         </a>
                     </li>
+
+                   
                     </ul>
                 </div>
             </li>

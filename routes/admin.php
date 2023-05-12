@@ -14,6 +14,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PickTimeController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SettingController;
 use App\Models\User;
 use App\Notifications\CommonNotification;
 use App\Services\WebPushNotification;
@@ -47,7 +48,7 @@ Route::group(['prefix' => 'pro','middleware'=>['auth','verified']], function () 
 
     Route::resources([
         'customers'=> CustomerController::class,
-        // 'buckets'=> BucketController::class,
+        'settings'=> SettingController::class,
 
     ]);
 
@@ -71,7 +72,8 @@ Route::group(['prefix' => 'pro','middleware'=>['auth','verified']], function () 
 
     Route::resource('/enquiries', EnquiryController::class)->only('index','store','create','show');
     Route::get('/enquiry-status/{enquiry_id}/{status}', [EnquiryController::class,'changeStatus'])->name('enquiries.status');
-    // Route::
+    
+    Route::get('clear/notification',[DashboardController::class,'clearNotification'])->name('clear.notification');
 
 
     Route::group(['prefix'=>'logs'], function () {

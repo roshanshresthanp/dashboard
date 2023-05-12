@@ -724,7 +724,7 @@
 									<div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up dropdown-menu-lg">
 										<form>
 											<!--begin::Header-->
-											<div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url(assets/media/misc/bg-1.jpg)">
+											<div class="d-flex flex-column pt-12 bgi-size-cover bgi-no-repeat rounded-top" style="background-image: url('{{asset('admin/assets/media/misc/bg-1.jpg')}}')">
 												<!--begin::Title-->
 												<h4 class="d-flex flex-center rounded-top">
 													<span class="text-dark">User Notifications</span>
@@ -1159,7 +1159,7 @@
 								</div>
 								<!--end::Notifications-->
 								<!--begin::Quick Actions-->
-								{{-- <div class="dropdown">
+								<div class="dropdown">
 									<!--begin::Toggle-->
 									<div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
 										<div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
@@ -1320,21 +1320,17 @@
 											<!--end::Svg Icon-->
 										</span>
 									</div>
-								</div> --}}
+								</div>
 								<!--end::Chat-->
 								<!--begin::Languages-->
 								<div class="dropdown">
 									<!--begin::Toggle-->
-									<div class="topbar-item" data-toggle="dropdown" data-offset="10px,0px">
-										<div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
-											<img class="h-20px w-20px rounded-sm" src="{{auth()->user()->image}}" alt="" />
-										</div>
-									</div>
+									
 									<!--end::Toggle-->
-									<!--begin::Dropdown-->
+									{{-- <!--begin::Dropdown-->
 									<div class="dropdown-menu p-0 m-0 dropdown-menu-anim-up dropdown-menu-sm dropdown-menu-right">
 										<!--begin::Nav-->
-										{{-- <ul class="navi navi-hover py-4">
+										<ul class="navi navi-hover py-4">
 											<!--begin::Item-->
 											<li class="navi-item">
 												<a href="#" class="navi-link">
@@ -1385,15 +1381,19 @@
 												</a>
 											</li>
 											<!--end::Item-->
-										</ul> --}}
+										</ul>
 										<!--end::Nav-->
 									</div>
-									<!--end::Dropdown-->
+									<!--end::Dropdown--> --}}
 								</div>
 								<!--end::Languages-->
 								<!--begin::User-->
 								<div class="topbar-item">
+									
 									<div class="btn btn-icon btn-icon-mobile w-auto btn-clean d-flex align-items-center btn-lg px-2" id="kt_quick_user_toggle">
+											<div class="btn btn-icon btn-clean btn-dropdown btn-lg mr-1">
+												<img class="h-20px w-20px rounded-sm" src="{{auth()->user()->image}}" alt="" />
+											</div>
 										<span class="text-muted font-weight-bold font-size-base d-none d-md-inline mr-1">Hi,</span>
 										<span class="text-dark-50 font-weight-bolder font-size-base d-none d-md-inline mr-3">{{auth()->user()->name}}</span>
 										{{-- <span class="symbol symbol-lg-35 symbol-25 symbol-light-success">

@@ -13,6 +13,7 @@ use App\Http\Controllers\BucketController;
 use App\Http\Controllers\PickTimeController;
 use App\Http\Controllers\PushNotificationController;
 use App\Http\Controllers\ServiceController;
+use App\Models\Setting;
 use App\Models\User;
 use App\Notifications\CommonNotification;
 use App\Notifications\UserRegistration;
@@ -36,7 +37,9 @@ Route::get('auth/google/callback', [LoginController::class,'handleGoogleCallback
 
 Route::get('/', function(){
     // return view('admin.layouts.app');
-    return view('welcome');
+    // return view('welcome');
+
+    return redirect()->route('dashboard');
 })->middleware('auth');
 
 Auth::routes(['register' => false]);
@@ -100,3 +103,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 // });
 
 
+Route::get('/try', function(){
+    dd(Setting::all()->pluck('value','key'));
+
+});

@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Str;
 
-
 class UserController extends WebSuperController
 {
     public $whichModel;
@@ -86,6 +85,7 @@ class UserController extends WebSuperController
 
     public function edit($id, $datas = array(null))
     {
+        $this->checkAccess($id);
         $datas = [
             'roles' => Role::select('id','name')->get()
         ];
@@ -94,8 +94,17 @@ class UserController extends WebSuperController
 
     public function update(UserRequest $request,$id)
     {
+        $this->checkAccess($id);
         return parent::updateFunction($request,$id);
     }
+
+    public function checkAccess($id)
+    {
+        if (auth()->id() != $id) {
+            abort(401);
+       }
+    }
+   
 
    
 }

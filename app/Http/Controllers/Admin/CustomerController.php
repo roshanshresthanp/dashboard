@@ -54,7 +54,6 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()){
-
             return (new CustomerGetAction())->getCustomer($request);     
         }
         return view('admin.customers.index1');

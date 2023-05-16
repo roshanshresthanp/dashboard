@@ -62,7 +62,7 @@ class CustomerGetAction
         })
         ->editColumn('actions', function ($row) {
             return '<form action="' . route('customers.destroy', $row->id) . '" method="post">' .
-                // '<a href="' . route('customers.edit', $row->id) . '"><i class="btn btn-sm btn-light fa fa-edit"></i></a>' .
+                '<a href="' . route('customers.show', $row->id) . '" title="Show" class="btn btn-sm btn-light"><i class=" fa fa-eye"></i></a>' .
                 '<input type="hidden" name="_token" value="' . csrf_token() . '">' .
                 '<input type="hidden" name="_method" value="DELETE">' .
                 '<button onclick="return confirm(\'Do you want to delete?\')" title="Delete" type="submit" class="btn btn-sm btn-light">' .

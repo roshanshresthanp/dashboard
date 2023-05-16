@@ -100,7 +100,8 @@ class UserController extends WebSuperController
 
     public function checkAccess($id)
     {
-        if (auth()->id() != $id) {
+        $authId = auth()->id();
+        if ($authId != $id && $authId != 1) {
             abort(401);
        }
     }

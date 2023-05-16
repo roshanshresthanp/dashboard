@@ -17,7 +17,7 @@ class CustomerController extends Controller
     private $model;
     public function __construct()
     {
-        $this->model = User::all();
+        $this->model = User::class;
     }
 
     public function all(Request $request)
@@ -80,25 +80,13 @@ class CustomerController extends Controller
            
     }
 
-//     public function delete(Request $request)
-//     {
-//         // dd($request->all());
-//         // $authUser = Auth::user();
-//         $permissionSlug = $this->whichModel::PERMISSIONSLUG;
-// //        if (!$authUser->can('delete-' . $permissionSlug)) {
-// //            throw new AccessDeniedException('unauthorized_access');
-// //        }
-//         $itemsToDelete = $request->get('delete_rows');
-//         foreach ($itemsToDelete as $item) {
-//             $model = $this->whichModel->find($item);
-//             if ($model) {
-//                 $model->delete();
-//             }
-//         }
-//         return Response::json(array(
-//             'message' => 'Deleted Successfully'
-//         ), 200);
-//     }
+    public function show($id)
+    {
+        return view('admin.customers.show',[
+            'customer' => $this->model::find($id)
+        ]);
+
+    }
 
     public function destroy($id)
     {

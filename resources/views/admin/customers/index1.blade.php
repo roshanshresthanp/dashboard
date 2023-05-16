@@ -161,7 +161,7 @@
         <!--begin: Datatable-->
         
         {{-- <div class="datatable datatable-bordered datatable-head-custom" id="kt_datatable"></div> --}}
-        <table id="tableData" class="table table-bordered table-striped">
+        <table id="tableData" class="table table-bordered table-striped text-center">
             <thead>
             <tr>
                 <th>Id</th>
@@ -174,7 +174,7 @@
                 <th>Amt Spent</th>
                 <th>Status</th>
                 {{-- <th>Rating</th> --}}
-                <th>Created at</th>
+                {{-- <th>Created at</th> --}}
                 <th>Actions</th>
             </tr>
             </thead>
@@ -229,7 +229,7 @@
 
             {"data": "status", searchable: false},
             // {"data": "blacklisted_html", searchable: false},
-            {"data": "created_at"},
+            // {"data": "created_at"},
             {"data": "actions", orderable: false, searchable: false},
         ],
     });

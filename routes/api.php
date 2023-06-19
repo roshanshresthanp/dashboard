@@ -61,13 +61,6 @@ Route::group([
     Route::get('use/offer',[PromoCodeController::class,'assignedOffer']);
     Route::apiResource('bucket',BucketController::class);
 
-        // Route::group(['prefix' => 'profile'], function () {
-        //     Route::post('/update', [UserController::class, 'update']);
-        //     Route::get('/view', [UserController::class, 'view']);
-
-        //     // Route::post('/{id}/reset-password', [UserController::class, 'resetPassword']);
-        // });
-
         Route::prefix('profile')->group(function () {
             Route::post('/update', [UserController::class, 'update']);
             Route::get('/view', [UserController::class, 'view']);

@@ -16,9 +16,10 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
-            $table->string('address')->nullable();
+            $table->text('latitude')->nullable();
+            $table->text('longitude')->nullable();
+            $table->string('temporary_address')->nullable();
+            $table->string('permanent_address')->nullable();
             $table->string('gender')->nullable();
             $table->json('extra')->nullable();
             

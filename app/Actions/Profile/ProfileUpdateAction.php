@@ -21,8 +21,18 @@ final class ProfileUpdateAction{
     {
         DB::beginTransaction();
         try {
-                $req = $this->request->only(['name','email','address','username','image']);
-                $model = auth()->user()->update($req);
+                $req = $this->request->except(['email','username']);
+                $model = auth()->user();
+                $udateUser = $model->update($req);
+
+                $model->profile()->update([
+                    'temporary_address' =>$this->request->temporary_address,
+                    'permanent_address' =>$this->request->permanent_address,
+                    'latitude' =>$this->request->latitude,
+                    'longitude' =>$this->request->longitude,
+                    'gender' =>$this->request->gender,
+        
+                ]);
                 DB::commit();
     
                 return response()->json(array(

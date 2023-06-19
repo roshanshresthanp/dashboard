@@ -113,10 +113,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return true;
     }
 
-    public function scopeStatus()
+    public function profile()
     {
-        
+        return $this->hasOne(Profile::class);
     }
+
     public function promo()
     {
         return $this->belongsToMany(PromoCode::class,'customer_promo','user_id','promo_id')->withPivot('usage');
@@ -126,6 +127,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function afterCreateProcess()
     {
+        $this->profile()->create([
+            'temporary_address' =>$this->request->temporary_address,
+            'permanent_address' =>$this->request->permanent_address,
+            'latitude' =>$this->request->latitude,
+            'longitude' =>$this->request->longitude,
+            'gender' =>$this->request->gender,
+
+        ]);
+
+        
         $request = request();
         $role = $request->get('role_id');
         $this->roles()->attach([$role]);
@@ -137,6 +148,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function afterUpdateProcess()
     {
+        dd($this->request->temporary_address);
+        $this->profile()->update([
+            'temporary_address' =>$this->request->temporary_address,
+            'permanent_address' =>$this->request->permanent_address,
+            'latitude' =>$this->request->latitude,
+            'longitude' =>$this->request->longitude,
+            'gender' =>$this->request->gender,
+
+        ]);
+
         $request = request();
         $role = $request->get('role_id');
         $this->syncRoles([$role]);

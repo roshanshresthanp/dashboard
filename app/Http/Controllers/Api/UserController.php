@@ -95,6 +95,11 @@ class UserController extends SuperController
      *                 "name":"Roshan Shrestha",
      *                  "email":"email@gmail.com",
      *                   "username":"Rs", 
+     *                    "temporary_address":"t address",
+     *                   "permanent_address":"p address", 
+     *                  "latitude":"lati",
+     *                   "longitude":"longi", 
+     * 
      *              }
      *         )
      *     )

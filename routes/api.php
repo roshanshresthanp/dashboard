@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ActivityController;
 use App\Http\Controllers\Api\ClothTypeController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\OtpController;
@@ -60,6 +61,8 @@ Route::group([
     Route::post('use/offer',[PromoCodeController::class,'useOffer']);
     Route::get('use/offer',[PromoCodeController::class,'assignedOffer']);
     Route::apiResource('bucket',BucketController::class);
+
+    Route::get('my-activity',[ActivityController::class,'myActivity']);
 
         Route::prefix('profile')->group(function () {
             Route::post('/update', [UserController::class, 'update']);

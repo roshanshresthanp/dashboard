@@ -19,6 +19,23 @@
         }
     ],
     "paths": {
+        "/my-activity": {
+            "get": {
+                "tags": [
+                    "Activity Lopg"
+                ],
+                "summary": "activity List",
+                "operationId": "Activity list",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        },
         "/bucket": {
             "get": {
                 "tags": [
